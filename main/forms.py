@@ -23,5 +23,5 @@ class CartDetailForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta():
         model = OrderTable
-        fields = ( 'to_lastname', 'to_firstname','post', 'pref', 'address', 'pay')
+        fields = ('to_lastname', 'to_firstname','post', 'pref', 'address', 'pay')
         labels = {'to_firstname':'名前', 'to_lastname':'苗字', 'post':'郵便番号', 'pref':'都道府県', 'address':'住所詳細', 'pay':'支払い方法'}

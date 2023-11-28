@@ -16,10 +16,19 @@
         </h1>
         <div class="form-group">
             <div class="is-centered">
-                <form action="{% url 'main:CreateUser' %}" enctype  ="multipart/form-data" method="post"
+                <form action="{% url 'main:orderCheck' %}" enctype  ="multipart/form-data" method="post"
                     class="form">
                     {% csrf_token %}
                     {% for item in form %}
+                    {% if item.name == 'pay' %}
+                    <div class="field">
+                        <div class="field-body">
+                            <p class="control">
+                                {{ item }}
+                            </p>
+                        </div>
+                    </div>
+                    {% else %}
                     <div class="field">
                         <div class="field-label">
                             <label for="{{ item.id_for_label }}" class="label has-text-left">
@@ -44,7 +53,7 @@
                         </div>
                         
                     </div>
-                    {% endif%}
+                    {% endif %}
                     {% endfor %}
                     <div class="field-label">
                         <label for="agree-checked" class="label has-text-left">

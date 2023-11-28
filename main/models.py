@@ -191,6 +191,9 @@ class CartDetailTable(models.Model):
     quantity = models.IntegerField(verbose_name='数量', default=1, validators=[MinValueValidator(0), MaxValueValidator(1000)])
     def get_total_price(self):
         return self.quantity * self.item_id.price
+    def __str__(self):
+        return f'カート詳細ID:{self.detail_id} | カートID:{self.cart_id} |  商品ID:{self.item_id} | 数量:{self.quantity}'
+    
 
 from datetime import datetime
 class OrderTable(models.Model):
@@ -223,16 +226,19 @@ class OrderTable(models.Model):
             total += item.get_total_price()
 
         return total
-
+    def __str__(self):
+        return f'注文ID:{self.order_id} | ユーザーID:{self.user_id}'
+    
 class OrderDetailTable(models.Model):
     class Meta:
         verbose_name = _('注文詳細テーブル')
         verbose_name_plural = _('注文詳細テーブル')
 
     detail_id = models.AutoField(primary_key=True, unique=True, verbose_name='注文詳細ID', editable=False)
-    # user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    cart_id = models.ForeignKey(CartTable, on_delete=models.CASCADE, verbose_name='注文ID', related_name='related_order', unique=False)
+    order_id = models.ForeignKey(OrderTable, on_delete=models.CASCADE, verbose_name='注文ID')
     item_id = models.ForeignKey(ItemTable, on_delete=models.CASCADE, verbose_name='商品ID', related_name='related_order_item')
     quantity = models.IntegerField(verbose_name='数量', default=0, validators=[MinValueValidator(0), MaxValueValidator(1000)])
     def get_total_price(self):
         return self.quantity * self.item_id.price
+    def __str__(self):
+        return f'注文詳細ID:{self.detail_id} | 注文ID:{self.cart_id} |  商品ID:{self.item_id} | 数量:{self.quantity}'

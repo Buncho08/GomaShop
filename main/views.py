@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CreateForm, CartDetailForm
-from .models import ItemTable, CartDetailTable, CartTable, UserTable
+from .forms import CreateForm, CartDetailForm, OrderForm
+from .models import ItemTable, CartDetailTable, CartTable, UserTable, OrderTable, OrderDetailTable
 # post受け取ったあとはgetにリダイレクトしたほうがよさそう。
 
 class CreateUser(TemplateView):
@@ -205,4 +205,62 @@ class ItemDelete(TemplateView):
         else:
             # これが通る時ってやばいとき
             raise Http404
-        
+
+# from datetime import datetime
+# from random import random as rd
+from django.utils import timezone
+class OrderCheck(TemplateView):
+    template_name = 'main/orderCheck.html'
+    params = {
+        'st_title':'注文確認',
+    }
+    def get(self, request):
+        self.params['st_title'] = '注文確認'
+        if request.user.id is not None:
+            order = CartTable.objects.get(user_id=request.user, ordered=False)
+            if CartDetailTable.objects.filter(cart_id=order).exists():
+                order_detail = CartDetailTable.objects.filter(cart_id=order)
+                self.params['order'] = order
+                self.params['detail'] = order_detail
+                self.params['form'] = OrderForm(label_suffix='')
+                return render(request, self.template_name, context=self.params)
+            else:
+                return redirect('main:order')
+        else:
+            return redirect('main:index')
+    
+    def post(self, request):
+        form = OrderForm(label_suffix="", data=request.POST)
+        if form.is_valid():
+            # カート
+            cart = CartTable.objects.get(user_id=request.user, ordered=False)
+            # カート詳細
+            cart_detail = CartDetailTable.objects.filter(cart_id=cart)
+            # = form.cleaned_data.get('choice')
+            order_data = form.save(commit=False)
+            today = timezone.now()
+            postage = 2000
+            total = 0
+            for item in cart_detail:
+                total  += item.item_id.price * item.quantity
+
+            # 注文に登録
+            order_data.user_id = request.user
+            order_data.total_pay = total + postage
+            order_data.arrive = today
+            order_data.postage = postage
+            order_data.save()
+
+            # 注文詳細に登録
+            order = OrderTable.objects.get(user_id=request.user, ordered=False)
+
+            # カートにある
+            for item in cart_detail:
+                item_id = ItemTable.objects.get(item_id=item.item_id)
+                OrderDetailTable.objects.create(order_id=order, item_id=item_id, quantity=item.quantity)
+            
+            return redirect('main:index')
+        else:
+            self.params['form'] = form
+            self.params['st_title'] = 'エラー！！！'
+            return render(request,self.template_name,context=self.params)

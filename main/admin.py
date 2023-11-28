@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import CartTable, CartDetailTable, ItemTable, OrderTable
+from .models import CartTable, CartDetailTable, ItemTable, OrderTable, OrderDetailTable
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
@@ -49,7 +49,13 @@ class ItemAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'user_id', 'total_pay', 'ordered')
+
+class OrderDetailAdmin(admin.ModelAdmin):
+    list_display = ('detail_id', 'order_id', 'item_id')
+
+
 admin.site.register(CartTable, CartAdmin)
 admin.site.register(CartDetailTable, CartDetailAdmin)
 admin.site.register(ItemTable, ItemAdmin)
 admin.site.register(OrderTable, OrderAdmin)
+admin.site.register(OrderDetailTable, OrderDetailAdmin)
