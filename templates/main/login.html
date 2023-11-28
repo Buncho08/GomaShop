@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ st_title }} -ChirpCakes-</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/user_create.css' %}">
+</head>
+
+<body>
+    <script>
+        // フォームに値が残ってしまう対策
+        window.addEventListener('pageshow', () => {
+            if (window.performance.navigation.type == 2) location.reload();
+            document.getElementById("form").reset();
+            let rmv = document.getElementById("error").remove();
+            list_element.querySelector(".errorlist").remove();
+        });
+    </script>
+    <div id="root">
+        <main id="account-register">
+            <div class="user-area box">
+                <div class="logo-area flex">
+                    <img src="{% static 'main/image/Logo.svg' %}" alt="" width="12%" height="12%">
+                    <img src="{% static 'main/image/ChirpCakes.svg' %}" alt="" width="12%" height="12%">
+                </div>
+                <h2 class="page-title">
+                    ログイン
+                </h2>
+                <div class="line"></div>
+                {% if status %}
+                <div class="error">
+                    ログインID、またはパスワードが違います
+                </div>
+                {% endif %}
+                <div>
+                </div>
+                <div class="form-group">
+                    <div class="is-centered">
+                        <form action="{% url 'main:login' %}" enctype="multipart/form-data" method="post"
+                            class="form">
+                            {% csrf_token %}
+                            <div class="field">
+                                <div class="field-label">
+                                    <label for="username" class="label has-text-left">
+                                        ユーザーID
+                                    </label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <input type="text" class="input is-normal" placeholder="ユーザーID"
+                                                name="username" id="username">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="field-label">
+                                    <label for="password" class="label has-text-left">
+                                        パスワード
+                                    </label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <input type="password" name="password" id="password" class="input is-normal"
+                                                placeholder="パスワード">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-field">
+                                <div class="field">
+                                    <input type="submit" value="ログイン" class="button is-rounded">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="register">
+                        <div class="login-button"><a href="CreateUser" class="button is-outlined">新規登録はこちらから</a></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </main>
+    </div>
+</body>
+
+</html>

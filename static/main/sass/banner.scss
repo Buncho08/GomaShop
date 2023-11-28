@@ -1,0 +1,156 @@
+@charset 'utf-8';
+@import "partial/common";
+
+.header-flex {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#header {
+    z-index: 3;
+    height: 80px;
+    width: 100%;
+    position:fixed; 
+    // background-color: aqua;
+}
+
+
+
+/* logo */
+
+/* title base */
+.company-title-base {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 2.5fr 3fr;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 13%;
+    left: 7.1rem;
+    margin: 0 auto;
+}
+
+.logo-box {
+    align-items: center;
+}
+
+.logo-icon {
+    width: 100%;
+}
+
+#logo-icon {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 7.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1600px;
+    paint-order: stroke fill markers;
+    opacity: 0;
+    animation: 2s forwards stroke;
+}
+
+
+
+.title {
+    display: flex;
+    height: 120px;
+    align-items: center;
+    fill: #000000;
+    fill-opacity: 1;
+    stroke: #000000;
+    stroke-width: 0.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: none;
+    stroke-opacity: 1;
+    paint-order: stroke fill markers;
+    stroke-dasharray: 1600px;
+    animation: title 2.7s ease-in;
+}
+
+@keyframes title {
+    0% {
+        fill: transparent;
+        stroke-dasharray: 1000px;
+        stroke-dashoffset: 1000px;
+    }
+
+    80% {
+        fill: transparent;
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        fill: black;
+    }
+}
+
+@keyframes stroke {
+    0% {
+        opacity: 0.3;
+        stroke-dashoffset: 1600px;
+    }
+    10%
+    {
+        opacity: 1;
+        stroke-dashoffset: 1500px;
+    }
+    100% {
+        opacity: 1;
+        stroke-dashoffset: 0px;
+    }
+}
+
+/* logo */
+.nav 
+{
+    height: 100%;
+    width: 37%;
+    // background-color: #000000;
+    margin:0 7.08rem 0 0;
+    .nav-flex {
+        height: 100%;
+        width: 100%;
+        // background-color: blueviolet;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap:0 1.5rem;
+    }
+}
+
+.nav-link
+{
+    text-align: center;
+    width: auto;
+    // background-color: bisque;
+    a{
+        color: #1e1a1a;
+        font-size: 125%;
+        &:hover
+        {
+            color: rgb(94, 140, 94);
+        }
+    }
+}
+
+.nav-icon
+{
+    width: 6%;
+}
+
+.user-signin
+{
+    border: #888888 2px solid;
+    border-radius: 15px;
+    height: 60%;
+    width: 18%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    // margin:0 auto;
+    background-color: rgba(216, 237, 255, 0.552);
+}

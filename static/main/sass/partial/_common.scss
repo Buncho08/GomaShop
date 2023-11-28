@@ -1,0 +1,24 @@
+@import url('./reset.css');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap');
+
+* {
+    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Outfit', sans-serif;
+    font-family: 'Shippori Mincho', serif;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+html,
+body
+{
+    height: 100%;
+}
+
+#root
+{
+    z-index: -100;
+    background-color: antiquewhite;
+    height: 100vh;
+}

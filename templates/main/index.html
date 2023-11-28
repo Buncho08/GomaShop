@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ st_title }} -Chirp Cakes-</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+</head>
+<body>
+    {% include 'main/component/banner.html' %}
+    <div id="root">
+        <main id="top">
+            <div class="top-hero">
+                <div class="phrase-hero-top">
+                    <h2>
+                        Chirp
+                        <br>
+                        Cakes
+                    </h2>
+                </div>
+                <img src="{% static 'main/image/cake.png' %}" alt="" class="hero-img" width="50%" height="50%">
+                <div class="phrase-hero-bottom">
+                    <h2>
+                        文鳥のように、
+                        <br>
+                        なめらかなショートケーキ。
+                    </h2>
+                </div>
+            </div>
+            <!--  -->
+        </main>
+        <!-- section-top -->
+    </div>
+</body>
+</html> 

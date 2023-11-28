@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ st_title }} -ごますけ商店-</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/user_create.css' %}">
+</head>
+
+<body>
+    <script>
+        // フォームに値が残ってしまう対策
+        window.addEventListener('pageshow', () => {
+            if (window.performance.navigation.type == 2) location.reload();
+            document.getElementById("form").reset();
+            let rmv = document.getElementById("error").remove();
+            list_element.querySelector(".errorlist").remove();
+        });
+    </script>
+    <div id="root">
+        <main id="account-register">
+            <div class="user-area box">
+                <div class="logo-area flex">
+                    <img src="{% static 'main/image/Logo.svg' %}" alt="" width="12%" height="12%">
+                    <img src="{% static 'main/image/ChirpCakes.svg' %}" alt="" width="12%" height="12%">
+                </div>
+                <h2 class="page-title">
+                    ようこそ
+                </h2>
+                <div class="line"></div>
+                {% if status %}
+                <div class="error">
+                    不正なアクセス
+                </div>
+                {% else %}
+                <div class="is-centered">
+                    <h2>
+                        ログインしました
+                    </h2>
+
+                    <p>
+                        ようこそ、{{ username }}さん
+                    </p>
+                </div>
+                <meta http-equiv="refresh" content="2; url={{ redirect_url }}">
+                {% endif %}
+            </div>
+    </div>
+    </main>
+    </div>
+</body>
+
+</html>

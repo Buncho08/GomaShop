@@ -1,0 +1,71 @@
+@charset 'utf-8';
+@import "partial/common";
+
+main
+{
+    overflow: hidden;
+    padding-top:80px;
+    height: 100%;
+    width: 100%;
+}
+
+.top-hero
+{   
+    position: relative;
+    margin: 0 auto;
+    width: 85%;
+    height: 95%;
+    background-color: rgb(255, 168, 168);
+}
+
+.hero-img
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-10deg);
+}
+
+.phrase-hero-top
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 1.5rem;
+    top:0.5rem;
+    h2
+    {
+        font-size: 700%;
+        font-family: 'Outfit', sans-serif;
+        font-weight: bolder;
+    }
+}
+
+.phrase-hero-bottom
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    h2
+    {
+        text-align: end;
+        font-size: 480%;
+        font-family: 'Shippori Mincho', serif;
+        font-weight: bolder;
+    }
+}
+
+.grid
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid-card
+{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
