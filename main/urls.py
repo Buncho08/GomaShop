@@ -10,5 +10,9 @@ urlpatterns = [
     path('order', views.Order.as_view(), name='order'),
     path('itemdelete/<slug:slug>', views.ItemDelete.as_view(), name='itemdelete'),
     path('complete', views.UserComplete.as_view(), name='complete'),
-    path('orderCheck', views.OrderCheck.as_view(), name='orderCheck')
+    path('orderCheck', views.OrderCheck.as_view(), name='orderCheck'),
+    path('mypage', views.mypage, name='mypage'),
+    path('orderhistory', views.OrderHistory.as_view(), name="orderhistory"),
+    path('orderdetail/<pk>', views.OrderDetail.as_view(), name='orderdetail'),
+    path('edituser', views.EditUser.as_view(), name='edituser')
 ]

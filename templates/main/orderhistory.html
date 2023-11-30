@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ st_title }} -ごますけ商店-</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/user_create.css' %}">
+</head>
+
+<body>
+    {% include 'main/component/banner.html' %}
+    <div id="root">
+        <main id="account-register">
+            {% if status %}
+                {% for item in data %}
+                    <table>
+                        <tr>
+                            <th>
+                                注文日
+                            </th>
+                            <td>
+                                {{ item.create }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                合計金額
+                            </th>
+                            <td>
+                                {{ item.total_pay}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                到着予定日
+                            </th>
+                            <td>
+                                {{ item.arrive }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                
+                            </th>
+                            <td>
+                                <a href="{% url 'main:orderdetail' item.order_id %}">
+                                    詳細
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                {% endfor %}
+            {% else %}
+                <h1>
+                    注文履歴はありません
+                </h1>
+            {% endif %}
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,15 +1,17 @@
 from typing import Any
 from django.views.generic import TemplateView
 from django.shortcuts import render, get_object_or_404
+from django.conf import settings
 from urllib.parse import urlencode
 from django.urls import reverse
 # Create your views here.
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CreateForm, CartDetailForm, OrderForm
+from .forms import CreateForm, CartDetailForm, OrderForm, EditUserForm
 from .models import ItemTable, CartDetailTable, CartTable, UserTable, OrderTable, OrderDetailTable
 # post受け取ったあとはgetにリダイレクトしたほうがよさそう。
+
 
 class CreateUser(TemplateView):
     template_name = 'main/createUser.html'
@@ -60,6 +62,7 @@ class CreateUser(TemplateView):
             self.params['form'] = form
             return render(request,"main/createUser.html",context=self.params)
 
+# indexにリダイレクトする
 class UserComplete(TemplateView):
     def get(self, request, *args, **kwargs):
         if 'param' in request.GET:
@@ -122,14 +125,50 @@ class ItemDetail(TemplateView):
     template_name = 'main/product.html'
     params = {
         'st_title': '',
-        'form':CartDetailForm
+        'form':'',
+        'error':''
     }
     def get(self, request, *args, **kwargs):
+        self.params['form'] = CartDetailForm(label_suffix='')
         item_slug = self.kwargs['slug']
         self.params['item'] = ItemTable.objects.get(slug=item_slug)
         self.params['st_title'] = ItemTable.objects.get(slug=item_slug).item_name
         return render(request, self.template_name, self.params)
+    
+    def post(self, request, *args, **kwargs):
+        if request.user.id is not None:
+            form = CartDetailForm(label_suffix='', data=request.POST)
+            item_id = request.POST['item_id']
+            item = ItemTable.objects.get(item_id=item_id)
+            if form.is_valid():
+                quantity = request.POST['quantity']
+                # カート追加処理2回目以降
+                if CartTable.objects.filter(user_id=request.user, ordered=False).exists():
+                    order = CartTable.objects.get(user_id=request.user, ordered=False)
+                    # 既に同じ商品がカートにあった場合
+                    if CartDetailTable.objects.filter(cart_id=order, item_id=item).exists():
+                        detail = CartDetailTable.objects.get(cart_id=order, item_id=item)
+                        detail.quantity = quantity
+                        detail.save()
+                    # なかった時
+                    else:
+                        CartDetailTable.objects.create(cart_id=order, item_id=item, quantity=quantity)
+                # カート追加処理、初回
+                else:
+                    CartTable.objects.create(user_id=request.user)
+                    order = CartTable.objects.get(user_id=request.user, ordered=False)
+                    CartDetailTable.objects.create(cart_id=order, item_id=item, quantity=quantity)
 
+                order = CartTable.objects.get(user_id=request.user, ordered=False)
+                detail = CartDetailTable.objects.filter(cart_id=order).all()
+                # 戻るボタンを押してもフォームの内容が残ってしまっているためgetでリダイレクトをかける
+                # getならだいじょうぶかな
+                return redirect('main:order')
+            else:
+                self.params['form'] = form
+                return render(request, self.template_name, context=self.params)
+        else:
+            return redirect('main:login')
 
 # from django.core.exceptions import ObjectDoesNotExist
 
@@ -139,57 +178,31 @@ class Order(TemplateView):
         'title' : 'ChirpCakes',
         'status':0,
         'data':'',
-        'st_title':'カート'
+        'st_title':'カート',
     }
 
     def get(self, request, *args, **kwargs):
         if request.user.id is not None:
-            order = CartTable.objects.get(user_id=request.user, ordered=False)
-            if CartDetailTable.objects.filter(cart_id=order).exists():
-                detail = CartDetailTable.objects.filter(cart_id=order).all()
-                self.params['data'] = detail
-                self.params['status'] = 1
-                return render(request, self.template_name, context=self.params)
-            else:
-                self.params['status'] = 0
-                return render(request, self.template_name, context=self.params)
-        else:
-            return redirect('main:login')
-    
-    def post(self, request, *args, **kwargs):
-        if request.user.id is not None:
-            item_id = request.POST['item_id']
-            item = ItemTable.objects.get(item_id=item_id)
-            quantity = request.POST['quantity']
-            # カート追加処理2回目以降
             if CartTable.objects.filter(user_id=request.user, ordered=False).exists():
                 order = CartTable.objects.get(user_id=request.user, ordered=False)
-                # 既に同じ商品がカートにあった場合
-                if CartDetailTable.objects.filter(cart_id=order, item_id=item).exists():
-                    detail = CartDetailTable.objects.get(cart_id=order, item_id=item)
-                    detail.quantity = quantity
-                    detail.save()
-                # なかった時
+                if CartDetailTable.objects.filter(cart_id=order).all().exists():
+                    detail = CartDetailTable.objects.filter(cart_id=order).all()
+                    self.params['data'] = detail
+                    self.params['status'] = 1
                 else:
-                    CartDetailTable.objects.create(cart_id=order, item_id=item, quantity=quantity)
-            # カート追加処理、初回
+                    self.params['status'] = 0
             else:
-                CartTable.objects.create(user_id=request.user)
-                order = CartTable.objects.get(user_id=request.user, ordered=False)
-                CartDetailTable.objects.create(cart_id=order, item_id=item, quantity=quantity)
+                self.params['status'] = 0
 
-            order = CartTable.objects.get(user_id=request.user, ordered=False)
-            detail = CartDetailTable.objects.filter(cart_id=order).all()
-            # 戻るボタンを押してもフォームの内容が残ってしまっているためgetでリダイレクトをかける
-            # getならだいじょうぶかな
-            return redirect('main:order')
+            return render(request, self.template_name, context=self.params)
         else:
             return redirect('main:login')
+
 
 
 
 from django.http import Http404
-class ItemDelete(TemplateView):
+class ItemDelete(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         item_slug = self.kwargs['slug']
         item = ItemTable.objects.get(slug=item_slug)
@@ -217,13 +230,16 @@ class OrderCheck(TemplateView):
     def get(self, request):
         self.params['st_title'] = '注文確認'
         if request.user.id is not None:
-            order = CartTable.objects.get(user_id=request.user, ordered=False)
-            if CartDetailTable.objects.filter(cart_id=order).exists():
-                order_detail = CartDetailTable.objects.filter(cart_id=order)
-                self.params['order'] = order
-                self.params['detail'] = order_detail
-                self.params['form'] = OrderForm(label_suffix='')
-                return render(request, self.template_name, context=self.params)
+            if CartTable.objects.filter(user_id=request.user, ordered=False).exists():
+                order = CartTable.objects.get(user_id=request.user, ordered=False)
+                if CartDetailTable.objects.filter(cart_id=order).exists():
+                    order_detail = CartDetailTable.objects.filter(cart_id=order)
+                    self.params['order'] = order
+                    self.params['detail'] = order_detail
+                    self.params['form'] = OrderForm(label_suffix='')
+                    return render(request, self.template_name, context=self.params)
+                else:
+                    return redirect('main:order')
             else:
                 return redirect('main:order')
         else:
@@ -250,17 +266,91 @@ class OrderCheck(TemplateView):
             order_data.arrive = today
             order_data.postage = postage
             order_data.save()
-
+            order_data.order_id
             # 注文詳細に登録
-            order = OrderTable.objects.get(user_id=request.user, ordered=False)
+            order = OrderTable.objects.get(user_id=request.user, order_id=order_data.order_id)
 
-            # カートにある
+            # カートにある詳細情報を注文詳細に転記する
             for item in cart_detail:
-                item_id = ItemTable.objects.get(item_id=item.item_id)
+                item_id = ItemTable.objects.get(item_id=item.item_id.item_id)
                 OrderDetailTable.objects.create(order_id=order, item_id=item_id, quantity=item.quantity)
             
+            # カートの注文確定フラグをTrueにする
+            cart.ordered = True
+            cart.save()
             return redirect('main:index')
         else:
             self.params['form'] = form
             self.params['st_title'] = 'エラー！！！'
             return render(request,self.template_name,context=self.params)
+
+def mypage(request):
+
+    if request.user.id is None:
+        return redirect('main:login')
+
+    params = {
+        'user':request.user
+    }
+
+    return render(request, 'main/mypage.html', params)
+
+class OrderHistory(LoginRequiredMixin, TemplateView):
+    template_name = 'main/orderhistory.html'
+    params = {
+        'status':0
+    }
+    def get(self, request, *args, **kwargs):
+        if OrderTable.objects.filter(user_id=request.user, ordered=False).exists():
+            self.params['data'] = OrderTable.objects.filter(user_id=request.user, ordered=False)
+            self.params['status'] = 1
+        else:
+            self.params['status'] = 0
+
+        return render(request, self.template_name, context=self.params)
+    
+class OrderDetail(LoginRequiredMixin, TemplateView):
+    template_name = 'main/orderdetail.html'
+    params = {
+    }
+
+    def get(self, request, *args, **kwargs):
+        order_id = self.kwargs['pk']
+        if OrderTable.objects.filter(order_id=order_id).exists():
+            order = OrderTable.objects.get(order_id=order_id)
+            self.params['data'] = OrderDetailTable.objects.filter(order_id=order).all()
+        else:
+            return redirect('main:order')
+        
+        return render(request, self.template_name, self.params)
+
+class EditUser(LoginRequiredMixin, TemplateView):
+    template_name = 'main/editAccount.html'
+    params = {
+    }
+
+
+    def get(self, request, *args, **kwargs):
+        user = UserTable.objects.get(username=request.user)
+        print(user)
+        form_class = EditUserForm(user)
+        print()
+        self.params['form'] = form_class
+        return render(request, self.template_name, self.params)
+    
+    def post(self, request):
+        user = UserTable.objects.get(username=request.user)
+        form = EditUserForm(usermodel=user, instance=user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            if 'icon' in request.FILES:
+                print(request.FILES['icon'])
+                user.icon = request.FILES['icon']
+            else:
+                user.icon = 'media/main/default_icon.png'
+            user.save()
+            user.iconResizer()
+            return redirect('main:mypage')
+        else:
+            self.params['form'] = form
+            return render(request, self.template_name, self.params)

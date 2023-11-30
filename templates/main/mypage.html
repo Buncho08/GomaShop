@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ st_title }} -ごますけ商店-</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/user_create.css' %}">
+</head>
+
+<body>
+    {% include 'main/component/banner.html' %}
+    <div id="root">
+        <main id="account-register">
+            <h1>
+                マイページ
+            </h1>
+            <p>
+                <img src="{{ MEDIA_URL }}{{ user.icon }}" alt="">
+            </p>
+            <p>
+                {{ user.username }}
+            </p>
+
+            <p>
+                <a href="{% url 'main:orderhistory' %}">
+                    注文履歴
+                </a>
+            </p>
+        </main>
+    </div>
+</body>
+
+</html>

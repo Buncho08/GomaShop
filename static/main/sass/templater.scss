@@ -1,0 +1,14 @@
+@import "partial/common";
+@import "partial/gridSystem";
+
+.grid-item
+{
+    display: grid;
+}
+.block
+{
+    background-color: #000000;
+    width: 80%;
+    height: 300px;
+    margin:0 auto;
+}

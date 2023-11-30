@@ -11,51 +11,56 @@
 
 html,
 body {
+  color: #33272a;
+  font-family: "Zen Kaku Gothic New", sans-serif, "Outfit", sans-serif;
   height: 100%;
 }
-
-#root {
+html #root,
+body #root {
   z-index: -100;
-  background-color: antiquewhite;
+  background-color: #faeee7;
   height: 100vh;
 }
 
-main {
+a {
+  color: #ff8ba7;
+}
+a:hover {
+  color: #50915a;
+}
+
+#top {
   overflow: hidden;
   padding-top: 80px;
   height: 100%;
   width: 100%;
 }
-
-.top-hero {
+#top .top-hero {
   position: relative;
   margin: 0 auto;
   width: 85%;
   height: 95%;
-  background-color: rgb(255, 168, 168);
+  background-color: #EF9A9A;
 }
-
-.hero-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-10deg);
-}
-
-.phrase-hero-top {
+#top .top-hero .phrase-hero-top {
   position: absolute;
   height: 100%;
   width: 100%;
   left: 1.5rem;
   top: 0.5rem;
 }
-.phrase-hero-top h2 {
+#top .top-hero .phrase-hero-top h2 {
   font-size: 700%;
   font-family: "Outfit", sans-serif;
   font-weight: bolder;
 }
-
-.phrase-hero-bottom {
+#top .top-hero .hero-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+}
+#top .top-hero .phrase-hero-bottom {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -63,19 +68,9 @@ main {
   justify-content: flex-end;
   align-items: flex-end;
 }
-.phrase-hero-bottom h2 {
+#top .top-hero .phrase-hero-bottom h2 {
   text-align: end;
-  font-size: 480%;
+  font-size: 550%;
   font-family: "Shippori Mincho", serif;
   font-weight: bolder;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.grid-card {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
 }

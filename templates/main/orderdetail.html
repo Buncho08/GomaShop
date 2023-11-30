@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ st_title }} -ごますけ商店-</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/user_create.css' %}">
+</head>
+
+<body>
+    <script>
+        // フォームに値が残ってしまう対策
+        window.addEventListener('pageshow', () => {
+            if (window.performance.navigation.type == 2) location.reload();
+            document.getElementById("form").reset();
+            let rmv = document.getElementById("error").remove();
+            list_element.querySelector(".errorlist").remove();
+        });
+    </script>
+    {% include 'main/component/banner.html' %}
+    <div id="root">
+        <main id="account-register">
+                {% for item in data %}
+                    <p>
+                        {{ item.item_id.item_name }}
+                    </p>
+                    <p>
+                        {{ item.quantity }}
+                    </p>
+                {% endfor %}
+        </main>
+    </div>
+</body>
+
+</html>

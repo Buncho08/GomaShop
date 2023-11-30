@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ st_title }} -ごますけ商店-</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/user_create.css' %}">
+</head>
+
+<body>
+    {% include 'main/component/banner.html' %}
+    <div id="root">
+        <main id="account-register">
+            <form action="{% url 'main:edituser' %}" method="post"  enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for item in form %}
+                    {% if item.name == 'mail_deriv' %}
+                        <div class="field-label">
+                            <label for="{{item.id_for_label}}" class="label has-text-left">
+                                <input 
+                                type="{{ item.field.widget.input_type }}" 
+                                name="{{item.name}}" 
+                                id="{{item.id_for_label}}"
+                                value="{{ item.field.initial }}"
+                                >
+                                お知らせメールの配信を希望する
+                            </label>
+                        </div>
+                    {% else %}
+                        <label for="{{ item.id_for_label }}" class="label has-text-left">
+                            {% if item.field.required %}
+                            *
+                            {% endif %}
+                            {{ item.label }}
+                        </label>
+                    {{ item.errors }}
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <input
+                                    {% if item.name == 'birthday' %}
+                                        type="date"
+                                    {% else %}
+                                        type="{{ item.field.widget.input_type }}" 
+                                    {% endif %}
+                                    class="input is-normal"
+                                    {% if item.field.widget.input_type == 'text' %}
+                                        placeholder="{{ item.label }}"
+                                    {% elif item.field.widget.input_type == 'email' %}
+                                        placeholder="xxx@ooo.□□□"
+                                    {% endif %}
+                                    {% if item.field.required %}
+                                        required
+                                    {% endif %} 
+                                    name="{{item.name}}"
+                                    id="{{item.id_for_label}}"
+                                    {% if item.name == 'birthday' %}
+                                    value="{{ item.field.initial|date:'Y-m-d' }}"
+                                    {% else %}
+                                    value="{{ item.field.initial }}"
+                                    {% endif %}
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <input type="submit" value="変更">
+            </form>
+        </main>
+    </div>
+</body>
+
+</html>

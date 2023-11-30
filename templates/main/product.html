@@ -9,14 +9,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
 </head>
 <body>
+    <script>
+        // フォームに値が残ってしまう対策
+        window.addEventListener('pageshow', () => {
+            if (window.performance.navigation.type == 2) location.reload();
+            document.getElementById("form").reset();
+            let rmv = document.getElementById("error").remove();
+            list_element.querySelector(".errorlist").remove();
+        });
+    </script>
     {% include 'main/component/banner.html' %}
     <div id="root">
         <h1>
             {{ item.item_name }}
         </h1>
         <img src="{{ MEDIA_URL }}{{ item.item_img }}" alt="">
-        <form action="{% url 'main:order' %}" method="post">
+        <form action="{% url 'main:product' item.slug %}" method="post">
             {% csrf_token %}
+            {% if form.errors %}
+            {{ form.quantity.errors }}
+            {% endif %}
             <label for="quantity">
                 数量
                 <input type="number" name="quantity" id="quantity" min="0" max="100">

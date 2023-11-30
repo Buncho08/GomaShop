@@ -19,9 +19,51 @@ class CartDetailForm(forms.ModelForm):
         model = CartDetailTable
         fields = ('item_id', 'quantity')
         labels = {'item_id':'商品', 'quantity':'数量'}
-    
+
 class OrderForm(forms.ModelForm):
     class Meta():
         model = OrderTable
         fields = ('to_lastname', 'to_firstname','post', 'pref', 'address', 'pay')
         labels = {'to_firstname':'名前', 'to_lastname':'苗字', 'post':'郵便番号', 'pref':'都道府県', 'address':'住所詳細', 'pay':'支払い方法'}
+
+class EditUserForm(forms.ModelForm):
+    class Meta():
+        model = UserTable
+        fields = ('email', 'birthday', 'icon', 'myouji', 'namae', 'post', 'pref', 'town', 'prefDetail', 'mail_deriv')
+        labels = {
+            'email':'メールアドレス', 
+            'birthday':'生年月日', 
+            'icon':'アイコン', 
+            'myouji':'姓', 
+            'namae':'名', 
+            'post':'郵便番号', 
+            'pref':'都道府県', 
+            'town':'市町村', 
+            'prefDetail':'以下住所', 
+            'mail_deriv':'メール配信希望'
+        }
+
+    def __init__(self, usermodel=None, *args, **kwargs):
+        kwargs.setdefault('label_suffix', '')
+        super(EditUserForm, self).__init__(*args, **kwargs)
+        if usermodel.email:
+            self.fields['email'].initial = usermodel.email
+        if usermodel.birthday:
+            self.fields['birthday'].initial = usermodel.birthday
+        if usermodel.icon:
+            self.fields['icon'].initial = usermodel.icon
+        if usermodel.myouji:
+            self.fields['myouji'].initial = usermodel.myouji
+        if usermodel.namae:
+            self.fields['namae'].initial = usermodel.namae
+        if usermodel.post:
+            self.fields['post'].initial = usermodel.post
+        if usermodel.pref:
+            self.fields['pref'].initial = usermodel.pref
+        if usermodel.town:
+            self.fields['town'].initial = usermodel.town
+        if usermodel.prefDetail:
+            self.fields['prefDetail'].initial = usermodel.prefDetail
+        if usermodel.mail_deriv:
+            self.fields['mail_deriv'].initial = usermodel.mail_deriv
+    

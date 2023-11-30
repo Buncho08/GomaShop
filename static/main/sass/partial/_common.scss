@@ -1,6 +1,16 @@
 @import url('./reset.css');
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap');
 
+// colors
+$main:#EF9A9A;
+$back:#faeee7;
+$font:#33272a;
+$accent:#50915a;
+$paragraph:#594a4e;
+$link:#ff8ba7;
+$font-eng:'Outfit', sans-serif;
+$font-jp:'Zen Kaku Gothic New', sans-serif;
+
 * {
     font-family: 'Luckiest Guy', cursive;
     font-family: 'Outfit', sans-serif;
@@ -13,12 +23,24 @@
 html,
 body
 {
+    color: $font;
+    font-family: $font-jp, $font-eng;
     height: 100%;
+    #root
+    {
+        z-index: -100;
+        background-color: $back;
+        height: 100vh;
+    }
 }
 
-#root
+
+a
 {
-    z-index: -100;
-    background-color: antiquewhite;
-    height: 100vh;
+    color:$link;
+    &:hover
+    {
+        color:$accent;
+    }
 }
+

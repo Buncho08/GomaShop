@@ -1,4 +1,5 @@
 from django.db import models
+import os
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.mail import send_mail
 from django.core.validators import MinLengthValidator
@@ -7,10 +8,24 @@ from django.core.validators import RegexValidator
 from django.contrib import auth
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
+from PIL import Image
+import io
 def savePath(model, filename):
     ext = filename.split('.')[-1]
     new_name = model.username + "_icon"
+    # ルートはGomaShop/らしい
+    path = f'.{settings.MEDIA_URL}main/icon/{model.username}_icon.{ext}'
+    print(path)
+    if os.path.exists(path):
+        os.remove(path)
+
     return f'main/icon/{new_name}.{ext}'
+
+def saveItemPath(model, filename):
+    ext = filename.split('.')[-1]
+    new_name = model.item_id + "_img"
+    return f'main/item/{new_name}.{ext}'
+
 
 
 class MyUserManager(BaseUserManager):
@@ -86,7 +101,7 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
     # 誕生日
     birthday = models.DateField(verbose_name="誕生日", null=True, blank=True, default='1900-12-30')
     # アイコン
-    icon = models.ImageField(verbose_name="アイコン", default=f'main/icon/default_icon.png',upload_to=savePath)
+    icon = models.ImageField(verbose_name="アイコン", default=f'main/icon/default_icon.png',upload_to=savePath, null=True, blank=True)
     # 登録日
     date_joined = models.DateField(verbose_name="登録日", auto_now_add=True)
     # 性別
@@ -96,9 +111,11 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
     # 名
     namae = models.CharField(verbose_name='名', max_length=255)
     # 郵便番号
-    post = models.CharField(verbose_name='郵便番号', max_length=9)
+    post = models.CharField(verbose_name='郵便番号', max_length=9, validators=[RegexValidator(r'^[0-9]{3}-[0-9]{4}$',)])
     # 都道府県
     pref = models.CharField(verbose_name='都道府県名', max_length=255)
+    # 市町村
+    town = models.CharField(verbose_name='市町村', max_length=255, default='')
     # 住所詳細
     prefDetail = models.CharField(verbose_name='住所詳細', max_length=400)
 
@@ -119,8 +136,8 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
         'email',
     ]
     class Meta:
-        verbose_name = _('ユーザー')
-        verbose_name_plural = _('ユーザー')
+        verbose_name = _('ユーザーテーブル')
+        verbose_name_plural = _('ユーザーテーブル')
 
     def __str__(self):
         return self.username
@@ -135,10 +152,18 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def iconResizer(self):
+        img = Image.open(self.icon)
+        img_resize = img.resize((256, 256))
+        img.close()
+        bf = io.BytesIO()
+        img_resize.save(fp=bf, format=img.format)
+        self.icon.save(name=self.icon.path, content=bf)
+
 class CartTable(models.Model):
     class Meta:
-        verbose_name = _('注文カート')
-        verbose_name_plural = _('注文カート')
+        verbose_name = _('カートテーブル')
+        verbose_name_plural = _('カートテーブル')
     
     # フィールド
     cart_id = models.AutoField(primary_key=True, unique=True, verbose_name='カートID', editable=False)
@@ -157,11 +182,6 @@ class CartTable(models.Model):
             total += item.get_total_price()
 
         return total
-
-def saveItemPath(model, filename):
-    ext = filename.split('.')[-1]
-    new_name = model.item_id + "_img"
-    return f'main/item/{new_name}.{ext}'
 
 class ItemTable(models.Model):
     class Meta:
@@ -188,7 +208,7 @@ class CartDetailTable(models.Model):
     # user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     cart_id = models.ForeignKey(CartTable, on_delete=models.CASCADE, verbose_name='カートID', related_name='related_cart', unique=False)
     item_id = models.ForeignKey(ItemTable, on_delete=models.CASCADE, verbose_name='商品ID', related_name='related_cart_item')
-    quantity = models.IntegerField(verbose_name='数量', default=1, validators=[MinValueValidator(0), MaxValueValidator(1000)])
+    quantity = models.IntegerField(verbose_name='数量', default=1, validators=[MinValueValidator(1), MaxValueValidator(1000)])
     def get_total_price(self):
         return self.quantity * self.item_id.price
     def __str__(self):
@@ -208,10 +228,10 @@ class OrderTable(models.Model):
     ]
     order_id = models.AutoField(primary_key=True, unique=True, verbose_name='注文ID', editable=False)
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    post = models.TextField(verbose_name='郵便番号', default='', max_length=8, blank=False)
+    post = models.TextField(verbose_name='郵便番号', default='', max_length=84, blank=False, validators=[RegexValidator(r'^[0-9]{3}-[0-9]{4}$',)])
     pref = models.TextField(verbose_name='都道府県', default='', max_length=20, blank=False)
     address = models.TextField(verbose_name='住所詳細', default='', max_length=255, blank=False)
-    postage = models.IntegerField(verbose_name='送料', default=0, validators=[MinValueValidator(0), MaxValueValidator(9999)])
+    postage = models.IntegerField(verbose_name='送料', default=0, validators=[MinValueValidator(1), MaxValueValidator(9999)])
     
     to_firstname = models.TextField(verbose_name='送り先(名前)',default='', blank=False)
     to_lastname = models.TextField(verbose_name='送り先(苗字)', default='',blank=False)
@@ -235,10 +255,10 @@ class OrderDetailTable(models.Model):
         verbose_name_plural = _('注文詳細テーブル')
 
     detail_id = models.AutoField(primary_key=True, unique=True, verbose_name='注文詳細ID', editable=False)
-    order_id = models.ForeignKey(OrderTable, on_delete=models.CASCADE, verbose_name='注文ID')
+    order_id = models.ForeignKey(OrderTable, on_delete=models.CASCADE, verbose_name='注文ID', related_name='related_order')
     item_id = models.ForeignKey(ItemTable, on_delete=models.CASCADE, verbose_name='商品ID', related_name='related_order_item')
     quantity = models.IntegerField(verbose_name='数量', default=0, validators=[MinValueValidator(0), MaxValueValidator(1000)])
     def get_total_price(self):
         return self.quantity * self.item_id.price
     def __str__(self):
-        return f'注文詳細ID:{self.detail_id} | 注文ID:{self.cart_id} |  商品ID:{self.item_id} | 数量:{self.quantity}'
+        return f'注文詳細ID:{self.detail_id} | 注文ID:{self.order_id} |  商品ID:{self.item_id} | 数量:{self.quantity}'
