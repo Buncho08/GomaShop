@@ -20,6 +20,20 @@ body
     gap:2rem;
 }
 
+.sub-title
+{
+    width: 70%;
+    margin: 1rem auto;
+}
+
+.sample-body
+{
+    width: 70%;
+    height:auto;
+    margin: 0 auto;
+    // background-color: red;
+}
+
 .block
 {
     background-color: #fff5f5;
@@ -45,7 +59,7 @@ body
 .card
 {
     border-radius: 30px;
-    width:100%;
+    width:300px;
     height: auto;
     background-color:$back;
     // box-shadow: 8px 8px 20px rgb(187, 170, 170);
@@ -210,11 +224,7 @@ body
 }
 
 
-.sub-title
-{
-    width: 70%;
-    margin: 1rem auto;
-}
+
 
 .grid-auto-test1
 {
@@ -236,14 +246,6 @@ body
 }
 
 // フォーム
-
-.sample-body
-{
-    width: 70%;
-    height:auto;
-    margin: 0 auto;
-    background-color: red;
-}
 
 .form-body
 {

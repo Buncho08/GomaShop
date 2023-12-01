@@ -53,6 +53,17 @@ body {
   gap: 2rem;
 }
 
+.sub-title {
+  width: 70%;
+  margin: 1rem auto;
+}
+
+.sample-body {
+  width: 70%;
+  height: auto;
+  margin: 0 auto;
+}
+
 .block {
   background-color: #fff5f5;
   width: 90%;
@@ -71,7 +82,7 @@ body {
 
 .card {
   border-radius: 30px;
-  width: 100%;
+  width: 300px;
   height: auto;
   background-color: #faeee7;
 }
@@ -201,11 +212,6 @@ body {
   transition: 0.35s ease-in;
 }
 
-.sub-title {
-  width: 70%;
-  margin: 1rem auto;
-}
-
 .grid-auto-test1 {
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
@@ -218,13 +224,6 @@ body {
   height: 300px;
   width: 100%;
   background-color: #50915a;
-}
-
-.sample-body {
-  width: 70%;
-  height: auto;
-  margin: 0 auto;
-  background-color: red;
 }
 
 .form-body {
