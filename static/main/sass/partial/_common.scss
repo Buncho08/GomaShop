@@ -3,10 +3,13 @@
 
 // colors
 $main:#EF9A9A;
+$button:rgb(255, 210, 210);
 $back:#faeee7;
+$sub-back:rgb(255, 255, 255);
 $font:#33272a;
 $accent:#50915a;
-$paragraph:#594a4e;
+$paragraph:#614a51;
+$annotation:#847479;
 $link:#ff8ba7;
 $font-eng:'Outfit', sans-serif;
 $font-jp:'Zen Kaku Gothic New', sans-serif;
@@ -26,16 +29,17 @@ body
     color: $font;
     font-family: $font-jp, $font-eng;
     height: 100%;
-    #root
-    {
-        z-index: -100;
-        background-color: $back;
-        height: 100vh;
-    }
+    margin: 0;
 }
 
+#root
+{
+    z-index: -100;
+    background-color: $back;
+    height: 100vh;
+}
 
-a
+.link
 {
     color:$link;
     &:hover

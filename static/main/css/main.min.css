@@ -14,27 +14,25 @@ body {
   color: #33272a;
   font-family: "Zen Kaku Gothic New", sans-serif, "Outfit", sans-serif;
   height: 100%;
+  margin: 0;
 }
-html #root,
-body #root {
+
+#root {
   z-index: -100;
   background-color: #faeee7;
   height: 100vh;
 }
 
-a {
+.link {
   color: #ff8ba7;
 }
-a:hover {
+.link:hover {
   color: #50915a;
 }
 
 .grid-auto {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-}
-
-.grid-card {
-  display: grid;
-  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+  place-items: center;
+  gap: 1rem;
 }
