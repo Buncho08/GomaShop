@@ -2,53 +2,46 @@
 @import "partial/gridSystem";
 
 html,
-body
-{
-    height:100%;
+body {
+    height: 100%;
 }
 
-#root
-{
+#root {
     @extend #root;
-    background-color:$back;
-    height:auto;
+    background-color: $back;
+    height: auto;
 }
 
-.grid-item
-{
+.grid-item {
     display: grid;
-    gap:2rem;
+    gap: 2rem;
 }
 
-.sub-title
-{
+.sub-title {
     width: 70%;
     margin: 1rem auto;
 }
 
-.sample-body
-{
+.sample-body {
     width: 70%;
-    height:auto;
+    height: auto;
     margin: 0 auto;
     // background-color: red;
 }
 
-.block
-{
+.block {
     background-color: #fff5f5;
     width: 90%;
     height: auto;
-    margin:2rem auto;
+    margin: 2rem auto;
     padding: 1rem;
 }
 
-.grid-auto
-{
+.grid-auto {
     @extend .grid-auto;
-    width:70%;
-    gap:1rem;
-    margin:0 auto;
+    width: 70%;
+    gap: 1rem;
+    margin: 0 auto;
     grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
     place-items: center;
     // background-color: rebeccapurple;
@@ -56,18 +49,16 @@ body
 
 // gridカードはこっから
 
-.card
-{
+.card {
     border-radius: 30px;
-    width:300px;
+    width: 300px;
     height: auto;
-    background-color:$back;
+    background-color: $back;
     // box-shadow: 8px 8px 20px rgb(187, 170, 170);
 }
 
 
-.card-item 
-{
+.card-item {
     position: relative;
     // width: 100%;
     display: grid;
@@ -77,41 +68,39 @@ body
     grid-template-rows: repeat(auto-fit, minmax(1fr, 100px));
 }
 
-.card-contents
-{
-    position:relative;
-    img
-    {
+.card-contents {
+    position: relative;
+
+    img {
         border-radius: 30px 30px 0 80px;
     }
-    .card-img-cover
-    {
+
+    .card-img-cover {
         position: absolute;
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: flex-end;
-        align-items:flex-end;
+        align-items: flex-end;
         text-align: end;
-        bottom:0;
+        bottom: 0;
         padding-bottom: 1rem;
         font-size: 100%;
-        font-weight:500;
+        font-weight: 500;
         overflow: hidden;
         transition: 0.3s ease-in;
         color: #ffffff00;
         background: rgba(255, 255, 255, 0);
-        background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #faeee7 100%);
-        background-position-y:300px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #faeee7 100%);
+        background-position-y: 300px;
         background-repeat: no-repeat;
         border-radius: 30px 30px 0 80px;
     }
-    &:hover
-    {
-        .card-img-cover
-        {
+
+    &:hover {
+        .card-img-cover {
             color: $font;
-            background-position-y:0px;
+            background-position-y: 0px;
             // height: 80px;
             transition: 0.3s ease-in;
             background-color: #ffffff4b;
@@ -119,62 +108,56 @@ body
     }
 }
 
-.card-sub
-{
+.card-sub {
     width: 100%;
-    margin-top:0.8rem;
+    margin-top: 0.8rem;
 }
 
-.card-header
-{
+.card-header {
     width: 100%;
     // background-color: #7d4c4c;
-    margin-bottom:0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.card-header-title
-{ 
-    .card-title-link{
+.card-header-title {
+    .card-title-link {
         font-size: 200%;
         font-family: $font-eng, $font-jp;
         font-weight: bolder;
         transition: 0.2s ease-in;
-        &:hover
-        {
+
+        &:hover {
             transition: 0.2s ease-in;
-            color:$accent;
+            color: $accent;
         }
     }
 }
 
-.card-header-price
-{
+.card-header-price {
     font-size: 140%;
     width: 100%;
     padding: 0;
     align-self: center;
+
     // background-color: brown;
-    &::before
-    {
+    &::before {
         content: "￥";
-        font-size:90%;
+        font-size: 90%;
     }
-    &::after
-    {
+
+    &::after {
         content: '(税込)';
         font-size: 50%;
     }
 }
 
-.card-link
-{
+.card-link {
     width: 100%;
     display: flex;
     justify-content: flex-end
 }
 
-.card-link-button
-{
+.card-link-button {
     display: block;
     position: relative;
     border: $paragraph 1px solid;
@@ -183,21 +166,21 @@ body
     justify-content: center;
     align-items: center;
     font-size: 110%;
-    width:60%;
+    width: 60%;
     height: 40px;
-    .icon
-    {
+
+    .icon {
         margin-top: 0.25rem;
-        padding-left:0.5rem;
+        padding-left: 0.5rem;
         color: $paragraph;
     }
-    .card-link-text
-    {
+
+    .card-link-text {
         width: auto;
         z-index: 1000;
     }
-    &::after
-    {
+
+    &::after {
         position: absolute;
         content: '';
         width: 0%;
@@ -205,19 +188,18 @@ body
         left: 0;
         bottom: 0;
         background: rgba(255, 255, 255, 0);
-        background: linear-gradient(90deg, $link 0%, rgba(255,255,255,0) 100%);
+        background: linear-gradient(90deg, $link 0%, rgba(255, 255, 255, 0) 100%);
         transition: 0.35s ease-in-out;
     }
-    &:hover
-    {
-        &::after
-        {
+
+    &:hover {
+        &::after {
             width: 100%;
             transition: 0.35s ease-in;
         }
-        .icon
-        {
-            transform:scale(1.2, 1.2);
+
+        .icon {
+            transform: scale(1.2, 1.2);
             transition: 0.35s ease-in;
         }
     }
@@ -226,20 +208,17 @@ body
 
 
 
-.grid-auto-test1
-{
+.grid-auto-test1 {
     @extend .grid-auto;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
-.grid-auto-test2
-{
+.grid-auto-test2 {
     @extend .grid-auto;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
-.grid-child
-{
+.grid-child {
     height: 300px;
     width: 100%;
     background-color: $accent;
@@ -247,116 +226,105 @@ body
 
 // フォーム
 
-.form-body
-{
+.form-body {
     display: grid;
     justify-items: center;
     align-items: center;
     background-color: $back;
-    height:auto;
+    height: auto;
 }
 
-.form-field
-{
+.form-field {
     margin: 1rem 0;
 }
 
-.form-label
-{
+.form-label {
     font-weight: 500;
-    margin:0.2rem 0;
+    margin: 0.2rem 0;
 }
 
-.form-label-ano
-{
+.form-label-ano {
     font-size: 70%;
     color: $annotation;
-    margin-top:-0.2rem; 
+    margin-top: -0.2rem;
 }
 
-.is-error
-{
-    .form-label-ano
-    {
+.is-error {
+    .form-label-ano {
         color: red;
-        margin-top:-0.5rem; 
+        margin-top: -0.5rem;
         font-size: 85%;
     }
 
-    input[type="text"]{
+    input[type="text"] {
         box-shadow: 0px 0px 2px red;
     }
 }
 
-.form-text
-{
+.form-text {
     display: flex;
-    flex-direction:column;
-    input[type="text"]
-    {
+    flex-direction: column;
+
+    input[type="text"] {
         width: 400px;
         height: 35px;
-        border:0.5px $paragraph solid;
+        border: 0.5px $paragraph solid;
         // border: none;
         border-radius: 3px;
-        &:focus
-        {
-            outline:none;
+
+        &:focus {
+            outline: none;
             box-shadow: 0px 0px 5px $link;
         }
     }
 }
 
-.form-group
-{
+.form-group {
     background-color: $sub-back;
     border: black 1px solid;
-    padding:0.5rem;
+    padding: 0.5rem;
 }
 
-.form-sub-title
-{
-    margin:0.2rem 0;
+.form-sub-title {
+    margin: 0.2rem 0;
 }
 
-.form-is-col
-{
+.form-is-col {
     display: flex;
     column-gap: 1rem;
     // justify-content: space-between;
 }
 
-.form-radio-rows
-{
+.form-radio-rows {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 100%;
     width: 300px;
-    padding:0.3rem;
-    margin:0.5rem 0;
-    .form-label
-    {
-        label
-        {
+    padding: 0.3rem;
+    margin: 0.5rem 0;
+
+    .form-label {
+        label {
             user-select: none;
             cursor: pointer;
         }
+
         margin-left:0.2rem;
         z-index: 1000;
-        + .cover
-        {
+
+        +.cover {
             border-radius: 10px;
             border: 0.1px solid #bca2aa;
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color:rgb(255, 255, 255);
+            background-color: rgb(255, 255, 255);
         }
     }
-    input[type="radio"]
-    {
+
+    input[type="radio"] {
         z-index: 1000;
         appearance: none;
         border-radius: 50%;
@@ -365,8 +333,8 @@ body
         position: relative;
         // border: 1px $annotation solid;
         background-color: rgb(223, 207, 207);
-        &::before
-        {
+
+        &::before {
             content: '';
             top: 50%;
             left: 50%;
@@ -374,40 +342,40 @@ body
             appearance: none;
             border-radius: 50%;
             position: absolute;
-            width:10px;
-            height:10px;
+            width: 10px;
+            height: 10px;
         }
     }
-    input[type="radio"]:checked
-    {
+
+    input[type="radio"]:checked {
         transition: 0.1s ease-in;
-        background-color:$sub-back;
-        border:none;
+        background-color: $sub-back;
+        border: none;
         z-index: 1000;
-        + .form-label
-        {
-            margin-left:0.2rem;
+
+        +.form-label {
+            margin-left: 0.2rem;
             z-index: 1000;
-            + .cover
-            {
+
+            +.cover {
                 border-radius: 10px;
                 // border: 0.1px solid #bca2aa;
                 position: absolute;
                 width: 100%;
                 height: 100%;
-                background-color:$button;
+                background-color: $button;
                 transition: 0.1s ease-in;
                 box-shadow: 0px 0px 2px $link;
             }
         }
-        &::before
-        {
+
+        &::before {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(10deg);
             appearance: none;
             transition: 0.1s ease-in;
-            background-color:$button;
+            background-color: $button;
             border-radius: 50%;
             position: absolute;
             box-shadow: 0px 0px 10px rgb(255, 255, 255);
@@ -417,19 +385,18 @@ body
     }
 }
 
-.form-radio-button
-{
+.form-radio-button {
     display: flex;
-    .form-label
-    {
+
+    .form-label {
         width: auto;
-        margin:0;
-        padding:0 2rem;
-        height:50px;
+        margin: 0;
+        padding: 0 2rem;
+        height: 50px;
         background-color: rgb(254, 182, 182);
         border-right: 0.8px solid rgb(255, 255, 255);
-        label
-        {
+
+        label {
             user-select: none;
             cursor: pointer;
             display: block;
@@ -440,62 +407,58 @@ body
         }
 
     }
-    .is-first-label
-    {
+
+    .is-first-label {
         border-radius: 10px 0 0 10px;
     }
-    .is-last-label
-    {
-        border-radius:0 10px 10px 0;
+
+    .is-last-label {
+        border-radius: 0 10px 10px 0;
     }
 
-    input[type="radio"]
-    {
+    input[type="radio"] {
         display: none;
     }
-    input[type="radio"]:checked
-    {
-        + .form-label
-        {
+
+    input[type="radio"]:checked {
+        +.form-label {
             transition: 0.1s ease-in;
             background-color: red;
         }
     }
 }
 
-.form-check
-{
+.form-check {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 100%;
-    width:220px;
-    padding:0.5rem; 
-    margin:0.5rem 0;
-    .form-label
-    {
-        label
-        {
+    width: 220px;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+
+    .form-label {
+        label {
             user-select: none;
             cursor: pointer;
         }
+
         margin-left:0.5rem;
         z-index: 1000;
-        + .cover
-        {
+
+        +.cover {
             transition: 0.2s ease-in;
             border-radius: 10px;
             border: 0.1px solid #bca2aa;
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color:rgb(255, 255, 255);
+            background-color: rgb(255, 255, 255);
         }
     }
 
-    input[type="checkbox"]
-    {
+    input[type="checkbox"] {
         z-index: 1000;
         appearance: none;
         border-radius: 5px;
@@ -504,8 +467,8 @@ body
         position: relative;
         transition: 0.2s ease-in;
         background-color: rgb(223, 207, 207);
-        &::after
-        {
+
+        &::after {
             transition: 0.2s ease-in;
             color: $link;
             top: 50%;
@@ -516,8 +479,8 @@ body
             transition: 0.1s ease-in;
             position: absolute;
         }
-        &::before
-        {
+
+        &::before {
             top: 50%;
             left: 50%;
             transition: 0.2s ease-in;
@@ -525,67 +488,365 @@ body
             appearance: none;
             border-radius: 50%;
             position: absolute;
-            width:10px;
-            height:10px;
+            width: 10px;
+            height: 10px;
         }
     }
-    input[type="checkbox"]:checked
-    {
+
+    input[type="checkbox"]:checked {
         transition: 0.1s ease-in;
-        background-color:$sub-back;
-        border:none;
+        background-color: $sub-back;
+        border: none;
         z-index: 1000;
-        + .form-label
-        {
+
+        +.form-label {
             z-index: 1000;
-            + .cover
-            {
+
+            +.cover {
                 border-radius: 10px;
                 // border: 0.1px solid #bca2aa;
                 position: absolute;
                 width: 100%;
                 height: 100%;
-                background-color:$button;
+                background-color: $button;
                 transition: 0.1s ease-in;
                 box-shadow: 0px 0px 2px $link;
             }
         }
-        &::after
-        {
+
+        &::after {
             font-family: "Font Awesome 5 Free";
             font-weight: 900;
             content: "\f00c";
             color: $link;
             transition: 0.1s ease-in;
         }
-        &::before
-        {
+
+        &::before {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             appearance: none;
             transition: 0.1s ease-in;
-            background-color:$button;
+            background-color: $button;
             position: absolute;
         }
     }
-    // display: flex;
-    // align-items: center;
-    // input[type="checkbox"]
-    // {
-    //     appearance: none;
-    //     border: 1px solid $annotation;
-    //     width: 15px;
-    //     height: 15px;
-    // }
-    // .form-label
-    // {
-    //     margin-left:0.3rem ;
-    // }
+}
 
-    // input[type="checkbox"]:checked
-    // {
-    //     background-color: #bca2aa;
-    // }
+// データこっから
+.data-field {
+    column-gap: 1rem;
+    // background-color: #ffffff;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+}
 
+.data-main {
+    width: 100%;
+    padding:0 1rem;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.data-side {
+    display: grid;
+    row-gap: 1rem;
+}
+
+
+.data-title {
+    position: relative;
+    // background-color: red;
+    padding: 0.5rem 0;
+    font-size: 120%;
+    font-weight: 600;
+}
+
+.data-sub-title {
+    display: flex;
+    margin-left: 2rem;
+    // background-color: #bca2aa;
+    font-size: 120%;
+    align-items: center;
+}
+
+// extend用
+.table {
+    position: relative;
+    display: grid;
+    row-gap: 0.5rem;
+    width: 50%;
+    grid-auto-rows: auto;
+    grid-template-columns: 1fr 2fr;
+
+    .table-items {
+        border-bottom: 0.2px solid $annotation;
+        // text-align: right;
+        // background-color: #bca2aa;
+    }
+
+    .table-items:nth-child(odd) {
+        display: flex;
+        align-items: flex-end;
+        // padding-left: 2rem;
+        text-align: left;
+        font-size: 90%;
+        // background-color:rgb(254, 182, 182);
+    }
+
+    .table-line {
+        position: absolute;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    .table {
+        grid-auto-columns: auto;
+        // background-color: red;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    .table-items {
+        text-align: left;
+
+        &:nth-child(even) {
+            text-align: left;
+        }
+    }
+}
+
+.data-order-group {
+    .table
+    {
+        @extend .table;
+        .table-items
+        {
+            border: none;
+            &:last-child
+            {
+                width: 120%;
+            }
+        }
+
+        .is-title
+        {
+            font-weight: bold;
+            font-size: 160%;
+        }
+    }
+    padding: 0.5rem 1rem;
+
+}
+
+.data-item-group {
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    background-color: rgb(255, 255, 255);
+
+    .data-item-detail {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1rem;
+
+        .data-item-name {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            // background-color: #bca2aa;
+            align-self: center;
+
+            a {
+                font-family: $font-eng;
+                font-size: 150%;
+                font-weight: bold;
+            }
+        }
+
+        .data-item-quantity {
+            grid-column-start: 1;
+            grid-row-start: 3;
+            // background-color: #bca2aa;
+            margin-bottom: -10px;
+
+            &::after {
+                content: '個';
+            }
+        }
+
+        .data-item-option {
+            grid-column-start: 1;
+            grid-row-start: 2;
+        }
+
+        .data-item-price {
+            grid-column-start: 2;
+            grid-row-start: 2;
+            // background-color: #bca2aa;
+            text-align: right;
+            font-size: 110%;
+            font-weight: bold;
+
+            &::after {
+                content: '円';
+            }
+        }
+
+        .data-item-link {
+            grid-column-start: 2;
+            grid-row-start: 3;
+            // background-color: #bca2aa;
+            color: $link;
+            align-self: flex-end;
+            justify-content: end;
+            text-align: right;
+        }
+    }
+}
+
+.data-price-group {
+    padding: 0 1rem;
+    padding-bottom: 1rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+
+    .data-price {
+        // background-color: red;
+        @extend .table;
+        width: 100%;
+        padding: 0.5rem 0;
+
+        .table-items {
+            border: none;
+            font-weight: 500;
+            font-size: 100%;
+
+            &:nth-child(even) {
+                font-size: 105%;
+                font-weight: 500;
+                text-align: right;
+            }
+        }
+
+        .is-sale {
+            color: red;
+        }
+
+        .is-total {
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid black;
+
+            &:nth-child(even) {
+                font-weight: 600;
+            }
+
+            &:nth-child(odd) {
+                font-size: 110%;
+                font-weight: 600;
+            }
+        }
+    }
+
+}
+
+.data-ads-group {
+    padding: 0 1rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    .data-ads {
+        // background-color: red;
+        @extend .table;
+        width: 100%;
+        padding: 0.5rem 0;
+
+        .table-items {
+            border: none;
+            font-weight: 500;
+
+            &:nth-child(even) {
+                font-size: 105%;
+                font-weight: 500;
+                text-align: right;
+            }
+
+            &:nth-child(odd) {
+                align-self: center;
+            }
+        }
+    }
+
+}
+
+// ページネーション
+
+nav {
+    width: 100%;
+    display: block;
+}
+
+
+.pagination {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+    color: #484b5a;
+
+    li {
+        min-width: 27px;
+        margin: 0 0.3rem;
+        min-height: 27px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 0.1rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1.4rem;
+        text-align: center;
+        a, span
+        {
+            font-size: 100%;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%;
+            color: inherit;
+            &:hover
+            {
+                color:#d2c5c5;
+            }
+        }
+    }
+    .active
+    {
+        border-radius: 50%;
+        background-color: $link;
+        color: white;
+        span
+        {
+            &:hover
+            {
+                color: white;
+            }
+        }
+
+    }
+    .is-btn
+    {
+        margin: 0;
+        font-size: 100%;
+        background: none;
+    }
+
+    .not-allow
+    {
+        display: none;
+        color:rgb(182, 170, 170);
+    }
 }
