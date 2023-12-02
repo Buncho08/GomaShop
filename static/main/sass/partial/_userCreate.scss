@@ -1,0 +1,111 @@
+@charset 'utf-8';
+@import "partial/common";
+@import "../css/bulma.css";
+.user-area
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 91%;
+    width: 40%;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+.flex
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-area
+{
+    margin-top:2rem;
+}
+
+.line
+{
+    background-color: rgb(171, 162, 162);
+    width: 73%;
+    height: 1px;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+}
+
+.page-title
+{
+    font-size: 150%;
+    margin-top:1.2rem;
+    font-weight:900;
+}
+
+.login
+{
+    margin-top: 1rem;
+    p
+    {
+        font-size: 85%;
+    }
+    .login-button
+    {
+        margin-top: 0.7rem;
+        a 
+        {
+        font-size: 85%;
+        color: rgb(0, 117, 135);
+        &:hover
+        {
+            color: rgb(241, 60, 60);
+            background-color: rgb(255, 244, 244);
+        }
+        }
+    }
+    
+}
+
+.form-group
+{
+    margin: 0 auto;
+    margin-top: 2rem;
+    width: 70%;
+}
+
+.submit-field
+{
+    margin-top: 2rem;
+}
+
+input[type="submit"]:hover
+{
+    color: rgb(255, 25, 0);
+    background-color: rgb(240, 222, 225);
+}
+
+.errorlist
+{
+    li
+    {
+        text-align: left;
+        font-size: 70%;
+        font-weight: bolder;
+        color: red;
+    }
+}
+
+.cover
+{
+    position: absolute;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.register
+{
+    margin-top:3rem
+    
+}

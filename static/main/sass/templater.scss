@@ -551,7 +551,7 @@ body {
 }
 
 .data-side {
-    display: grid;
+    // display: grid;
     row-gap: 1rem;
 }
 
@@ -712,7 +712,7 @@ body {
     padding-bottom: 1rem;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-
+    margin-bottom: 2rem;
     .data-price {
         // background-color: red;
         @extend .table;

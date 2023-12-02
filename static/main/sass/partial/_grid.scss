@@ -1,0 +1,17 @@
+.grid-auto {
+    width: 70%;
+    gap: 1rem;
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    place-items: center;
+    // background-color: rebeccapurple;
+}
+
+
+
+
+.grid-child {
+    height: 300px;
+    width: 100%;
+    background-color: $accent;
+}
