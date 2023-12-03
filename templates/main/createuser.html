@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ st_title }} -ChirpCakes-</title>
-    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/user_create.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
 </head>
 
 <body>
@@ -20,7 +19,73 @@
             list_element.querySelector(".errorlist").remove();
         });
     </script>
+
     <div id="root">
+        <div id="registor">
+            <div class="form-body">
+                <form action="{% url 'main:CreateUser' %}" method="post" class="form">
+                    {% csrf_token %}
+                    {% for item in form %}
+                    {% if item.name == 'mail_deriv' %}
+                    <div class="form-field">
+                        <div class="form-check">
+                            <input type="{{ item.field.widget.input_type }}" name="{{item.name}}"
+                                id="{{item.id_for_label}}">
+                            <div class="form-label">
+                                <label for="{{item.id_for_label}}">
+                                    お知らせメールの配信を希望する
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="form-field">
+                        <div class="form-text">
+                            <div class="form-label">
+                                <label for="{{ item.id_for_label}}">
+                                    {{ item.label }}
+                                </label>
+                            </div>
+                            <!-- form-label -->
+                            {% if item.errors %}
+                            <div class="form-label-ano">
+                                {{ item.errors }}
+                            </div>
+                            {% endif %}
+                            <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
+                                id="{{ item.id_for_labe }}">
+                        </div>
+                        <!-- form-text-group -->
+                    </div>
+                    {% endif %}
+                    <!-- form-field -->
+                    {% endfor %}
+                    <div class="form-field">
+                        <div class="form-check">
+                            <input type="checkbox" name="agree-checked" id="agree-checked">
+                            <div class="form-label">
+                                <label for="row-checkbox2">
+                                    <a href="#">利用規約</a>に同意する
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-submit">
+                            <input type="submit" value="登録">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- form-body -->
+        </div>
+        <!-- registor -->
+    </div>
+    <!-- root -->
+
+
+
+    <!-- <div id="root">
         <main id="account-register">
             <div class="user-area box">
                 <div class="logo-area flex">
@@ -42,65 +107,65 @@
                 </p>
                 <div>
                 </div>
-                <!-- <table class="table"> -->
-                <div class="form-group">
-                    <div class="is-centered">
-                        <form action="{% url 'main:CreateUser' %}" enctype="multipart/form-data" method="post"
-                            class="form">
-                            {% csrf_token %}
-                            {% for item in form %}
-                            <div class="field">
-                                {% if item.name == 'mail_deriv' %}
-                                <div class="field-label">
-                                    <label for="{{item.id_for_label}}" class="label has-text-left">
-                                        <input type="{{ item.field.widget.input_type }}" name="{{item.name}}" id="{{item.id_for_label}}">
-                                        お知らせメールの配信を希望する
-                                    </label>
-                                </div>
-                                {% else %}
-                                <div class="field-label">
-                                    <label for="{{ item.id_for_label }}" class="label has-text-left">
-                                        {% if item.field.required %}
-                                        *
-                                        {% endif %}
-                                        {{ item.label }}
-                                    </label>
-                                </div>
-                                {% if item.errors %}
-                                <div id="error">{{ item.errors }}</div>
-                                {% endif %}
-                                <div class="field-body">
-                                    <div class="field">
-                                        <p class="control">
-                                            <input type="{{ item.field.widget.input_type }}" class="input is-normal"
-                                                placeholder="{{ item.label }}"
-                                                {% if item.field.required %}required{% endif %} name="{{item.name}}"
-                                                id="{{item.id_for_label}}">
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif%}
-                            {% endfor %}
-                            <div class="field-label">
-                                <label for="agree-checked" class="label has-text-left">
-                                    <input type="checkbox" name="agree-checked" id="agree-checked">
-                                    <a href="#">利用規約</a>に同意する
-                                </label>
-                            </div>
-
-                            <div class="submit-field">
-                                <div class="field">
-                                    <input type="submit" value="登録" class="button is-rounded">
-                                </div>
-                            </div>
-                        </form>
+                <table class="table">
+    <div class="form-group">
+        <div class="is-centered">
+            <form action="{% url 'main:CreateUser' %}" enctype="multipart/form-data" method="post" class="form">
+                {% csrf_token %}
+                {% for item in form %}
+                <div class="field">
+                    {% if item.name == 'mail_deriv' %}
+                    <div class="field-label">
+                        <label for="{{item.id_for_label}}" class="label has-text-left">
+                            <input type="{{ item.field.widget.input_type }}" name="{{item.name}}"
+                                id="{{item.id_for_label}}">
+                            お知らせメールの配信を希望する
+                        </label>
+                    </div>
+                    {% else %}
+                    <div class="field-label">
+                        <label for="{{ item.id_for_label }}" class="label has-text-left">
+                            {% if item.field.required %}
+                            *
+                            {% endif %}
+                            {{ item.label }}
+                        </label>
+                    </div>
+                    {% if item.errors %}
+                    <div id="error">{{ item.errors }}</div>
+                    {% endif %}
+                    <div class="field-body">
+                        <div class="field">
+                            <p class="control">
+                                <input type="{{ item.field.widget.input_type }}" class="input is-normal"
+                                    placeholder="{{ item.label }}" {% if item.field.required %}required{% endif %}
+                                    name="{{item.name}}" id="{{item.id_for_label}}">
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+                {% endif%}
+                {% endfor %}
+                <div class="form-field">
+                    <div class="field-label">
+                        <label for="agree-checked" class="label has-text-left">
+                            <input type="checkbox" name="agree-checked" id="agree-checked">
+                            <a href="#">利用規約</a>に同意する
+                        </label>
+                    </div>
+                </div>
+
+                <div class="submit-field">
+                    <div class="field">
+                        <input type="submit" value="登録" class="button is-rounded">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     </div>
     </main>
-    </div>
+    </div> -->
 </body>
 
 </html>
