@@ -37,50 +37,45 @@
                 {% endif %}
                 <div>
                 </div>
-                <div class="form-group">
-                    <div class="is-centered">
-                        <form action="{% url 'main:login' %}" enctype="multipart/form-data" method="post"
-                            class="form">
-                            {% csrf_token %}
-                            <div class="field">
-                                <div class="field-label">
-                                    <label for="username" class="label has-text-left">
+                <div class="form-body">
+                    <form action="{% url 'main:login' %}" enctype="multipart/form-data" method="post" class="form">
+                        {% csrf_token %}
+                        <div class="form-field">
+                            <div class="form-text">
+                                <div class="form-label">
+                                    <label for="username">
                                         ユーザーID
                                     </label>
                                 </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <p class="control">
-                                            <input type="text" class="input is-normal" placeholder="ユーザーID"
-                                                name="username" id="username">
-                                        </p>
-                                    </div>
-                                </div>
+                                <!-- form-label -->
+                                <input type="text" placeholder="ユーザーID" name="username" id="username">
                             </div>
-                            <div class="field">
-                                <div class="field-label">
-                                    <label for="password" class="label has-text-left">
+                            <!-- form-text-group -->
+                        </div>
+                        <!-- form-field -->
+                        <div class="form-field">
+                            <div class="form-text">
+                                <div class="form-label">
+                                    <label for="password">
                                         パスワード
                                     </label>
                                 </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <p class="control">
-                                            <input type="password" name="password" id="password" class="input is-normal"
-                                                placeholder="パスワード">
-                                        </p>
-                                    </div>
-                                </div>
+                                <!-- form-label -->
+                                <input type="password" name="password" id="password" placeholder="パスワード">
                             </div>
-                            <div class="submit-field">
-                                <div class="field">
-                                    <input type="submit" value="ログイン" class="button is-rounded">
-                                </div>
+                            <!-- form-text-group -->
+                        </div>
+                        <!-- form-field -->
+                        <div class="form-field">
+                            <div class="form-submit">
+                                <input type="submit" value="ログイン">
                             </div>
-                        </form>
-                    </div>
-                    <div class="register">
-                        <div class="login-button"><a href="CreateUser" class="button is-outlined">新規登録はこちらから</a></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="login">
+                    <div class="login-button">
+                        <a href="CreateUser">新規登録はこちらから</a>
                     </div>
                 </div>
             </div>

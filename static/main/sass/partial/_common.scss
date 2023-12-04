@@ -9,7 +9,7 @@ $sub-back:rgb(255, 255, 255);
 $font:#33272a;
 $accent:#50915a;
 $paragraph:#614a51;
-$annotation:#847479;
+$annotation:#9f9598;
 $link:#ff8ba7;
 $font-eng:'Outfit', sans-serif;
 $font-jp:'Zen Kaku Gothic New', sans-serif;
@@ -20,6 +20,7 @@ $font-jp:'Zen Kaku Gothic New', sans-serif;
     font-family: 'Shippori Mincho', serif;
     font-family: 'Zen Kaku Gothic New', sans-serif;
     list-style: none;
+    color: $font;
     text-decoration: none;
 }
 

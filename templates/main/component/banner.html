@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../static/main/css/banner.css">
+
 <header id="header" class="header-flex">
     <div class="blank">
     </div>
@@ -37,7 +37,7 @@
             <li class="nav-link"><a href="#">Shop</a></li>
             <li class="nav-link nav-icon">
                 <a href="#">
-                    <img src="../../static/main/image/cart.svg" alt="ShopCart">
+                    <img src="../../static/main/image/cart.svg" alt="ShopCart" class="cart">
                 </a>
             </li>
             {% if user %}
@@ -47,9 +47,6 @@
                 </a>
             </li>
             {% else %}
-            <div class="user-signin">
-                <li class="nav-link"><a href="#">ログイン</a></li>
-            </div>
             <div class="user-signin">
                 <li class="nav-link"><a href="#">新規登録</a></li>
             </div>

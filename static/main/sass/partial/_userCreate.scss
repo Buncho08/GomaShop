@@ -51,16 +51,29 @@
     }
     .login-button
     {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-top: 0.7rem;
+        // width: ;
+        // background-color: aqua;
         a 
         {
-        font-size: 85%;
-        color: rgb(0, 117, 135);
-        &:hover
-        {
-            color: rgb(241, 60, 60);
-            background-color: rgb(255, 244, 244);
-        }
+            border: 1px $annotation solid;
+            height: 40px;
+            width:150px;
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+            font-size: 85%;
+            color:rgb(0, 190, 190);
+            border-radius: 10px;
+            &:hover
+            {
+                color: rgb(241, 60, 60);
+                background-color: rgb(255, 244, 244);
+            }
         }
     }
     
@@ -89,6 +102,5 @@
 
 .register
 {
-    margin-top:3rem
-    
+    margin-top:1rem
 }

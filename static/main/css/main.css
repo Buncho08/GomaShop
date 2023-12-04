@@ -3,13 +3,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap");
 @import url("./reset.css");
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap");
-@import "../css/bulma.css";
 * {
   font-family: "Luckiest Guy", cursive;
   font-family: "Outfit", sans-serif;
   font-family: "Shippori Mincho", serif;
   font-family: "Zen Kaku Gothic New", sans-serif;
   list-style: none;
+  color: #33272a;
   text-decoration: none;
 }
 
@@ -60,6 +60,22 @@ body {
   left: 7.1rem;
   margin: 0 auto;
 }
+.company-title-base .title {
+  display: flex;
+  height: 120px;
+  align-items: center;
+  fill: #000000;
+  fill-opacity: 1;
+  stroke: #000000;
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: none;
+  stroke-opacity: 1;
+  paint-order: stroke fill markers;
+  stroke-dasharray: 1600px;
+  animation: title 2.7s ease-in;
+}
 
 .logo-box {
   align-items: center;
@@ -81,21 +97,12 @@ body {
   animation: 2s forwards stroke;
 }
 
-.title {
-  display: flex;
-  height: 120px;
-  align-items: center;
-  fill: #000000;
-  fill-opacity: 1;
-  stroke: #000000;
-  stroke-width: 0.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: none;
-  stroke-opacity: 1;
-  paint-order: stroke fill markers;
-  stroke-dasharray: 1600px;
-  animation: title 2.7s ease-in;
+.cart {
+  transition: 0.2s ease-in-out;
+}
+.cart:hover {
+  transition: 0.5s ease-in;
+  transform: rotate(-15deg);
 }
 
 @keyframes title {
@@ -158,14 +165,14 @@ body {
 }
 
 .user-signin {
-  border: #888888 2px solid;
   border-radius: 15px;
-  height: 60%;
+  height: 50%;
   width: 18%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(216, 237, 255, 0.552);
+  font-size: 90%;
+  background-color: rgb(255, 255, 255);
 }
 
 .card {
@@ -300,9 +307,9 @@ body {
   transition: 0.35s ease-in;
 }
 
-.form-body {
-  width: 500px;
-  height: 0;
+.error {
+  color: red;
+  margin: 1rem 0;
 }
 
 .form-text {
@@ -310,7 +317,7 @@ body {
 }
 
 .form-body {
-  width: 30%;
+  width: 100%;
   display: grid;
   margin: 0 auto;
   justify-items: center;
@@ -332,7 +339,7 @@ body {
 
 .form-label-ano {
   font-size: 70%;
-  color: #847479;
+  color: #9f9598;
   margin-top: -0.2rem;
 }
 
@@ -341,7 +348,7 @@ body {
   margin-top: -0.5rem;
   font-size: 85%;
 }
-.is-error input[type=text] {
+.is-error input {
   box-shadow: 0px 0px 2px red;
 }
 
@@ -349,13 +356,13 @@ body {
   display: flex;
   flex-direction: column;
 }
-.form-text input[type=text] {
+.form-text input {
   width: 400px;
   height: 35px;
-  border: 0.5px #614a51 solid;
+  border: 0.5px #9f9598 solid;
   border-radius: 3px;
 }
-.form-text input[type=text]:focus {
+.form-text input:focus {
   outline: none;
   box-shadow: 0px 0px 5px #ff8ba7;
 }
@@ -379,6 +386,13 @@ body {
 .form-submit input {
   width: 80px;
   height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(237, 215, 215);
+}
+.form-submit input:hover {
+  background-color: #eba7bb;
+  color: white;
 }
 
 .form-radio-rows {
@@ -415,7 +429,7 @@ body {
      -moz-appearance: none;
           appearance: none;
   border-radius: 50%;
-  width: 20px;
+  width: 22px;
   height: 20px;
   position: relative;
   background-color: rgb(223, 207, 207);
@@ -508,6 +522,7 @@ body {
   font-weight: 500;
   margin: 0.2rem 0;
   width: 100%;
+  text-align: left;
 }
 .form-label label {
   display: inline-block;
@@ -525,6 +540,9 @@ body {
   margin: 0.5rem 0;
 }
 .form-check .form-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 0.5rem;
   z-index: 1000;
 }
@@ -675,7 +693,7 @@ body {
   grid-template-columns: 1fr 2fr;
 }
 .table .table-items, .data-ads-group .data-ads .table-items, .data-price-group .data-price .table-items {
-  border-bottom: 0.2px solid #847479;
+  border-bottom: 0.2px solid #9f9598;
 }
 .table .table-items:nth-child(odd), .data-ads-group .data-ads .table-items:nth-child(odd), .data-price-group .data-price .table-items:nth-child(odd) {
   display: flex;
@@ -899,12 +917,66 @@ nav {
   height: 100%;
   width: 100%;
   left: 1.5rem;
-  top: 0.5rem;
 }
-#top .top-hero .phrase-hero-top h2 {
+#top .top-hero .phrase-hero-top .title {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+}
+#top .top-hero .phrase-hero-top .title span {
+  display: inline;
   font-size: 700%;
   font-family: "Outfit", sans-serif;
-  font-weight: bolder;
+  font-weight: 700;
+  vertical-align: bottom;
+  line-height: 1.1em;
+  display: flex;
+  align-items: center;
+  transform: translate(0, 200%);
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(2) {
+  transition-delay: 0.06s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(3) {
+  transition-delay: 0.12s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(4) {
+  transition-delay: 0.18s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(5) {
+  transition-delay: 0.24s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(6) {
+  transition-delay: 0.3s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(7) {
+  transition-delay: 0.36s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(8) {
+  transition-delay: 0.42s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(9) {
+  transition-delay: 0.48s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(10) {
+  transition-delay: 0.54s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(11) {
+  transition-delay: 0.6s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(12) {
+  transition-delay: 0.66s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(13) {
+  transition-delay: 0.72s;
+}
+#top .top-hero .phrase-hero-top .title span:nth-child(14) {
+  transition-delay: 0.78s;
+}
+#top .top-hero .phrase-hero-top .anim span {
+  transition: 1s ease-in;
+  transform: translate(0, 0);
 }
 #top .top-hero .hero-img {
   position: absolute;
@@ -927,6 +999,19 @@ nav {
   font-weight: bolder;
 }
 
+.title-logo {
+  width: 30%;
+}
+
+@keyframes view {
+  0% {
+    transform: translate(0, 500%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0%);
+  }
+}
 .user-area {
   position: absolute;
   top: 50%;
@@ -969,11 +1054,22 @@ nav {
   font-size: 85%;
 }
 .login .login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 0.7rem;
 }
 .login .login-button a {
+  border: 1px #9f9598 solid;
+  height: 40px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   font-size: 85%;
-  color: rgb(0, 117, 135);
+  color: rgb(0, 190, 190);
+  border-radius: 10px;
 }
 .login .login-button a:hover {
   color: rgb(241, 60, 60);
@@ -996,5 +1092,5 @@ nav {
 }
 
 .register {
-  margin-top: 3rem;
+  margin-top: 1rem;
 }

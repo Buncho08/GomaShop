@@ -1,12 +1,12 @@
 @import url("./reset.css");
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap");
-@import "../css/bulma.css";
 * {
   font-family: "Luckiest Guy", cursive;
   font-family: "Outfit", sans-serif;
   font-family: "Shippori Mincho", serif;
   font-family: "Zen Kaku Gothic New", sans-serif;
   list-style: none;
+  color: #33272a;
   text-decoration: none;
 }
 

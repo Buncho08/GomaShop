@@ -13,10 +13,19 @@
         <main id="top">
             <div class="top-hero">
                 <div class="phrase-hero-top">
-                    <h2>
-                        Chirp
-                        <br>
-                        Cakes
+                    <h2 class="title">
+                        <span>C</span>
+                        <span>h</span>
+                        <span>i</span>
+                        <span>r</span>
+                        <span>p</span>
+                    </h2>
+                    <h2 class="title">
+                        <span>C</span>
+                        <span>a</span>
+                        <span>k</span>
+                        <span>e</span>
+                        <span>s</span>
                     </h2>
                 </div>
                 <img src="{% static 'main/image/cake.png' %}" alt="" class="hero-img" width="50%" height="50%">
@@ -32,5 +41,20 @@
         </main>
         <!-- section-top -->
     </div>
+    <script>
+        i = 0;
+        let elem = document.querySelectorAll('.phrase-hero-top .title');
+        window.addEventListener("load",(event)=>{
+                alert(elem);
+            // alert('a');
+        });
+        // window.setTimeout(function(){
+        //     elem.forEach(element => {
+        //     element.classList.add("anim");
+        //     }
+        //     )
+        // }, 1);
+
+    </script>
 </body>
 </html> 
