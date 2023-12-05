@@ -30,7 +30,6 @@ def saveItemPath(model, filename):
 
 class MyUserManager(BaseUserManager):
     use_in_migrations = True
-
     def _create_user(self, username, email, password=None, **extra_fields):
             if not username:
                 raise ValueError('ユーザー名は必須項目です')
@@ -40,53 +39,38 @@ class MyUserManager(BaseUserManager):
             user = self.model(
                 username=username,
                 email=self.normalize_email(email),
+                # 受け取った値をフィールドにぶち込んでいる extra_fields.get()はフィールドの値を取り出している
+                # ないとcreatesuperuserしてもスタッフユーザーにならないです
+                is_staff=extra_fields.get("is_staff"),
+                is_superuser=extra_fields.get("is_superuser")
             )   
             user.set_password(password)
             user.save(using=self._db)
+            print('success!')
             return user
+            # returnされたらSuperuser created successfully.が表示される
     
     def create_user(self, username=None, email=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
+        # ↑指定しない限りdefaultでこれが入るという指定
         return self._create_user(username, email, password, **extra_fields)
 
     def create_superuser(self, username=None, email=None, password=None, **extra_fields):
+        # ここはis_staffとかのデフォルト値をセットしているだけ
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-
+        # createsuperuserの入力がすべて終わったらprint()された
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
+        # 例外処理、実際になることはない
+        # extra_fields.setdefault("is_staff", Flase)ってすると出てきます（ValueError("")の文字変えると分かると思う
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
         return self._create_user(username, email, password, **extra_fields)
 
-    def with_perm(
-        self, perm, is_active=True, include_superusers=True, backend=None, obj=None
-    ):
-        if backend is None:
-            backends = auth._get_backends(return_tuples=True)
-            if len(backends) == 1:
-                backend, _ = backends[0]
-            else:
-                raise ValueError(
-                    "You have multiple authentication backends configured and "
-                    "therefore must provide the `backend` argument."
-                )
-        elif not isinstance(backend, str):
-            raise TypeError(
-                "backend must be a dotted import path string (got %r)." % backend
-            )
-        else:
-            backend = auth.load_backend(backend)
-        if hasattr(backend, "with_perm"):
-            return backend.with_perm(
-                perm,
-                is_active=is_active,
-                include_superusers=include_superusers,
-                obj=obj,
-            )
-        return self.none()
+    # with_permはコピペしなくてだいじょうぶ！（特に変更する箇所はないため）
 
 class UserTable(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = [

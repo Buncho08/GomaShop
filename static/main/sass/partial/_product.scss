@@ -15,25 +15,25 @@
     margin: auto;
     .prd-wrap
     {
-        width: 70%;
+        width: 60%;
         display: grid;
-        grid-template-columns:1fr 1fr;
-        // width: 70%; 
-        // gap:0;
-        background-color: wheat;
+        grid-template-columns:1fr 0.7fr;
         .bread
         {
+            font-size: 110%;
             grid-column-start: 1;
             grid-column-end: 3;
             grid-row-start: 1;
-            background-color: pink;
             padding: 1rem 0;
             ul
             {
                 display: flex;
                 li
                 {
-
+                    a:hover
+                    {
+                        color: $main;
+                    }
                     &:first-child{
                         &::after
                         {
@@ -48,22 +48,27 @@
         {
             grid-column-start: 1;
             grid-row-start: 2;
+            img
+            {
+                border-radius: 10px;
+            }
         }
         .prd-sub
         {
             grid-column-start: 2;
             grid-row-start: 2;
-            background-color: lightcoral;
-            .title
-            {
-                font-size: 160%;
-                background-color: aqua;
-            }
-
+            // background-color: lightcoral;
+            display: grid;
+            grid-template-rows: auto auto 1fr 1fr;
+            height: 100%;
+            width: 100%;
+            // gap:2rem;
             .price
             {
+                align-self: start;
+                // background-color: palegoldenrod;
                 font-weight: bolder;
-                margin: 1rem 0;
+                margin-bottom: 1rem;
                 font-size: 140%;
                 &::before
                 {
@@ -74,6 +79,41 @@
                     content: '[税込]';
                     font-size: 70%;
                     font-weight: 100;
+                }
+            }
+            .title
+            {
+                align-self: start;
+                font-size: 160%;
+                // background-color: aqua;
+            }
+
+            .bottom
+            {
+                height: 100%;
+                align-self: center;
+                width: 100%;
+                // background-color: rebeccapurple;
+                display: flex;
+                justify-content: center;
+                form
+                {
+                    width: 100%;
+                    input[type="submit"]
+                    {
+                        border: none;
+                        background: none;
+                        width: 100%;
+                        height: 60px;
+                        background-color:$button;
+                        cursor: pointer;
+                        border-radius: 10px;
+                        &:hover
+                        {
+                            background-color: $main;
+                            color: white;
+                        }
+                    }
                 }
             }
         }

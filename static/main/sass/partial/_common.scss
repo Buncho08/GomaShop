@@ -37,11 +37,12 @@ body
     font-family: $font-jp, $font-eng;
     height: 100%;
     margin: 0;
+
+
 }
 
 #root
 {
-    z-index: -100;
     background-color: $back;
     height: 100vh;
 }

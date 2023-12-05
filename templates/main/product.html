@@ -47,21 +47,24 @@
                     </div>
                     <div class="disc">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusamus libero odio molestiae maxime porro cum quos accusantium error dignissimos animi reiciendis possimus, magnam molestias ab? Ut earum asperiores excepturi.
-                        <br>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae inventore, assumenda temporibus autem nesciunt explicabo incidunt, ratione repellat accusamus rerum maxime? Laborum quidem molestias officiis atque ex, veniam nesciunt. Reprehenderit.
+                        <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusamus libero odio molestiae maxime porro cum quos accusantium error dignissimos animi reiciendis possimus, magnam molestias ab? Ut earum asperiores excepturi. -->
                     </div>
-                    <form action="{% url 'main:product' item.slug %}" method="post">
-                        {% csrf_token %}
-                        {% if form.errors %}
-                        {{ form.quantity.errors }}
-                        {% endif %}
-                        <label for="quantity">
-                            数量
-                            <input type="number" name="quantity" id="quantity" min="0" max="100">
-                        </label>
-                        <input type="hidden" name="item_id" value="{{ item.item_id }}" id="item_id">
-                        <input type="submit" value="カートに入れる">
-                    </form>
+                    <div class="bottom">
+                        <div class="space">
+
+                        </div>
+                        <form action="{% url 'main:product' item.slug %}" method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            {{ form.quantity.errors }}
+                            {% endif %}
+                            <label for="quantity">
+                                <input type="number" name="quantity" id="quantity" min="0" max="100" value="1" hidden>
+                            </label>
+                            <input type="hidden" name="item_id" value="{{ item.item_id }}" id="item_id">
+                            <input type="submit" value="カートに入れる">
+                        </form>
+                    </div>
                 </div>
             </div>
         </main>
