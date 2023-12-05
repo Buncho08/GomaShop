@@ -6,11 +6,11 @@ $main:#EF9A9A;
 $button:rgb(255, 210, 210);
 $sub-back:rgb(255, 242, 242);
 $back:rgb(255, 255, 255);
-$font:#33272a;
+$font:rgb(43, 39, 39);
 $accent:#50915a;
 $paragraph:#614a51;
 $annotation:#9f9598;
-$link:#ff8ba7;
+$link:rgb(0, 190, 190);;
 $font-eng:'Outfit', sans-serif;
 $font-jp:'Zen Kaku Gothic New', sans-serif;
 
@@ -24,9 +24,15 @@ $font-jp:'Zen Kaku Gothic New', sans-serif;
     text-decoration: none;
 }
 
+a
+{
+    color: $link;
+}
+
 html,
 body
 {
+
     color: $font;
     font-family: $font-jp, $font-eng;
     height: 100%;

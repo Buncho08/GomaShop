@@ -1,0 +1,81 @@
+#product
+{
+    overflow: hidden;
+    position: absolute;
+    height: auto;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: aquamarine;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    .prd-wrap
+    {
+        width: 70%;
+        display: grid;
+        grid-template-columns:1fr 1fr;
+        // width: 70%; 
+        // gap:0;
+        background-color: wheat;
+        .bread
+        {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            background-color: pink;
+            padding: 1rem 0;
+            ul
+            {
+                display: flex;
+                li
+                {
+
+                    &:first-child{
+                        &::after
+                        {
+                            content: '\0bb';
+                            margin-right: 0.2rem;
+                        }
+                    }
+                }
+            }
+        }
+        .prd-img
+        {
+            grid-column-start: 1;
+            grid-row-start: 2;
+        }
+        .prd-sub
+        {
+            grid-column-start: 2;
+            grid-row-start: 2;
+            background-color: lightcoral;
+            .title
+            {
+                font-size: 160%;
+                background-color: aqua;
+            }
+
+            .price
+            {
+                font-weight: bolder;
+                margin: 1rem 0;
+                font-size: 140%;
+                &::before
+                {
+                    content: '￥';
+                }
+                &::after
+                {
+                    content: '[税込]';
+                    font-size: 70%;
+                    font-weight: 100;
+                }
+            }
+        }
+    }
+}

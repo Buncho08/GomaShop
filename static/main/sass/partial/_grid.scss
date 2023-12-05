@@ -1,11 +1,11 @@
 .grid-auto {
     // width: 70%;
-    gap: 1rem;
+    column-gap: 2rem;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     place-items: center;
-    background-color: rebeccapurple;
+    // background-color: rebeccapurple;
 }
 
 // .grid-child {

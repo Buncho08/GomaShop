@@ -6,13 +6,17 @@
   font-family: "Shippori Mincho", serif;
   font-family: "Zen Kaku Gothic New", sans-serif;
   list-style: none;
-  color: #33272a;
+  color: rgb(43, 39, 39);
   text-decoration: none;
+}
+
+a {
+  color: rgb(0, 190, 190);
 }
 
 html,
 body {
-  color: #33272a;
+  color: rgb(43, 39, 39);
   font-family: "Zen Kaku Gothic New", sans-serif, "Outfit", sans-serif;
   height: 100%;
   margin: 0;
@@ -25,7 +29,7 @@ body {
 }
 
 .link {
-  color: #ff8ba7;
+  color: rgb(0, 190, 190);
 }
 .link:hover {
   color: #50915a;

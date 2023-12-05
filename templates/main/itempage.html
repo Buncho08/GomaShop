@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ st_title }} -ChirpCakes-</title>
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5688669be.js" crossorigin="anonymous"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
 </head>
 <body>
     {% include 'main/component/banner.html' %}
@@ -15,6 +18,13 @@
                 <h2>
                     Products
                 </h2>
+            </div>
+            <div class="sub-disc">
+                <p>
+                    思わずくちばしをつまみたくなるような、
+                        <br>
+                    そんなスイーツをご用意しております。
+                </p>
             </div>
             <div class="grid-auto">
                 {% for i in item %}
@@ -40,6 +50,7 @@
                                 <div class="card-link">
                                     <a href="{% url 'main:product' i.slug %}" class="card-link-button">
                                         <p class="card-link-text">
+                                            VIEW MORE
                                             <i class="fa-solid fa-angles-right icon"></i>
                                         </p>
                                     </a>

@@ -47,7 +47,7 @@
 
 .line
 {
-    background-color:$link;
+    background-color:$annotation;
     width: 73%;
     height: 1px;
     margin: 0 auto;
@@ -79,7 +79,7 @@
             justify-content: center;
             text-align: center;
             font-size: 85%;
-            color:rgb(0, 190, 190);
+            color:$link;
             // background-color: $back;
             border-radius: 10px;
             &:hover
