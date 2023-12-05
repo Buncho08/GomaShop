@@ -4,8 +4,8 @@
 // colors
 $main:#EF9A9A;
 $button:rgb(255, 210, 210);
-$back:#faeee7;
-$sub-back:rgb(255, 255, 255);
+$sub-back:rgb(255, 242, 242);
+$back:rgb(255, 255, 255);
 $font:#33272a;
 $accent:#50915a;
 $paragraph:#614a51;
@@ -49,3 +49,9 @@ body
     }
 }
 
+.title
+{
+    font-size: 150%;
+    margin:1rem 0;
+    font-weight:900;
+}

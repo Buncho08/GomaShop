@@ -8,11 +8,30 @@
     left: 50%;
     height: 91%;
     width: 40%;
-    background-color: white;
+    background-color:$back;
     transform: translate(-50%, -50%);
     text-align: center;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px $annotation;
 }
 
+#login
+{
+    width: 100%;
+    height: 100%;
+    background-color:$sub-back;
+    .user-area
+    {
+        padding-top: 3rem;
+    }
+}
+
+#account-registor
+{
+    width: 100%;
+    height: 100%;
+    background-color:$sub-back;
+}
 
 .flex
 {
@@ -35,16 +54,9 @@
     margin-top: 1.5rem;
 }
 
-.page-title
-{
-    font-size: 150%;
-    margin-top:1.2rem;
-    font-weight:900;
-}
-
 .login
 {
-    margin-top: 1rem;
+    margin: 1rem 0;
     p
     {
         font-size: 85%;
@@ -59,7 +71,7 @@
         // background-color: aqua;
         a 
         {
-            border: 1px $annotation solid;
+            // border: 1px $annotation solid;
             height: 40px;
             width:150px;
             display: flex;
@@ -68,11 +80,12 @@
             text-align: center;
             font-size: 85%;
             color:rgb(0, 190, 190);
+            // background-color: $back;
             border-radius: 10px;
             &:hover
             {
                 color: rgb(241, 60, 60);
-                background-color: rgb(255, 244, 244);
+                background-color: rgb(255, 255, 255);
             }
         }
     }

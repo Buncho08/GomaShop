@@ -23,7 +23,7 @@ def savePath(model, filename):
 
 def saveItemPath(model, filename):
     ext = filename.split('.')[-1]
-    new_name = model.item_id + "_img"
+    new_name = model.item_name_eng + "_img"
     return f'main/item/{new_name}.{ext}'
 
 
@@ -191,11 +191,11 @@ class ItemTable(models.Model):
     # フィールド
     item_id = models.AutoField(primary_key=True, unique=True, verbose_name='商品ID', editable=False)
     item_name = models.TextField(max_length=30, unique=True, verbose_name='商品名')
-    item_name_eng = models.TextField(default=f'{item_id}',max_length=50, verbose_name='商品名(english)')
+    item_name_eng = models.TextField(default=f'',max_length=50, verbose_name='商品名(english)')
     item_img = models.ImageField(default='main/item/default_img.jpg', upload_to=saveItemPath)
     price = models.IntegerField(verbose_name='値段/個')
     sale_flg = models.BooleanField(default=True, verbose_name='販売ステータス')
-    slug = models.SlugField(null=True, blank=True, max_length=20, default=f'{item_id}')
+    slug = models.SlugField(null=True, blank=True, max_length=20, default=f'')
     def __str__(self):
         return f'商品ID:{self.item_id} | 商品名:{self.item_name} | 価格/個:{self.price} | 販売ステータス:{self.sale_flg}'
     

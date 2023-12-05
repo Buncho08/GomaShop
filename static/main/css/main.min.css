@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap");
 @import url("./reset.css");
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap");
+@import "../css/bulma.css";
 * {
   font-family: "Luckiest Guy", cursive;
   font-family: "Outfit", sans-serif;
@@ -23,7 +24,7 @@ body {
 
 #root {
   z-index: -100;
-  background-color: #faeee7;
+  background-color: rgb(255, 255, 255);
   height: 100vh;
 }
 
@@ -32,6 +33,12 @@ body {
 }
 .link:hover {
   color: #50915a;
+}
+
+.title {
+  font-size: 150%;
+  margin: 1rem 0;
+  font-weight: 900;
 }
 
 .header-flex {
@@ -56,11 +63,11 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 13%;
+  width: 200px;
   left: 7.1rem;
   margin: 0 auto;
 }
-.company-title-base .title {
+.company-title-base .chirpcakes-logo {
   display: flex;
   height: 120px;
   align-items: center;
@@ -179,7 +186,7 @@ body {
   border-radius: 30px;
   width: 300px;
   height: auto;
-  background-color: #faeee7;
+  background-color: lightpink;
 }
 
 .card-item {
@@ -307,22 +314,14 @@ body {
   transition: 0.35s ease-in;
 }
 
-.error {
-  color: red;
-  margin: 1rem 0;
-}
-
-.form-text {
-  width: 100%;
-}
-
 .form-body {
   width: 100%;
   display: grid;
   margin: 0 auto;
   justify-items: center;
   align-items: center;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
   height: auto;
 }
 .form-body .form-group {
@@ -388,7 +387,7 @@ body {
   height: 40px;
   border: none;
   border-radius: 10px;
-  background-color: rgb(237, 215, 215);
+  background-color: rgb(255, 210, 210);
 }
 .form-submit input:hover {
   background-color: #eba7bb;
@@ -449,7 +448,7 @@ body {
 }
 .form-radio-rows input[type=radio]:checked {
   transition: 0.1s ease-in;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 242, 242);
   border: none;
   z-index: 1000;
 }
@@ -601,7 +600,7 @@ body {
 }
 .form-check input[type=checkbox]:checked {
   transition: 0.1s ease-in;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 242, 242);
   border: none;
   z-index: 1000;
 }
@@ -637,18 +636,12 @@ body {
 }
 
 .grid-auto {
-  width: 70%;
   gap: 1rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   place-items: center;
-}
-
-.grid-child {
-  height: 300px;
-  width: 100%;
-  background-color: #50915a;
+  background-color: rebeccapurple;
 }
 
 .data-field {
@@ -906,11 +899,17 @@ nav {
   width: 100%;
 }
 #top .top-hero {
+  transform-origin: center;
   position: relative;
   margin: 0 auto;
   width: 85%;
-  height: 95%;
+  height: 0%;
   background-color: #EF9A9A;
+}
+#top .top-hero img {
+  width: 600px;
+  height: 600px;
+  opacity: 0;
 }
 #top .top-hero .phrase-hero-top {
   position: absolute;
@@ -975,7 +974,7 @@ nav {
   transition-delay: 0.78s;
 }
 #top .top-hero .phrase-hero-top .anim span {
-  transition: 1s ease-in;
+  transition: 1s ease-in-out;
   transform: translate(0, 0);
 }
 #top .top-hero .hero-img {
@@ -989,14 +988,79 @@ nav {
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
+  right: -2rem;
 }
 #top .top-hero .phrase-hero-bottom h2 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+}
+#top .top-hero .phrase-hero-bottom h2 span {
   text-align: end;
-  font-size: 550%;
+  font-size: 410%;
   font-family: "Shippori Mincho", serif;
   font-weight: bolder;
+  vertical-align: bottom;
+  line-height: 1.1em;
+  display: flex;
+  align-items: center;
+  transform: translate(0, 200%);
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(2) {
+  transition-delay: 0.06s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(3) {
+  transition-delay: 0.12s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(4) {
+  transition-delay: 0.18s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(5) {
+  transition-delay: 0.24s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(6) {
+  transition-delay: 0.3s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(7) {
+  transition-delay: 0.36s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(8) {
+  transition-delay: 0.42s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(9) {
+  transition-delay: 0.48s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(10) {
+  transition-delay: 0.54s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(11) {
+  transition-delay: 0.6s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(12) {
+  transition-delay: 0.66s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(13) {
+  transition-delay: 0.72s;
+}
+#top .top-hero .phrase-hero-bottom h2 span:nth-child(14) {
+  transition-delay: 0.78s;
+}
+#top .top-hero .phrase-hero-bottom .anim span {
+  transition: 1s ease-in-out;
+  transform: translate(0, 0);
+}
+#top .back-anim {
+  transition: 1.2s ease-in-out;
+  height: 95%;
+}
+#top .back-anim img {
+  transition: 2s ease-in-out;
+  opacity: 1;
 }
 
 .title-logo {
@@ -1018,9 +1082,26 @@ nav {
   left: 50%;
   height: 91%;
   width: 40%;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   transform: translate(-50%, -50%);
   text-align: center;
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px #9f9598;
+}
+
+#login {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 242, 242);
+}
+#login .user-area {
+  padding-top: 3rem;
+}
+
+#account-registor {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 242, 242);
 }
 
 .flex {
@@ -1041,14 +1122,8 @@ nav {
   margin-top: 1.5rem;
 }
 
-.page-title {
-  font-size: 150%;
-  margin-top: 1.2rem;
-  font-weight: 900;
-}
-
 .login {
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 .login p {
   font-size: 85%;
@@ -1060,7 +1135,6 @@ nav {
   margin-top: 0.7rem;
 }
 .login .login-button a {
-  border: 1px #9f9598 solid;
   height: 40px;
   width: 150px;
   display: flex;
@@ -1073,7 +1147,7 @@ nav {
 }
 .login .login-button a:hover {
   color: rgb(241, 60, 60);
-  background-color: rgb(255, 244, 244);
+  background-color: rgb(255, 255, 255);
 }
 
 .errorlist li {
@@ -1093,4 +1167,13 @@ nav {
 
 .register {
   margin-top: 1rem;
+}
+
+#items {
+  overflow: hidden;
+  height: 100%;
+  padding: 1rem;
+  padding-top: 90px;
+  width: 70%;
+  margin: 0 auto;
 }

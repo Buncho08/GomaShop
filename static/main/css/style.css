@@ -20,7 +20,7 @@ body {
 
 #root {
   z-index: -100;
-  background-color: #faeee7;
+  background-color: rgb(255, 255, 255);
   height: 100vh;
 }
 
@@ -29,6 +29,12 @@ body {
 }
 .link:hover {
   color: #50915a;
+}
+
+.title {
+  font-size: 150%;
+  margin: 1rem 0;
+  font-weight: 900;
 }
 
 #top {

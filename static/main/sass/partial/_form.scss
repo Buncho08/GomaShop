@@ -1,15 +1,7 @@
 // フォーム
 
 
-.error
-{
-    color: red;
-    margin: 1rem 0;
-}
-.form-text
-{
-    width: 100%;
-}
+
 
 .form-body {
     width: 100%;
@@ -17,11 +9,12 @@
     margin: 0 auto;
     justify-items: center;
     align-items: center;
-    background-color:white;
+    background-color:$back;
+    border-radius: 10px;
     // background-color: red;
     height: auto;
     .form-group {
-        background-color: $sub-back;
+        background-color: $back;
         border: black 1px solid;
         padding: 0.5rem;
         width: auto;
@@ -97,7 +90,7 @@
         border: none;
         border-radius: 10px;
         // border:1px solid $annotatio;
-        background-color:rgb(237, 215, 215);
+        background-color:$button;
         &:hover
         {
             background-color: #eba7bb;

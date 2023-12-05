@@ -4,6 +4,7 @@ app_name= 'main'
 urlpatterns = [
     path('CreateUser', views.CreateUser.as_view(), name="CreateUser"),
     path('', views.index, name="index"),
+    path('index', views.index, name="index"),
     path('login', views.Login.as_view(), name='login'),
     path('item', views.ItemPage.as_view(), name='item'),
     path('product/<slug:slug>', views.ItemDetail.as_view(), name='product'),

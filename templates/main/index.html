@@ -28,12 +28,31 @@
                         <span>s</span>
                     </h2>
                 </div>
-                <img src="{% static 'main/image/cake.png' %}" alt="" class="hero-img" width="50%" height="50%">
+                <img src="{% static 'main/image/cake.png' %}" alt="" class="hero-img" width="900px" height="900px">
                 <div class="phrase-hero-bottom">
-                    <h2>
-                        文鳥のように、
-                        <br>
-                        なめらかなショートケーキ。
+                    <h2 class="title">
+                        <span>文</span>
+                        <span>鳥</span>
+                        <span>の</span>
+                        <span>よ</span>
+                        <span>う</span>
+                        <span>に</span>
+                        <span>、</span>
+                    </h2>
+                    <h2 class="title">
+                        <span>な</span>
+                        <span>め</span>
+                        <span>ら</span>
+                        <span>か</span>
+                        <span>な</span>
+                        <span>シ</span>
+                        <span>ョ</span>
+                        <span>ー</span>
+                        <span>ト</span>
+                        <span>ケ</span>
+                        <span>ー</span>
+                        <span>キ</span>
+                        <span>。</span>
                     </h2>
                 </div>
             </div>
@@ -43,18 +62,18 @@
     </div>
     <script>
         i = 0;
-        let elem = document.querySelectorAll('.phrase-hero-top .title');
+        let elem1 = document.querySelectorAll('.phrase-hero-top .title');
+        let elem2 = document.querySelectorAll('.phrase-hero-bottom .title');
+        let elem3 = document.getElementsByClassName('top-hero');
         window.addEventListener("load",(event)=>{
-                alert(elem);
-            // alert('a');
+            elem3[0].classList.add('back-anim');
+            elem1.forEach(element => {
+                element.classList.add("anim");
+            });
+            elem2.forEach(element => {
+                element.classList.add("anim");
+            });
         });
-        // window.setTimeout(function(){
-        //     elem.forEach(element => {
-        //     element.classList.add("anim");
-        //     }
-        //     )
-        // }, 1);
-
     </script>
 </body>
 </html> 
