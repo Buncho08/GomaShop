@@ -1,0 +1,89 @@
+#progress {
+  display: grid;
+  align-items: center;
+  width: 30%;
+  height: 80px;
+  margin: 0 auto;
+}
+#progress .bar {
+  display: flex;
+  list-style: none;
+  margin: 0 auto;
+  width: 90%;
+  height: 100%;
+}
+#progress .bar li {
+  display: grid;
+  grid-template-rows: 1fr 0.4fr;
+  width: 100%;
+  height: 100%;
+}
+#progress .bar li:last-child {
+  width: 0;
+}
+#progress .bar li .line {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+#progress .bar li .line::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  background-color: rgb(229, 215, 215);
+}
+#progress .bar li .line::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 2;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(229, 215, 215);
+  border-radius: 50%;
+  border: 5px rgb(229, 215, 215) solid;
+}
+#progress .bar li .bottom {
+  list-style: none;
+  width: 100%;
+  height: 100%;
+}
+#progress .bar .afline .line::after {
+  transition: 1s ease-in-out;
+  background-color: rgb(255, 164, 164);
+}
+#progress .bar .afline .line::before {
+  transition: 1s ease-in-out;
+  background-color: rgb(255, 138, 138);
+  border: 5px rgb(229, 215, 215) solid;
+}
+#progress .bar .now-ani .line {
+  color: red;
+}
+#progress .bar .now-ani .line::after {
+  background-color: rgb(229, 215, 215);
+}
+#progress .bar .now-ani .line::before {
+  height: 28px;
+  width: 28px;
+  transition: 1s ease-in-out;
+  transition-delay: 0.5s;
+  border: 5px rgb(255, 167, 167) solid;
+  box-shadow: 0px 0px 5px rgb(255, 142, 142);
+  background-color: rgb(255, 255, 255);
+}
+#progress .bar .now-ani ~ li .line::before {
+  box-shadow: none;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(229, 215, 215);
+  border: none;
+}
+#progress .bar .now-ani ~ li .line::after {
+  background-color: rgb(229, 215, 215);
+}

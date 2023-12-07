@@ -1,17 +1,20 @@
 #top {
     overflow: hidden;
-    padding-top: 80px;
+    padding-top: 100px;
     height: 100%;
     width: 100%;
 
     .top-hero {
+        border-radius: 15px;
         transform-origin:center;
         position: relative;
         margin: 0 auto;
         width: 85%;
         height: 0%;
         // transform: scale(0, 1);
-        background-color: $main;
+        background-image: linear-gradient(to bottom, #ffecd2 0%, #fcb69f 100%);
+        // background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+        // background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
 
         img
         {
@@ -32,7 +35,7 @@
                 // background-color: aquamarine;
                 overflow: hidden;
                 width: 100%;
-
+                font-feature-settings: "palt";
                 span {
                     display: inline;
                     font-size: 700%;
@@ -44,7 +47,7 @@
                     display: flex;
                     align-items: center;
                     transform: translate(0, 200%);
-
+                    letter-spacing: -0.3rem;
                     &:nth-child(2) {
                         transition-delay: 0.06s;
                     }
@@ -139,6 +142,7 @@
                     line-height: 1.1em;
                     display: flex;
                     align-items: center;
+                    letter-spacing: -0.3rem;
                     transform: translate(0, 200%);
 
                     &:nth-child(2) {

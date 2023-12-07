@@ -1,75 +1,73 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ st_title }} -Chirp Cakes-</title>
-    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
 </head>
+
 <body>
     {% include 'main/component/banner.html' %}
     <div id="root">
-        <h1>
-            注文確認
-        </h1>
-        <div class="form-group">
-            <div class="is-centered">
-                <form action="{% url 'main:orderCheck' %}" enctype  ="multipart/form-data" method="post"
-                    class="form">
-                    {% csrf_token %}
-                    {% for item in form %}
-                    {% if item.name == 'pay' %}
+        <div class="form-body">
+            <h1>
+                注文確認
+            </h1>
+            <form action="{% url 'main:orderCheck' %}" enctype="multipart/form-data" method="post" class="form">
+                {% csrf_token %}
+                {% for item in form %}
+                {% if item.name == 'pay' %}
+                <div class="form-field">
                     <div class="field">
-                        <div class="field-body">
+                        <p class="control">
+                            {{ item }}
+                        </p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="field">
+                    <div class="field-label">
+                        <label for="{{ item.id_for_label }}" class="label has-text-left">
+                            {% if item.field.required %}
+                            *
+                            {% endif %}
+                            {{ item.label }}
+                        </label>
+                    </div>
+                    {% if item.errors %}
+                    <div id="error">{{ item.errors }}</div>
+                    {% endif %}
+                    <div class="field-body">
+                        <div class="field">
                             <p class="control">
-                                {{ item }}
+                                <input type="{{ item.field.widget.input_type }}" class="input is-normal"
+                                    placeholder="{{ item.label }}" {% if item.field.required %}required{% endif %}
+                                    name="{{item.name}}" id="{{item.id_for_label}}">
                             </p>
                         </div>
                     </div>
-                    {% else %}
+
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="field-label">
+                    <label for="agree-checked" class="label has-text-left">
+                        <input type="checkbox" name="agree-checked" id="agree-checked">
+                        <a href="#">利用規約</a>に同意する
+                    </label>
+                </div>
+
+                <div class="submit-field">
                     <div class="field">
-                        <div class="field-label">
-                            <label for="{{ item.id_for_label }}" class="label has-text-left">
-                                {% if item.field.required %}
-                                *
-                                {% endif %}
-                                {{ item.label }}
-                            </label>
-                        </div>
-                        {% if item.errors %}
-                        <div id="error">{{ item.errors }}</div>
-                        {% endif %}
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control">
-                                    <input type="{{ item.field.widget.input_type }}" class="input is-normal"
-                                        placeholder="{{ item.label }}"
-                                        {% if item.field.required %}required{% endif %} name="{{item.name}}"
-                                        id="{{item.id_for_label}}">
-                                </p>
-                            </div>
-                        </div>
-                        
+                        <input type="submit" value="登録" class="button is-rounded">
                     </div>
-                    {% endif %}
-                    {% endfor %}
-                    <div class="field-label">
-                        <label for="agree-checked" class="label has-text-left">
-                            <input type="checkbox" name="agree-checked" id="agree-checked">
-                            <a href="#">利用規約</a>に同意する
-                        </label>
-                    </div>
-
-                    <div class="submit-field">
-                        <div class="field">
-                            <input type="submit" value="登録" class="button is-rounded">
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-
     </div>
 </body>
-</html> 
+
+</html>

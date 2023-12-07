@@ -1,21 +1,110 @@
-#order
-{
+#order {
     overflow: hidden;
     height: 100%;
-    padding:1rem;
-    padding-top: 75px;
+    padding: 1rem;
+    padding-top: 110px;
     width: 70%;
-    margin:0 auto;
-    .data-order
+    margin: 0 auto;
+
+    .data-item-img
     {
+        a
+        {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            &:hover
+            {
+                &::after
+                {
+                    background-color: rgba(255, 255, 255, 0.199);
+                    position: absolute;
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    top:0;
+                    left:0;
+                    transition: 0.5s ease-in-out;
+                }
+            }
+
+            img
+            {
+                border-radius: 10px;
+            }
+        }
+    }
+    // background-color: rebeccapurple;
+    .data-order {
         display: block;
-        // background-color: rebeccapurple;
+        // background-color:  purple;
     }
 
-    .data-field
-    {
-        margin:0;
+    .data-field {
+        margin: 0;
         padding: 0 1rem;
-        background-color: antiquewhite;
+        // background-color: antiquewhite;
+    }
+
+    .data-item-name {
+        a {
+            transition: 0.2s ease-in-out;
+            color: $font;
+            &:hover {
+                transition: 0.2s ease-in-out;
+                color: $link;
+            }
+        }
+    }
+
+    .data-item-link
+    {
+        a
+        {
+            &:hover
+            {
+                transition: 0.2s ease-in-out;
+                color:$main;
+            }
+        }
+    }
+
+    .is-total:last-child
+    {
+        &::after
+        {
+            font-size: 70%;
+            content: '(税込)';
+        }
+    }
+    
+    .gotopage
+    {
+        padding: 0 1rem;
+        width: 100%;
+        // background-color: rebeccapurple;
+        a
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // text-align: center;
+            transition: 0.2s ease-in-out;
+            border: none;
+            background: none;
+            width: 100%;
+            height: 60px;
+            background-color:$button;
+            cursor: pointer;
+            border-radius: 10px;
+            color:$font;
+            font-size: 120%;
+            &:hover
+            {
+                transition: 0.2s ease-in-out;
+                background-color: $main;
+                color: white;
+            }
+        }
     }
 }

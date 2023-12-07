@@ -129,12 +129,14 @@ class ItemDetail(TemplateView):
         'error':''
     }
     def get(self, request, *args, **kwargs):
-        self.params['form'] = CartDetailForm(label_suffix='')
         item_slug = self.kwargs['slug']
-        self.params['item'] = ItemTable.objects.get(slug=item_slug)
-        self.params['st_title'] = ItemTable.objects.get(slug=item_slug).item_name
-        return render(request, self.template_name, self.params)
-    
+        if ItemTable.objects.filter(slug=item_slug).exists():
+            self.params['form'] = CartDetailForm(label_suffix='')
+            self.params['item'] = ItemTable.objects.get(slug=item_slug)
+            self.params['st_title'] = ItemTable.objects.get(slug=item_slug).item_name
+            return render(request, self.template_name, self.params)
+        else:
+            return redirect('main:index')
     def post(self, request, *args, **kwargs):
         if request.user.id is not None:
             form = CartDetailForm(label_suffix='', data=request.POST)
@@ -189,6 +191,9 @@ class Order(TemplateView):
                     detail = CartDetailTable.objects.filter(cart_id=order).all()
                     self.params['data'] = detail
                     self.params['status'] = 1
+                    self.params['update'] = detail[0].cart_id.update
+                    self.params['datacount'] = len(detail)
+                    self.params['total'] = detail[0].cart_id.get_total
                 else:
                     self.params['status'] = 0
             else:
@@ -230,6 +235,7 @@ class OrderCheck(TemplateView):
     def get(self, request):
         self.params['st_title'] = '注文確認'
         if request.user.id is not None:
+            self.params['st_title'] = ''
             if CartTable.objects.filter(user_id=request.user, ordered=False).exists():
                 order = CartTable.objects.get(user_id=request.user, ordered=False)
                 if CartDetailTable.objects.filter(cart_id=order).exists():
@@ -247,6 +253,7 @@ class OrderCheck(TemplateView):
     
     def post(self, request):
         form = OrderForm(label_suffix="", data=request.POST)
+        self.params['st_title'] = ''
         if form.is_valid():
             # カート
             cart = CartTable.objects.get(user_id=request.user, ordered=False)

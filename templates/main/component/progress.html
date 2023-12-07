@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="../../../static/main/css/progress.css">
+<link rel="stylesheet" href="../../../static/main/css/reset.css">
+<div id="progress">
+    <ul class="bar">
+        <li>
+            <div class="line">
+            </div>
+            <div class="bottom">
+                start
+            </div>
+        </li>
+        <li>
+            <div class="line">
+            </div>
+            <div class="bottom">
+                first
+            </div>
+        </li>
+        <li class="now">
+            <div class="line">
+            </div>
+            <div class="bottom">
+                now
+            </div>
+        </li>
+        <li>
+            <div class="line">
+            </div>
+            <div class="bottom">
+                last
+            </div>
+        </li>
+    </ul>
+    <script>
+        i = 0;
+        let elem1 = document.querySelectorAll('#progress .bar li');
+        window.addEventListener("load",(event)=>{
+            for(i = 0; i < elem1.length; i++)
+            {
+                if(elem1[i].classList.contains("now"))
+                {
+                    break;
+                }
+                elem1[i].classList.add('afline');
+            }
+            // alert(i);
+            elem1[i].classList.add('now-ani');
+        });
+    </script>
+</div>

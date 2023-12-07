@@ -31,22 +31,22 @@
     <nav class="nav">
         <ul class="nav-flex">
             <li class="nav-link"><a href="#">About us</a></li>
-            <li class="nav-link"><a href="item">Products</a></li>
-            <li class="nav-link"><a href="item">Shop</a></li>
+            <li class="nav-link"><a href="{% url 'main:item' %}">Products</a></li>
+            <li class="nav-link"><a href="{% url 'main:item' %}">Shop</a></li>
             <li class="nav-link nav-icon">
-                <a href="order">
+                <a href="{% url 'main:order' %}">
                     <img src="../../static/main/image/cart.svg" alt="ShopCart" class="cart">
                 </a>
             </li>
             {% if user %}
             <li class="nav-link nav-icon">
-                <a href="mypage">
+                <a href="{% url 'main:mypage' %}">
                     <img src="../../static/main/image/mypage.svg" alt="MyPage">
                 </a>
             </li>
             {% else %}
             <div class="user-signin">
-                <li class="nav-link"><a href="CreateUser">新規登録</a></li>
+                <li class="nav-link"><a href="{% url 'CreateUser' %}">新規登録</a></li>
             </div>
             {% endif %}
         </ul>

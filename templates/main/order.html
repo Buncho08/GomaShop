@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ st_title }} -ごますけ商店-</title>
+    <title>{{ st_title }} -ChirpCakes-</title>
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
 </head>
 
@@ -22,13 +22,14 @@
     {% include 'main/component/banner.html' %}
     <div id="root">
         <main id="order">
+            {% if status %}
             <div class="data-order-group">
                 <div class="data-order table">
                     <div class="table-items is-title">
                         カート
                     </div>
                     <div class="table-items">
-                        注文日時 : 2021年3月9日
+                        更新日時:{{ update }}
                     </div>
                 </div>
                 <!-- data-order -->
@@ -39,33 +40,39 @@
                 <div class="data-main">
                     <div class="table">
                         <div class="data-title">
-                            4件
+                            {{ datacount }}件
                         </div>
                     </div>
+                    <!-- data-title  -->
+                    {% for item in data %}
                     <div class="data-item-group">
                         <div class="data-item-img">
-                            <img src="../../static/main/image/buncho.png" alt="" height="160px" width="160px">
+                            <a href="{% url 'main:product' item.item_id.slug %}">
+                                <img src="{{ MEDIA_URL }}{{ item.item_id.item_img }}" alt="" height="120px"
+                                    width="120px">
+                            </a>
                         </div>
                         <!-- data-item-img -->
                         <div class="data-item-detail">
                             <div class="data-item-name">
-                                <a href="#">BUNCHO</a>
+                                <a href="{% url 'main:product' item.item_id.slug %}">{{ item.item_id.item_name }}</a>
                             </div>
                             <!-- data-item-name -->
                             <div class="data-item-quantity">
-                                11
+                                {{ item.quantity }}
                             </div>
                             <div class="data-item-option">
-                                オプション
+                                {% if item.option %}
+                                {% endif %}
                             </div>
                             <!-- data-item-quantity -->
                             <div class="data-item-price">
-                                2030450
+                                {{ item.get_total_price }}
                             </div>
                             <!-- data-item-price -->
                             <div class="data-item-link">
-                                <a href="#">
-                                    商品ページへ
+                                <a href="{% url 'main:itemdelete' item.item_id.slug %}">
+                                    カートから削除
                                 </a>
                             </div>
                             <!-- data-item-link -->
@@ -73,63 +80,8 @@
                         <!-- data-item-detail -->
                     </div>
                     <!-- data-item-group -->
-                    <div class="data-item-group">
-                        <div class="data-item-img">
-                            <img src="../../static/main/image/buncho.png" alt="" height="160px" width="160px">
-                        </div>
-                        <!-- data-item-img -->
-                        <div class="data-item-detail">
-                            <div class="data-item-name">
-                                <a href="#">BUNCHO</a>
-                            </div>
-                            <!-- data-item-name -->
-                            <div class="data-item-quantity">
-                                11
-                            </div>
-                            <!-- data-item-quantity -->
-                            <div class="data-item-price">
-                                2030450
-                            </div>
-                            <!-- data-item-link -->
-                            <div class="data-item-link">
-                                <a href="#">
-                                    商品ページへ
-                                </a>
-                            </div>
-                            <!-- data-item-link -->
-                        </div>
-                        <!-- data-item-detail -->
-
-                    </div>
-                    <!-- data-item-group -->
-                    <div class="data-item-group">
-                        <div class="data-item-img">
-                            <img src="../../static/main/image/buncho.png" alt="" height="160px" width="160px">
-                        </div>
-                        <!-- data-item-img -->
-                        <div class="data-item-detail">
-                            <div class="data-item-name">
-                                <a href="#">BUNCHO</a>
-                            </div>
-                            <!-- data-item-name -->
-                            <div class="data-item-quantity">
-                                11
-                            </div>
-                            <!-- data-item-quantity -->
-                            <div class="data-item-price">
-                                2030450
-                            </div>
-                            <!-- data-item-link -->
-                            <div class="data-item-link">
-                                <a href="#">
-                                    商品ページへ
-                                </a>
-                            </div>
-                            <!-- data-item-link -->
-                        </div>
-                        <!-- data-item-detail -->
-                    </div>
-                    <!-- data-item-group -->
+                    {% endfor %}
+                    {% if datacount > 3%}
                     <nav>
                         <ul class="pagination">
                             <li class="is-btn not-allow">
@@ -162,85 +114,60 @@
                             </li>
                         </ul>
                     </nav>
+                    {% endif %}
                 </div>
                 <div class="data-side">
                     <div class="data-price-group">
                         <div class="data-title">
-                            お支払情報
+                            合計
                         </div>
                         <div class="data-price table">
                             <div class="table-items">
                                 アイテムの小計
                             </div>
                             <div class="table-items">
-                                3000円
+                                {{ total }}円
                             </div>
-                            <div class="table-items">
-                                送料
-                            </div>
-                            <div class="table-items">
-                                100円
-                            </div>
-                            <div class="table-items">
-                                決済方法
-                            </div>
-                            <div class="table-items">
-                                ツケ
-                            </div>
-                            <div class="table-items">
-                                決済手数料
-                            </div>
-                            <div class="table-items">
-                                100円
-                            </div>
+                            {% if discount %}
                             <div class="table-items">
                                 値引き
                             </div>
                             <div class="table-items is-sale">
-                                -1000円
+                                -{{ discount }}円
                             </div>
+                            {% endif %}
                             <div class="table-items is-total">
                                 合計
                             </div>
                             <div class="table-items is-total">
-                                5000000万円
+                                {{ total }}円
                             </div>
                         </div>
                         <!-- data-price -->
                     </div>
                     <!-- data-price-group -->
-                    <div class="data-ads-group">
-                        <div class="data-title">
-                            お届け先
-                        </div>
-                        <!-- data-ads-group -->
+                    <div class="gotopage">
+                        <a href="{% url 'main:orderCheck' %}">
+                            決済手続きに進む
+                        </a>
                     </div>
-                    <!-- data-ads-group -->
                 </div>
                 <!-- data-body -->
             </div>
             <!-- data-side -->
-        </div>
-        <!-- data-field -->
-            <!-- {% if status %}
-                {% for item in data %}
-                    <p>
-                        {{ item.item_id.item_name }}
-                    </p>
-                    <p>
-                        {{ item.quantity }}
-                    </p>
-                    <p>
-                        <a href="{% url 'main:itemdelete' item.item_id.slug %}">
-                            カートから削除
-                        </a>
-                    </p>
-                {% endfor %}
             {% else %}
-                <h1>
+            <div class="empty">
+                <h2>
                     カートは空です
-                </h1>
-            {% endif %} -->
+                </h2>
+
+                <p>
+                    <a href="{% url 'main:item' %}">
+                        戻る
+                    </a>
+                </p>
+            </div>
+            {% endif %}
         </main>
     </div>
 </body>
