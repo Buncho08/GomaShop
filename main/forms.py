@@ -35,6 +35,7 @@ class OrderForm(forms.ModelForm):
             }
 
     def __init__(self, initial=None, *args, **kwargs):
+        models = OrderTable
         kwargs.setdefault('label_suffix', '')
         super(OrderForm, self).__init__(*args, **kwargs)
         self.fields['to_firstname'].initial = initial['to_firstname']
@@ -44,8 +45,7 @@ class OrderForm(forms.ModelForm):
         self.fields['town'].initial = initial['town']
         self.fields['address'].initial = initial['address']
         self.fields['pay'].initial = initial['pay']
-        print(initial['post'])
-        print('u')
+        self.fields['pay'] = forms.ChoiceField(label='属性', widget=forms.RadioSelect, choices=models.PAY_CHOICE, initial=0)
 
 
 

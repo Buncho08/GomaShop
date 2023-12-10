@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ st_title }} -Chirp Cakes-</title>
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5688669be.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    {% include 'main/component/banner.html' %}
+    <div id="root" style="background-color: rgb(255, 242, 242);">
+        <main id="orderCheck">
+            <div class="order-block is-front">
+                <div class="field">
+                    <div class="title">
+                        お届け先の編集
+                    </div>
+                    <div class="data">
+                        <div class="form-body">
+                            <form action="#" method="post" form="order-form">
+                                {% csrf_token %}
+                                {% for item in form %}
+                                {% if item.name == 'pay' %}
+                                {% else %}
+                                <div class="form-field">
+                                    <div class="form-text">
+                                        <div class="form-label">
+                                            <label for="{{ item.id_for_label }}">
+                                                {{ item.label }}
+                                            </label>
+                                        </div>
+                                        <!-- form-label -->
+                                        {% if item.field.errors %}
+                                        <div class="form-label-ano">
+                                            {{ item.errors }}
+                                        </div>
+                                        {% endif %}
+                                        <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
+                                        {% if item.field.required %}required{% endif %}    
+                                        id="{{ item.id_for_label }}"
+                                        placeholder="{{ item.label }}"
+                                        value="{{ item.initial }}"
+                                        >
+                                    </div>
+                                    <!-- form-text-group -->
+                                </div>
+                                {% endif %}
+                                <!-- form-field -->
+                                {% endfor %}
+                                <div class="form-submit">
+                                    <div id="close">
+                                        とじる
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- form-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- order-block is-front -->
+            <div class="order-block">
+                <div class="title">
+                    お届け先
+                </div>
+
+                <div class="field">
+                    <a href="#" id="edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
+                    <div class="data">
+                        <div class="head">
+                            住所
+                        </div>
+                        <div class="body">
+                            〒210-0005
+                            <br>神奈川県川崎市川崎区東田町3-8東田ソシアルビル302
+                        </div>
+                        <div class="head">
+                            お名前
+                        </div>
+                        <div class="body">
+                            大村 優智夏 オオムラ ユチカ
+                        </div>
+                        <div class="head">
+                            電話番号
+                        </div>
+                        <div class="body">
+                            08035050085
+                        </div>
+                        <div class="head">
+                            メールアドレス
+                        </div>
+                        <div class="body">
+                            o_murasan_85@au.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- order-block -->
+
+            <div class="order-block">
+                <div class="title">
+                    お支払方法を選ぶ
+                </div>
+                <div class="field">
+                    <form action="#" method="post" id="order-form">
+                        {% csrf_token %}
+                        <div class="form-radio-rows">
+                            <input type="radio" name="cash" value="1" id="cash1" checked>
+                            <div class="form-label">
+                                <label for="cash1">
+                                    クレジットカード
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-radio-rows">
+                            <input type="radio" name="cash" value="2" id="cash2">
+                            <div class="form-label">
+                                <label for="cash2">
+                                    代金引換
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-radio-rows">
+                            <input type="radio" name="cash" value="3" id="cash3">
+                            <div class="form-label">
+                                <label for="cash3">
+                                    後払い決済
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-radio-rows">
+                            <input type="radio" name="cash" value="4" id="cash4">
+                            <div class="form-label">
+                                <label for="cash4">
+                                    振込
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- order-block -->
+            <div class="order-block">
+                <div class="submit">
+                    <input type="submit" value="内容の確認" form="order-form">
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script>
+        let button = document.getElementById('edit');
+        let front = document.querySelector('.is-front');
+        let closebtn = document.getElementById('close');
+        button.addEventListener('click', function () {
+            front.classList.remove('is-hidden');
+        })
+
+        closebtn.addEventListener('click', function(){
+            // alert('あああ');
+            front.classList.toggle('is-hidden');
+        })
+    </script>
+</body>
+
+</html>

@@ -266,10 +266,11 @@ class OrderCheck(TemplateView):
         form = OrderForm(label_suffix="", data=request.POST)
         if form.is_valid():
             self.params['st_title'] = ''
+            self.template_name
         else:
             self.params['st_title'] = 'エラー！！！'
         self.params['form'] = form
-        
+
         return render(request,self.template_name,context=self.params)
 
 class OrderConfirm:
@@ -353,7 +354,6 @@ class EditUser(LoginRequiredMixin, TemplateView):
     template_name = 'main/editAccount.html'
     params = {
     }
-
 
     def get(self, request, *args, **kwargs):
         user = UserTable.objects.get(username=request.user)

@@ -1,119 +1,120 @@
 @charset 'utf-8';
 
-
-.user-area
-{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 91%;
-    width: 40%;
-    background-color:$back;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px $annotation;
-}
-
-#login
-{
-    width: 100%;
-    height: 100%;
-    background-color:$sub-back;
+#account-registor, #login{
     .user-area
     {
-        padding-top: 3rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 91%;
+        width: 40%;
+        background-color:$back;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 1px 1px 5px $annotation;
     }
-}
 
-#account-registor
-{
-    width: 100%;
-    height: 100%;
-    background-color:$sub-back;
-}
-
-.flex
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo-area
-{
-    margin-top:2rem;
-}
-
-.line
-{
-    background-color:$annotation;
-    width: 73%;
-    height: 1px;
-    margin: 0 auto;
-    margin-top: 1.5rem;
-}
-
-.login
-{
-    margin: 1rem 0;
-    p
+    #login
     {
-        font-size: 85%;
+        width: 100%;
+        height: 100%;
+        background-color:$sub-back;
+        .user-area
+        {
+            padding-top: 3rem;
+        }
     }
-    .login-button
+
+    #account-registor
+    {
+        width: 100%;
+        height: 100%;
+        background-color:$sub-back;
+    }
+
+    .flex
     {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 0.7rem;
-        // width: ;
-        // background-color: aqua;
-        a 
+    }
+
+    .logo-area
+    {
+        margin-top:2rem;
+    }
+
+    .line
+    {
+        background-color:$annotation;
+        width: 73%;
+        height: 1px;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+    }
+
+    .login
+    {
+        margin: 1rem 0;
+        p
         {
-            // border: 1px $annotation solid;
-            height: 40px;
-            width:150px;
-            display: flex;
-            align-items: center; 
-            justify-content: center;
-            text-align: center;
             font-size: 85%;
-            color:$link;
-            // background-color: $back;
-            border-radius: 10px;
-            &:hover
+        }
+        .login-button
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0.7rem;
+            // width: ;
+            // background-color: aqua;
+            a 
             {
-                color: rgb(241, 60, 60);
-                background-color: rgb(255, 255, 255);
+                // border: 1px $annotation solid;
+                height: 40px;
+                width:150px;
+                display: flex;
+                align-items: center; 
+                justify-content: center;
+                text-align: center;
+                font-size: 85%;
+                color:$link;
+                // background-color: $back;
+                border-radius: 10px;
+                &:hover
+                {
+                    color: rgb(241, 60, 60);
+                    background-color: rgb(255, 255, 255);
+                }
             }
         }
+        
     }
-    
-}
 
 
-.errorlist
-{
-    li
+    .errorlist
     {
-        text-align: left;
-        font-size: 70%;
-        font-weight: bolder;
-        color: red;
+        li
+        {
+            text-align: left;
+            font-size: 70%;
+            font-weight: bolder;
+            color: red;
+        }
     }
-}
 
-.cover
-{
-    position: absolute;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+    .cover
+    {
+        position: absolute;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-.register
-{
-    margin-top:1rem
+    .register
+    {
+        margin-top:1rem
+    }
 }

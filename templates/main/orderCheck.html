@@ -14,17 +14,23 @@
     {% include 'main/component/banner.html' %}
     <div id="root" style="background-color: rgb(255, 242, 242);">
         <main id="orderCheck">
-            <div class="order-block is-front">
+            <!-- is-hidden 編集ボタンを押さないと表示されない-->
+            <div class="order-block is-front is-hidden">
                 <div class="field">
                     <div class="title">
                         お届け先の編集
                     </div>
                     <div class="data">
                         <div class="form-body">
-                            <form action="#" method="post" form="order-form">
+                            <form action="#" method="post" form="order-form" name="order_form">
                                 {% csrf_token %}
                                 {% for item in form %}
                                 {% if item.name == 'pay' %}
+                                    <!-- <div class="is-hidden"> -->
+                                        {% for i in item %}
+                                        {{ i.tag }}
+                                        {% endfor %}
+                                    <!-- </div> -->
                                 {% else %}
                                 <div class="form-field">
                                     <div class="form-text">
@@ -40,11 +46,8 @@
                                         </div>
                                         {% endif %}
                                         <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
-                                        {% if item.field.required %}required{% endif %}    
-                                        id="{{ item.id_for_label }}"
-                                        placeholder="{{ item.label }}"
-                                        value="{{ item.initial }}"
-                                        >
+                                            {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
+                                            placeholder="{{ item.label }}" value="{{ item.initial }}">
                                     </div>
                                     <!-- form-text-group -->
                                 </div>
@@ -62,7 +65,47 @@
                     </div>
                 </div>
             </div>
+            <!-- 編集ボタン押さないと表示されないエリア終了 -->
             <!-- order-block is-front -->
+            <div id="progress">
+                <ul class="bar">
+                    <li  class="now">
+                        <div class="process">
+                            お届け先
+                        </div>
+                        <div class="line">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="process">
+                            確認
+                        </div>
+                        <div class="line">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="process">
+                            注文完了
+                        </div>
+                        <div class="line">
+                        </div>
+                    </li>
+                </ul>
+                <script>
+                    i = 0;
+                    let elem1 = document.querySelectorAll('#progress .bar li');
+                    window.addEventListener("load", (event) => {
+                        for (i = 0; i < elem1.length; i++) {
+                            if (elem1[i].classList.contains("now")) {
+                                break;
+                            }
+                            elem1[i].classList.add('afline');
+                        }
+                        // alert(i);
+                        elem1[i].classList.add('now-ani');
+                    });
+                </script>
+            </div>
             <div class="order-block">
                 <div class="title">
                     お届け先
@@ -108,10 +151,10 @@
                     お支払方法を選ぶ
                 </div>
                 <div class="field">
-                    <form action="#" method="post" id="order-form">
+                    <form action="#" method="post" id="order-form" name="order_cash">
                         {% csrf_token %}
                         <div class="form-radio-rows">
-                            <input type="radio" name="cash" value="1" id="cash1" checked>
+                            <input type="radio" name="cash" value="1" id="cash1" checked onClick="setCashValue(1)">
                             <div class="form-label">
                                 <label for="cash1">
                                     クレジットカード
@@ -119,7 +162,7 @@
                             </div>
                         </div>
                         <div class="form-radio-rows">
-                            <input type="radio" name="cash" value="2" id="cash2">
+                            <input type="radio" name="cash" value="2" id="cash2" onClick="setCashValue(2)">
                             <div class="form-label">
                                 <label for="cash2">
                                     代金引換
@@ -127,7 +170,7 @@
                             </div>
                         </div>
                         <div class="form-radio-rows">
-                            <input type="radio" name="cash" value="3" id="cash3">
+                            <input type="radio" name="cash" value="3" id="cash3" onClick="setCashValue(3)">
                             <div class="form-label">
                                 <label for="cash3">
                                     後払い決済
@@ -135,7 +178,7 @@
                             </div>
                         </div>
                         <div class="form-radio-rows">
-                            <input type="radio" name="cash" value="4" id="cash4">
+                            <input type="radio" name="cash" value="4" id="cash4" onClick="setCashValue(4)">
                             <div class="form-label">
                                 <label for="cash4">
                                     振込
@@ -158,11 +201,18 @@
         let button = document.getElementById('edit');
         let front = document.querySelector('.is-front');
         let closebtn = document.getElementById('close');
+        let radio = document.order_cash.cash;
+        let cashValueButton = document.order_form.pay;
+        function setCashValue(selectNum)
+        {
+            cashValueButton[selectNum - 1].checked = true;
+            // alert(cashValueButton[selectNum - 1].checked);
+        };
         button.addEventListener('click', function () {
             front.classList.remove('is-hidden');
         })
 
-        closebtn.addEventListener('click', function(){
+        closebtn.addEventListener('click', function () {
             // alert('あああ');
             front.classList.toggle('is-hidden');
         })

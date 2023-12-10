@@ -1074,7 +1074,7 @@ nav {
     transform: translate(0, 0%);
   }
 }
-.user-area {
+#account-registor .user-area, #login .user-area {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1086,53 +1086,47 @@ nav {
   border-radius: 15px;
   box-shadow: 1px 1px 5px #9f9598;
 }
-
-#login {
+#account-registor #login, #login #login {
   width: 100%;
   height: 100%;
   background-color: rgb(255, 242, 242);
 }
-#login .user-area {
+#account-registor #login .user-area, #login #login .user-area {
   padding-top: 3rem;
 }
-
-#account-registor {
+#account-registor #account-registor, #login #account-registor {
   width: 100%;
   height: 100%;
   background-color: rgb(255, 242, 242);
 }
-
-.flex {
+#account-registor .flex, #login .flex {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.logo-area {
+#account-registor .logo-area, #login .logo-area {
   margin-top: 2rem;
 }
-
-.line {
+#account-registor .line, #login .line {
   background-color: #9f9598;
   width: 73%;
   height: 1px;
   margin: 0 auto;
   margin-top: 1.5rem;
 }
-
-.login {
+#account-registor .login, #login .login {
   margin: 1rem 0;
 }
-.login p {
+#account-registor .login p, #login .login p {
   font-size: 85%;
 }
-.login .login-button {
+#account-registor .login .login-button, #login .login .login-button {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 0.7rem;
 }
-.login .login-button a {
+#account-registor .login .login-button a, #login .login .login-button a {
   height: 40px;
   width: 150px;
   display: flex;
@@ -1143,27 +1137,24 @@ nav {
   color: rgb(0, 190, 190);
   border-radius: 10px;
 }
-.login .login-button a:hover {
+#account-registor .login .login-button a:hover, #login .login .login-button a:hover {
   color: rgb(241, 60, 60);
   background-color: rgb(255, 255, 255);
 }
-
-.errorlist li {
+#account-registor .errorlist li, #login .errorlist li {
   text-align: left;
   font-size: 70%;
   font-weight: bolder;
   color: red;
 }
-
-.cover {
+#account-registor .cover, #login .cover {
   position: absolute;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-.register {
+#account-registor .register, #login .register {
   margin-top: 1rem;
 }
 
@@ -1407,7 +1398,7 @@ nav {
 #orderCheck .order-block .field form {
   display: grid;
   row-gap: 0.4rem;
-  grid-template-rows: repeat(4, 50px);
+  grid-template-rows: repeat(4, 40px);
 }
 #orderCheck .order-block .field form .form-radio-rows {
   padding: 0;
@@ -1485,4 +1476,181 @@ nav {
 }
 #orderCheck .is-hidden {
   display: none;
+}
+
+#progress {
+  display: grid;
+  align-items: center;
+  width: 30%;
+  height: 50px;
+  margin: 0 auto;
+}
+#progress .bar {
+  display: flex;
+  list-style: none;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+#progress .bar li {
+  position: relative;
+  display: grid;
+  grid-template-rows: 0.4fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+#progress .bar li .line {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+#progress .bar li .line::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position-x: -200px;
+  background-image: linear-gradient(to right, rgb(229, 215, 215) 0%, rgb(229, 215, 215) 0%, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 100%);
+}
+#progress .bar li .line::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 2;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(229, 215, 215);
+  border-radius: 50%;
+  border: 5px rgb(229, 215, 215) solid;
+}
+#progress .bar li .process {
+  list-style: none;
+  width: 100%;
+  height: 100%;
+}
+#progress .bar li:first-child .line::before {
+  left: 0;
+}
+#progress .bar li:first-child .process {
+  text-align: left;
+}
+#progress .bar li:nth-child(2) .line::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+#progress .bar li:nth-child(2) .process {
+  text-align: center;
+}
+#progress .bar li:last-child .line::before {
+  right: 0;
+}
+#progress .bar li:last-child .process {
+  text-align: right;
+}
+#progress .bar .afline .line::after {
+  transition: 0.7s ease-in-out;
+  transition-delay: 0.3s;
+  background-position-x: 0;
+}
+#progress .bar .afline .line::before {
+  transition: 0.7s ease-in-out;
+  background-color: rgb(255, 138, 138);
+  border: 5px rgb(229, 215, 215) solid;
+}
+#progress .bar .afline:nth-child(2) .line::after {
+  transition-delay: 0.9s;
+}
+#progress .bar .now ~ li .line::before {
+  box-shadow: none;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(229, 215, 215);
+  border: none;
+}
+#progress .bar .now ~ li .line::after {
+  background-image: linear-gradient(to right, rgb(229, 215, 215) 0%, rgb(229, 215, 215) 100%, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 0%);
+  background-position-x: -200px;
+}
+#progress .bar .now .line::after {
+  background-image: linear-gradient(to right, rgb(229, 215, 215) 0%, rgb(229, 215, 215) 0%, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 100%);
+  background-position: -200px;
+  background-repeat: no-repeat;
+}
+#progress .bar .now:first-child .line::after {
+  background-position-x: -200px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 0%, rgb(229, 215, 215) 0%, rgb(229, 215, 215) 100%);
+}
+#progress .bar .now:nth-child(2) .line::after {
+  background-position-x: -200px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 50%, rgb(229, 215, 215) 50%, rgb(229, 215, 215) 100%);
+}
+#progress .bar .now:nth-child(3) .line::after {
+  background-position-x: -200px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 100%, rgb(229, 215, 215) 0%, rgb(229, 215, 215) 0%);
+}
+#progress .bar .now-ani .line {
+  color: red;
+}
+#progress .bar .now-ani .line::after {
+  transition: 0.7s ease-in-out;
+  background-position: 0;
+}
+#progress .bar .now-ani .line::before {
+  height: 28px;
+  width: 28px;
+  transition: 0.7s ease-in-out;
+  transition-delay: 0.3s;
+  border: 5px rgb(255, 167, 167) solid;
+  box-shadow: 0px 0px 5px rgb(255, 142, 142);
+  background-color: rgb(255, 255, 255);
+}
+#progress .bar .now-ani ~ li .line::before {
+  box-shadow: none;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(229, 215, 215);
+  border: none;
+}
+#progress .bar .now-ani ~ li .line::after {
+  transition: 0.7s ease-in-out;
+  transition-delay: 0.9s;
+  background-position: 0;
+}
+#progress .bar .now-ani ~ li:nth-child(2) .line::after {
+  transition: 0.7s ease-in-out;
+  transition-delay: 0.9s;
+  background-position: 0;
+}
+#progress .bar .now-ani ~ li:nth-child(3) .line::after {
+  transition: 0.7s ease-in-out;
+  transition-delay: 1.7s;
+  background-position: 0;
+}
+#progress .bar .now-ani:first-child .line::after {
+  transition: 0.7s ease-in-out;
+  transition-delay: 0.3s;
+  background-position-x: 0;
+}
+#progress .bar .now-ani:nth-child(2) .line::after {
+  transition: 0.7s ease-in-out;
+  transition-delay: 0.9s;
+  background-position-x: 0;
+  background-image: linear-gradient(to right, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 50%, rgb(229, 215, 215) 50%, rgb(229, 215, 215) 100%);
+}
+#progress .bar .now-ani:nth-child(3) .line::after {
+  transition: 0.7s ease-in-out;
+  transition-delay: 1.6s;
+  background-position-x: 0;
+  background-image: linear-gradient(to right, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 100%);
 }
