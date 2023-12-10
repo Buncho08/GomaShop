@@ -11,8 +11,6 @@
     align-items: center;
     background-color:$back;
     border-radius: 10px;
-    // background-color: red;
-    height: auto;
     .form-group {
         background-color: $back;
         border: black 1px solid;
@@ -117,7 +115,7 @@
         }
 
         margin-left:0.2rem;
-        z-index: 1000;
+        // z-index: 1000;
 
         +.cover {
             border-radius: 10px;
@@ -130,7 +128,7 @@
     }
 
     input[type="radio"] {
-        z-index: 1000;
+        // z-index: 1000;
         appearance: none;
         border-radius: 50%;
         width: 22px;
@@ -156,11 +154,11 @@
         transition: 0.1s ease-in;
         background-color: $sub-back;
         border: none;
-        z-index: 1000;
+        // z-index: 1000;
 
         +.form-label {
             margin-left: 0.2rem;
-            z-index: 1000;
+            // z-index: 1000;
 
             +.cover {
                 border-radius: 10px;
@@ -266,7 +264,7 @@
             cursor: pointer;
         }
         margin-left:0.5rem;
-        z-index: 1000;
+        // z-index: 1000;
 
         +.cover {
             transition: 0.2s ease-in;
@@ -280,7 +278,7 @@
     }
 
     input[type="checkbox"] {
-        z-index: 1000;
+        // z-index: 1000;
         appearance: none;
         border-radius: 5px;
         width: 22px;
@@ -318,10 +316,10 @@
         transition: 0.1s ease-in;
         background-color: $sub-back;
         border: none;
-        z-index: 1000;
+        // z-index: 1000;
 
         +.form-label {
-            z-index: 1000;
+            // z-index: 1000;
 
             +.cover {
                 border-radius: 10px;

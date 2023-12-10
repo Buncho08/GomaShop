@@ -151,9 +151,7 @@ class CartTable(models.Model):
     
     # フィールド
     cart_id = models.AutoField(primary_key=True, unique=True, verbose_name='カートID', editable=False)
-
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
     create = models.DateField(auto_now_add=True, verbose_name='カート作成日時')
     update = models.DateField(auto_now=True, verbose_name='カート更新日時')
     ordered = models.BooleanField(default=False, verbose_name='注文状況')
@@ -171,7 +169,7 @@ class ItemTable(models.Model):
     class Meta:
         verbose_name = _('商品テーブル')
         verbose_name_plural = _('商品テーブル')
-    
+        
     # フィールド
     item_id = models.AutoField(primary_key=True, unique=True, verbose_name='商品ID', editable=False)
     item_name = models.TextField(max_length=30, unique=True, verbose_name='商品名')
@@ -189,7 +187,7 @@ class CartDetailTable(models.Model):
         verbose_name_plural = _('カート詳細テーブル')
 
     detail_id = models.AutoField(primary_key=True, unique=True, verbose_name='カート詳細ID', editable=False)
-    # user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     cart_id = models.ForeignKey(CartTable, on_delete=models.CASCADE, verbose_name='カートID', related_name='related_cart', unique=False)
     item_id = models.ForeignKey(ItemTable, on_delete=models.CASCADE, verbose_name='商品ID', related_name='related_cart_item')
     quantity = models.IntegerField(verbose_name='数量', default=1, validators=[MinValueValidator(1), MaxValueValidator(1000)])
@@ -204,19 +202,23 @@ class OrderTable(models.Model):
     class Meta:
         verbose_name = _('注文テーブル')
         verbose_name_plural = _('注文テーブル')
+
+
     PAY_CHOICE = [
         (1, 'クレジットカード'),
         (2, '代金引換'),
         (3, '後払い決済'),
         (4, '振込')
     ]
+
     order_id = models.AutoField(primary_key=True, unique=True, verbose_name='注文ID', editable=False)
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.TextField(verbose_name='郵便番号', default='', max_length=84, blank=False, validators=[RegexValidator(r'^[0-9]{3}-[0-9]{4}$',)])
     pref = models.TextField(verbose_name='都道府県', default='', max_length=20, blank=False)
+    town = models.TextField()
     address = models.TextField(verbose_name='住所詳細', default='', max_length=255, blank=False)
     postage = models.IntegerField(verbose_name='送料', default=0, validators=[MinValueValidator(1), MaxValueValidator(9999)])
-    
+    town = models.CharField(verbose_name='市町村', max_length=255, default='')
     to_firstname = models.TextField(verbose_name='送り先(名前)',default='', blank=False)
     to_lastname = models.TextField(verbose_name='送り先(苗字)', default='',blank=False)
     create = models.DateField(auto_now_add=True, verbose_name='注文確定日')
@@ -224,12 +226,13 @@ class OrderTable(models.Model):
     arrive = models.DateField(verbose_name='到着予定日')
     pay = models.IntegerField(verbose_name='支払方法', choices=PAY_CHOICE, unique=False, default=1, blank=False)
     total_pay = models.IntegerField(verbose_name='合計金額', default=1)
+
     def get_total(self):
         total = 0
         for item in self.related_order.all():
             total += item.get_total_price()
-
         return total
+    
     def __str__(self):
         return f'注文ID:{self.order_id} | ユーザーID:{self.user_id}'
     

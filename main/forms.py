@@ -23,8 +23,31 @@ class CartDetailForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta():
         model = OrderTable
-        fields = ('to_lastname', 'to_firstname','post', 'pref', 'address', 'pay')
-        labels = {'to_firstname':'名前', 'to_lastname':'苗字', 'post':'郵便番号', 'pref':'都道府県', 'address':'住所詳細', 'pay':'支払い方法'}
+        fields = ('to_lastname', 'to_firstname','post', 'pref', 'town', 'address', 'pay')
+        labels = {
+            'to_firstname':'名前',
+            'to_lastname':'苗字', 
+            'post':'郵便番号', 
+            'pref':'都道府県',
+            'town':'市町村',
+            'address':'住所詳細', 
+            'pay':'支払い方法'
+            }
+
+    def __init__(self, initial=None, *args, **kwargs):
+        kwargs.setdefault('label_suffix', '')
+        super(OrderForm, self).__init__(*args, **kwargs)
+        self.fields['to_firstname'].initial = initial['to_firstname']
+        self.fields['to_lastname'].initial = initial['to_lastname']
+        self.fields['post'].initial = initial['post']
+        self.fields['pref'].initial = initial['pref']
+        self.fields['town'].initial = initial['town']
+        self.fields['address'].initial = initial['address']
+        self.fields['pay'].initial = initial['pay']
+        print(initial['post'])
+        print('u')
+
+
 
 class EditUserForm(forms.ModelForm):
     class Meta():
