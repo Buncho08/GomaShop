@@ -102,7 +102,8 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
     town = models.CharField(verbose_name='市町村', max_length=255, default='')
     # 住所詳細
     prefDetail = models.CharField(verbose_name='住所詳細', max_length=400)
-
+    # ポイント
+    points = models.IntegerField(verbose_name='保有ポイント', default=100)
     mail_deriv = models.BooleanField(verbose_name='メール配信希望', default=False)
     # アクティブユーザーか, 運用停止 -> False
     is_active = models.BooleanField(default=True)

@@ -13,33 +13,32 @@
     {% include 'main/component/banner.html' %}
     <div id="root">
         <main id="mypage">
-            <div class="mypage-title">
+            <!-- <div class="mypage-title">
                 <h1>
                     マイページ
                 </h1>
             </div>
-            <!-- mypage-title -->
+            mypage-title -->
             <div class="grid">
                 <div class="left">
                     <div class="user-area">
                         <div class="user-icon">
                             <img src="{{ MEDIA_URL }}{{ user.icon }}" alt="{{ user.username }}">
+                            <div class="icon-cover" id="icon-cover">
+                                アイコンの編集
+                            </div>
                         </div>
                         <!-- user-icon -->
                         <div class="user-data">
                             <h2>
                                 {{ user.username }}
                             </h2>
-                            <p>
-                                <a href="{% url 'main:edituser' %}">
-                                    会員情報の変更
-                                </a>
-                            </p>
-                            <p>
-                                <a href="{% url 'main:orderhistory' %}">
-                                    注文履歴
-                                </a>
-                            </p>
+                            <a href="{% url 'main:edituser' %}">
+                                会員情報の変更
+                            </a>
+                            <a href="{% url 'main:orderhistory' %}">
+                                注文履歴
+                            </a>
                         </div>
                         <!-- user-data -->
                     </div>
@@ -47,20 +46,21 @@
                 </div>
                 <!-- left -->
                 <div class="right">
-                    <div class="point">
+                    <div class="point" >
                         <div class="mypage-title">
-                            保有ポイント
+                            <h2>保有ポイント</h2>
                         </div>
-                        <div class="point-box">
-                            <div class="circle">
-
-                            </div>
-                            <div class="circle">
-                                
-                            </div>
-                            <div class="circle">
-                                
-                            </div>
+                        <div class="point-number">
+                            <p>
+                                {{ user.points }} points
+                            </p>
+                        </div>
+                        <div class="point-box" id="point">
+                        </div>
+                        <div class="point-next">
+                            <p>
+                                あと {{ point }} pointsでRank up!
+                            </p>
                         </div>
                     </div>
                     <div class="recommend">
@@ -69,7 +69,33 @@
                         </div>
                         <!-- mypage-title -->
                         <div class="recommend-box">
-                
+                            <div class="grid-auto">
+                                {% for i in item %}
+                                <div class="card">
+                                    <div class="card-item">
+                                        <div class="card-main">
+                                            <div class="card-contents">
+                                                <img src="{{ MEDIA_URL }}{{ i.item_img }}" alt="{{ i.item_name }}">
+                                                <a href="{% url 'main:product' i.slug %}" class="card-img-cover"></a>
+                                                <div class="card-text"></div>
+                                            </div>
+                                        </div>
+                                        <div class="card-sub">
+                                            <div class="card-header">
+                                                <div class="card-header-title">
+                                                    <a href="{% url 'main:product' i.slug %}" class="card-title-link">
+                                                        {{ i.item_name }}
+                                                    </a>
+                                                </div>
+                                                <div class="card-header-price">
+                                                    {{ i.price }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>                
                         </div>
                         <!-- recommend-box -->
                     </div>
@@ -80,8 +106,112 @@
             <!-- grid -->
         </main>
         <!-- my-page -->
+        <div class="edit-area is-hidden" id="edit-area">
+            <div class="form-body is-front">
+                <form action="{% url 'main:editIcon' %}" method="post" id="prevent">
+                    {% csrf_token %}
+                    {% for item in form %}
+                        {% if item.name == 'icon' %}
+                            <div class="form-field">
+                                <input
+                                {% if item.name == 'birthday' %}
+                                    type="date"
+                                {% else %}
+                                    type="{{ item.field.widget.input_type }}"
+                                {% endif %}
+                                class="input is-normal"
+                                {% if item.field.widget.input_type == 'text' %}
+                                    placeholder="{{ item.label }}"
+                                {% elif item.field.widget.input_type == 'email' %}
+                                    placeholder="xxx@ooo.□□□"
+                                {% endif %}
+                                {% if item.field.required %}
+                                    required
+                                {% endif %}
+                                name="{{item.name}}"
+                                id="{{item.id_for_label}}"
+                                {% if item.name == 'birthday' %}
+                                value="{{ item.field.initial|date:'Y-m-d' }}"
+                                {% else %}
+                                value="{{ item.field.initial }}"
+                                {% endif %}
+                                >
+                            </div>
+                        {% else %}
+                        <div class="is-hidden">
+                                <input
+                                {% if item.name == 'birthday' %}
+                                    type="date"
+                                {% else %}
+                                    type="{{ item.field.widget.input_type }}"
+                                {% endif %}
+                                class="input is-normal"
+                                {% if item.field.widget.input_type == 'text' %}
+                                    placeholder="{{ item.label }}"
+                                {% elif item.field.widget.input_type == 'email' %}
+                                    placeholder="xxx@ooo.□□□"
+                                {% endif %}
+                                {% if item.field.required %}
+                                    required
+                                {% endif %}
+                                name="{{item.name}}"
+                                id="{{item.id_for_label}}"
+                                {% if item.name == 'birthday' %}
+                                value="{{ item.field.initial|date:'Y-m-d' }}"
+                                {% else %}
+                                value="{{ item.field.initial }}"
+                                {% endif %}
+                                >
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <input type="submit" value="変更">
+                </form>
+                <button id="close">
+                    とじる
+                </button>
+            </div>
+            <!-- form-body -->
+        </div>
+        <!-- edit-area -->
     </div>
     <!-- root -->
+
+    <script>
+        let pointArea = document.getElementById('point');
+        {% autoescape off %}
+        let point = Number({{ user.points }});
+        point = Math.floor(point / 300);
+        // alert(point);
+        {% endautoescape %}
+        let fragment = document.createDocumentFragment();
+        let editButton = document.getElementById('icon-cover');
+        let editArea = document.getElementById('edit-area');
+        let closeButton = document.getElementById('close');
+        let prevent = document.getElementById('prevent');
+        window.addEventListener("load",(event)=>{
+            for(i=0;i<point;i++)
+            {
+                let pointCircle = document.createElement('div');
+                pointCircle.className = 'circle';
+                fragment.append(pointCircle);
+            }
+            let pointCircle = document.createElement('div');
+            pointCircle.className = 'circle last-circle';
+            fragment.append(pointCircle);
+            pointArea.append(fragment);
+        });
+
+        editButton.addEventListener('click', function(e){
+            e.preventDefault();
+            editArea.classList.remove('is-hidden');
+        });
+
+        closeButton.addEventListener('click', function(e){
+            e.preventDefault();
+            editArea.classList.toggle('is-hidden');
+        });
+    </script>
 </body>
 
 </html>

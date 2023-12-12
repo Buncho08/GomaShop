@@ -7,7 +7,7 @@ from .models import CartTable, CartDetailTable, ItemTable, OrderTable, OrderDeta
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (_("重要な情報の編集"), {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("myouji", "namae","email", "icon", "post", "pref", "town","prefDetail","birthday", "gender", "mail_deriv")}),
+        (_("Personal info"), {"fields": ("myouji", "namae","email", "icon", "post", "pref", "town","prefDetail", "points", "birthday", "gender", "mail_deriv")}),
         (_("Permissions"), 
             {
             "fields": (

@@ -356,9 +356,15 @@ def mypage(request):
 
     if request.user.id is None:
         return redirect('main:login')
-
+    user = UserTable.objects.get(username=request.user)
+    form_class = EditUserForm(user)
+    point = ((request.user.points // 300 + 1) * 300) - request.user.points
+    item = ItemTable.objects.all()
     params = {
-        'user':request.user
+        'user':request.user,
+        'point' : point,
+        'item':item,
+        'form':form_class
     }
 
     return render(request, 'main/mypage.html', params)
@@ -398,9 +404,7 @@ class EditUser(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         user = UserTable.objects.get(username=request.user)
-        print(user)
         form_class = EditUserForm(user)
-        print()
         self.params['form'] = form_class
         return render(request, self.template_name, self.params)
     
@@ -420,3 +424,13 @@ class EditUser(LoginRequiredMixin, TemplateView):
         else:
             self.params['form'] = form
             return render(request, self.template_name, self.params)
+        
+class EditIcon(LoginRequiredMixin, TemplateView):
+    def get(self, request):
+
+        return redirect('main:index')
+    
+    def post(self, request, *args, **kwargs):
+
+        return redirect('main:mypage')
+
