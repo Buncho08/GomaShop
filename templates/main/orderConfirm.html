@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ st_title }} -Chirp Cakes-</title>
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5688669be.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    {% include 'main/component/banner.html' %}
+    <div id="root" style="background-color: rgb(255, 242, 242);">
+        <main id="orderConfirm">
+            <div id="progress">
+                <ul class="bar">
+                    <li>
+                        <div class="process">
+                            お届け先
+                        </div>
+                        <div class="line">
+                        </div>
+                    </li>
+                    <li class="now">
+                        <div class="process">
+                            確認
+                        </div>
+                        <div class="line">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="process">
+                            注文完了
+                        </div>
+                        <div class="line">
+                        </div>
+                    </li>
+                </ul>
+                <script>
+                    i = 0;
+                    let elem1 = document.querySelectorAll('#progress .bar li');
+                    window.addEventListener("load", (event) => {
+                        for (i = 0; i < elem1.length; i++) {
+                            if (elem1[i].classList.contains("now")) {
+                                break;
+                            }
+                            elem1[i].classList.add('afline');
+                        }
+                        // alert(i);
+                        elem1[i].classList.add('now-ani');
+                    });
+                </script>
+            </div>
+            <!-- すてっぷばー終了 -->
+            <div class="order-block">
+                <div class="title">
+                    購入商品
+                </div>
+                <div class="field">
+                    {% for item in items %}
+                    <div class="data-item-group">
+                        <div class="data-item-img">
+                            <a href="{% url 'main:product' item.item_id.slug %}">
+                                <img src="{{ MEDIA_URL }}{{ item.item_id.item_img }}" alt="" height="100px"
+                                    width="100px">
+                            </a>
+                        </div>
+                        <!-- data-item-img -->
+                        <div class="data-item-detail">
+                            <div class="data-item-name">
+                                <a href="{% url 'main:product' item.item_id.slug %}">{{ item.item_id.item_name }}</a>
+                            </div>
+                            <!-- data-item-name -->
+                            <div class="data-item-quantity">
+                                {{ item.quantity }}
+                            </div>
+                            <div class="data-item-option">
+                                {% if item.option %}
+                                {% endif %}
+                            </div>
+                            <!-- data-item-quantity -->
+                            <div class="data-item-price">
+                                {{ item.get_total_price }}
+                            </div>
+                            <!-- data-item-price -->
+                        </div>
+                        <!-- data-item-detail -->
+                    </div>
+                    <!-- data-item-group -->
+                    {% endfor %}
+                    <div class="data-price-group">
+                        <div class="data-price table">
+                            <div class="table-items">
+                                アイテムの小計
+                            </div>
+                            <div class="table-items">
+                                {{ total }}円
+                            </div>
+                            {% if discount %}
+                            <div class="table-items">
+                                値引き
+                            </div>
+                            <div class="table-items is-sale">
+                                -{{ discount }}円
+                            </div>
+                            {% endif %}
+                            <div class="table-items">
+                                送料
+                            </div>
+                            <div class="table-items">
+                                {{ postage }}円
+                            </div>
+                            <div class="table-items is-total">
+                                合計
+                            </div>
+                            <div class="table-items is-total">
+                                {{ total }}円
+                            </div>
+                        </div>
+                        <!-- data-price -->
+                    </div>
+                    <!-- data-price-group -->
+                </div>
+            </div>
+            <div class="order-block">
+                <div class="title">
+                    お届け先
+                </div>
+                <div class="field">
+                    <div class="data">
+                        <div class="head">
+                            住所
+                        </div>
+                        <div class="body">
+                            {{ form.post.value }}
+                            <br>
+                            {{ form.pref.value }}{{ form.town.value }}{{ form.address.value }}
+                        </div>
+                        <div class="head">
+                            お名前
+                        </div>
+                        <div class="body">
+                            {{ form.to_lastname.value }} {{ form.to_firstname.value}}
+                        </div>
+                        <div class="head">
+                            決済方法
+                        </div>
+                        <div class="body">
+                            {{ pay }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- order-block -->
+            <div class="order-block">
+                <div class="submit">
+                    <form action="{% url 'main:orderComplete' %}" method="post">
+                        {% for item in form %}
+                        {{ item.as_hidden }}
+                        {% endfor %}
+                        {% csrf_token %}
+                        <input type="submit" value="内容の確認">
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script>
+        let button = document.getElementById('edit');
+        let front = document.querySelector('.is-front');
+        let closebtn = document.getElementById('close');
+        button.addEventListener('click', function () {
+            front.classList.remove('is-hidden');
+        })
+
+        closebtn.addEventListener('click', function () {
+            // alert('あああ');
+            front.classList.toggle('is-hidden');
+        })
+    </script>
+</body>
+
+</html>

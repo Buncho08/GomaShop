@@ -162,7 +162,6 @@ class CartTable(models.Model):
         total = 0
         for item in self.related_cart.all():
             total += item.get_total_price()
-
         return total
 
 class ItemTable(models.Model):
@@ -215,7 +214,6 @@ class OrderTable(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.TextField(verbose_name='郵便番号', default='', max_length=84, blank=False, validators=[RegexValidator(r'^[0-9]{3}-[0-9]{4}$',)])
     pref = models.TextField(verbose_name='都道府県', default='', max_length=20, blank=False)
-    town = models.TextField()
     address = models.TextField(verbose_name='住所詳細', default='', max_length=255, blank=False)
     postage = models.IntegerField(verbose_name='送料', default=0, validators=[MinValueValidator(1), MaxValueValidator(9999)])
     town = models.CharField(verbose_name='市町村', max_length=255, default='')

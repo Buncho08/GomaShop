@@ -98,6 +98,18 @@
                 }
             }
             // form
+            .data-item-group
+            {
+                a
+                {
+                    font-size: 110%;
+                    color: $font;
+                    &:hover
+                    {
+                        color: $link;
+                    }
+                }
+            }
         }
         // field
 

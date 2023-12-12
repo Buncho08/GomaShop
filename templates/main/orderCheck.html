@@ -22,15 +22,15 @@
                     </div>
                     <div class="data">
                         <div class="form-body">
-                            <form action="#" method="post" form="order-form" name="order_form">
+                            <form action="{% url 'main:orderCheck' %}" method="post" name="order_form" id="order_form">
                                 {% csrf_token %}
                                 {% for item in form %}
                                 {% if item.name == 'pay' %}
-                                    <!-- <div class="is-hidden"> -->
+                                    <div class="is-hidden">
                                         {% for i in item %}
                                         {{ i.tag }}
                                         {% endfor %}
-                                    <!-- </div> -->
+                                    </div>
                                 {% else %}
                                 <div class="form-field">
                                     <div class="form-text">
@@ -120,26 +120,20 @@
                             住所
                         </div>
                         <div class="body">
-                            〒210-0005
-                            <br>神奈川県川崎市川崎区東田町3-8東田ソシアルビル302
+                            {{ user.post }}
+                            <br>{{ user.pref }}{{ user.town }}{{ user.address }}
                         </div>
                         <div class="head">
                             お名前
                         </div>
                         <div class="body">
-                            大村 優智夏 オオムラ ユチカ
-                        </div>
-                        <div class="head">
-                            電話番号
-                        </div>
-                        <div class="body">
-                            08035050085
+                            {{ user.myouji }} {{ user.namae }}
                         </div>
                         <div class="head">
                             メールアドレス
                         </div>
                         <div class="body">
-                            o_murasan_85@au.com
+                            {{ user.email }}
                         </div>
                     </div>
                 </div>
@@ -151,7 +145,7 @@
                     お支払方法を選ぶ
                 </div>
                 <div class="field">
-                    <form action="#" method="post" id="order-form" name="order_cash">
+                    <form action="#" method="post" id="order_cash" name="order_cash">
                         {% csrf_token %}
                         <div class="form-radio-rows">
                             <input type="radio" name="cash" value="1" id="cash1" checked onClick="setCashValue(1)">
@@ -191,18 +185,20 @@
             <!-- order-block -->
             <div class="order-block">
                 <div class="submit">
-                    <input type="submit" value="内容の確認" form="order-form">
+                    <input type="submit" value="内容の確認" form="order_form">
                 </div>
             </div>
 
         </main>
     </div>
     <script>
+        // let autoComplement = new postcodejp.address.AutoComplementService('i7QvflXhuUzUcbDm2p4dpl1iarssGa8T3ABcT5e');
         let button = document.getElementById('edit');
         let front = document.querySelector('.is-front');
         let closebtn = document.getElementById('close');
         let radio = document.order_cash.cash;
         let cashValueButton = document.order_form.pay;
+        cashValueButton[0].checked = true;
         function setCashValue(selectNum)
         {
             cashValueButton[selectNum - 1].checked = true;

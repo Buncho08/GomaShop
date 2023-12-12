@@ -1328,7 +1328,7 @@ nav {
   background: none;
   width: 100%;
   height: 60px;
-  background-color: rgb(255, 210, 210);
+  background-color: #EF9A9A;
   cursor: pointer;
   border-radius: 10px;
   color: rgb(43, 39, 39);
@@ -1336,11 +1336,35 @@ nav {
 }
 #order .gotopage a:hover {
   transition: 0.2s ease-in-out;
-  background-color: #EF9A9A;
+  background-color: rgb(241, 151, 166);
   color: white;
 }
+#order .return {
+  padding: 1rem;
+  width: 100%;
+}
+#order .return a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+  border: none;
+  background: none;
+  width: 100%;
+  height: 60px;
+  background-color: rgb(255, 210, 210);
+  cursor: pointer;
+  border-radius: 10px;
+  color: rgb(43, 39, 39);
+  font-size: 120%;
+}
+#order .return a:hover {
+  transition: 0.2s ease-in-out;
+  background-color: rgb(190, 248, 202);
+  color: rgb(18, 6, 6);
+}
 
-#orderCheck {
+#orderCheck, #orderConfirm {
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -1348,20 +1372,20 @@ nav {
   padding-top: 70px;
   width: 100%;
 }
-#orderCheck .order-block {
+#orderCheck .order-block, #orderConfirm .order-block {
   width: 50%;
   margin: 0 auto;
 }
-#orderCheck .order-block .title {
+#orderCheck .order-block .title, #orderConfirm .order-block .title {
   padding: 0 2rem;
 }
-#orderCheck .order-block .field {
+#orderCheck .order-block .field, #orderConfirm .order-block .field {
   position: relative;
   padding: 1.3rem 2rem;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
 }
-#orderCheck .order-block .field #edit {
+#orderCheck .order-block .field #edit, #orderConfirm .order-block .field #edit {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1373,50 +1397,57 @@ nav {
   right: 10px;
   top: 10px;
 }
-#orderCheck .order-block .field #edit i {
+#orderCheck .order-block .field #edit i, #orderConfirm .order-block .field #edit i {
   color: rgb(43, 39, 39);
 }
-#orderCheck .order-block .field #edit:hover {
+#orderCheck .order-block .field #edit:hover, #orderConfirm .order-block .field #edit:hover {
   background-color: rgb(255, 206, 206);
 }
-#orderCheck .order-block .field #edit:hover i {
+#orderCheck .order-block .field #edit:hover i, #orderConfirm .order-block .field #edit:hover i {
   color: rgb(43, 39, 39);
 }
-#orderCheck .order-block .field .data {
+#orderCheck .order-block .field .data, #orderConfirm .order-block .field .data {
   display: grid;
   row-gap: 1.5rem;
   grid-template-columns: auto 1fr;
 }
-#orderCheck .order-block .field .data .head {
+#orderCheck .order-block .field .data .head, #orderConfirm .order-block .field .data .head {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#orderCheck .order-block .field .data .body {
+#orderCheck .order-block .field .data .body, #orderConfirm .order-block .field .data .body {
   padding-left: 2rem;
 }
-#orderCheck .order-block .field form {
+#orderCheck .order-block .field form, #orderConfirm .order-block .field form {
   display: grid;
   row-gap: 0.4rem;
   grid-template-rows: repeat(4, 40px);
 }
-#orderCheck .order-block .field form .form-radio-rows {
+#orderCheck .order-block .field form .form-radio-rows, #orderConfirm .order-block .field form .form-radio-rows {
   padding: 0;
   margin: 0;
   height: 100%;
   width: 100%;
   border-bottom: 1px rgb(232, 218, 218) solid;
 }
-#orderCheck .order-block .field form .form-radio-rows .form-label {
+#orderCheck .order-block .field form .form-radio-rows .form-label, #orderConfirm .order-block .field form .form-radio-rows .form-label {
   margin-left: 1.5rem;
 }
-#orderCheck .order-block .submit {
+#orderCheck .order-block .field .data-item-group a, #orderConfirm .order-block .field .data-item-group a {
+  font-size: 110%;
+  color: rgb(43, 39, 39);
+}
+#orderCheck .order-block .field .data-item-group a:hover, #orderConfirm .order-block .field .data-item-group a:hover {
+  color: rgb(0, 190, 190);
+}
+#orderCheck .order-block .submit, #orderConfirm .order-block .submit {
   width: 100%;
   margin-top: 1rem;
   display: flex;
   justify-content: center;
 }
-#orderCheck .order-block .submit input[type=submit] {
+#orderCheck .order-block .submit input[type=submit], #orderConfirm .order-block .submit input[type=submit] {
   width: 200px;
   border-radius: 10px;
   border: none;
@@ -1425,12 +1456,12 @@ nav {
   cursor: pointer;
   box-shadow: inset 0px 0px 20px rgb(255, 181, 193);
 }
-#orderCheck .order-block .submit input[type=submit]:hover {
+#orderCheck .order-block .submit input[type=submit]:hover, #orderConfirm .order-block .submit input[type=submit]:hover {
   background-color: #EF9A9A;
   color: white;
   box-shadow: inset 0px 0px 10px rgb(255, 223, 228);
 }
-#orderCheck .is-front {
+#orderCheck .is-front, #orderConfirm .is-front {
   z-index: 10;
   position: absolute;
   width: 100%;
@@ -1441,24 +1472,24 @@ nav {
   justify-content: center;
   background-color: rgba(95, 95, 95, 0.8);
 }
-#orderCheck .is-front .field {
+#orderCheck .is-front .field, #orderConfirm .is-front .field {
   margin-top: 20%;
   height: 620px;
 }
-#orderCheck .is-front .field .form-body {
+#orderCheck .is-front .field .form-body, #orderConfirm .is-front .field .form-body {
   padding: 0;
 }
-#orderCheck .is-front .field .form-body form {
+#orderCheck .is-front .field .form-body form, #orderConfirm .is-front .field .form-body form {
   display: grid;
   row-gap: 1.5rem;
 }
-#orderCheck .is-front .field .form-body form .form-field {
+#orderCheck .is-front .field .form-body form .form-field, #orderConfirm .is-front .field .form-body form .form-field {
   margin: 0;
 }
-#orderCheck .is-front .field .form-body form .form-field .form-text .form-label {
+#orderCheck .is-front .field .form-body form .form-field .form-text .form-label, #orderConfirm .is-front .field .form-body form .form-field .form-text .form-label {
   margin: 0;
 }
-#orderCheck .is-front .field .form-body form #close {
+#orderCheck .is-front .field .form-body form #close, #orderConfirm .is-front .field .form-body form #close {
   width: 80px;
   height: 40px;
   display: flex;
@@ -1469,12 +1500,12 @@ nav {
   border-radius: 10px;
   cursor: pointer;
 }
-#orderCheck .is-front .field .form-body form #close:hover {
+#orderCheck .is-front .field .form-body form #close:hover, #orderConfirm .is-front .field .form-body form #close:hover {
   background-color: #EF9A9A;
   color: white;
   box-shadow: inset 0px 0px 10px rgb(255, 223, 228);
 }
-#orderCheck .is-hidden {
+#orderCheck .is-hidden, #orderConfirm .is-hidden {
   display: none;
 }
 
@@ -1653,4 +1684,60 @@ nav {
   transition-delay: 1.6s;
   background-position-x: 0;
   background-image: linear-gradient(to right, rgb(255, 164, 164) 0%, rgb(255, 164, 164) 100%);
+}
+
+#orderConfirm {
+  height: auto;
+  background-color: rgb(255, 242, 242);
+}
+
+#mypage {
+  overflow: hidden;
+  height: 100%;
+  padding: 1rem;
+  padding-top: 110px;
+  width: 70%;
+  margin: 0 auto;
+}
+#mypage .mypage-title {
+  margin: 1rem 0;
+}
+#mypage .grid {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  gap: 3rem;
+}
+#mypage .right {
+  background-color: red;
+}
+#mypage .left {
+  background-color: khaki;
+}
+#mypage .user-area {
+  width: 100%;
+  background-color: rebeccapurple;
+}
+#mypage .user-area .user-icon {
+  background-color: magenta;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#mypage .user-area .user-icon img {
+  border-radius: 50%;
+  width: 80%;
+}
+#mypage .user-area .user-data {
+  background-color: rgb(153, 75, 51);
+  display: grid;
+  grid-template-rows: 1fr 0.3fr 0.3fr;
+  align-items: center;
+  justify-content: center;
+}
+#mypage .user-area .user-data h2 {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 180%;
 }

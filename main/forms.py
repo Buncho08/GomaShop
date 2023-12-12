@@ -31,21 +31,22 @@ class OrderForm(forms.ModelForm):
             'pref':'都道府県',
             'town':'市町村',
             'address':'住所詳細', 
-            'pay':'支払い方法'
+            'pay':'支払い方法',
             }
 
     def __init__(self, initial=None, *args, **kwargs):
         models = OrderTable
         kwargs.setdefault('label_suffix', '')
         super(OrderForm, self).__init__(*args, **kwargs)
-        self.fields['to_firstname'].initial = initial['to_firstname']
-        self.fields['to_lastname'].initial = initial['to_lastname']
-        self.fields['post'].initial = initial['post']
-        self.fields['pref'].initial = initial['pref']
-        self.fields['town'].initial = initial['town']
-        self.fields['address'].initial = initial['address']
-        self.fields['pay'].initial = initial['pay']
-        self.fields['pay'] = forms.ChoiceField(label='属性', widget=forms.RadioSelect, choices=models.PAY_CHOICE, initial=0)
+        if initial:
+            self.fields['to_firstname'].initial = initial['to_firstname']
+            self.fields['to_lastname'].initial = initial['to_lastname']
+            self.fields['post'].initial = initial['post']
+            self.fields['pref'].initial = initial['pref']
+            self.fields['town'].initial = initial['town']
+            self.fields['address'].initial = initial['address']
+            self.fields['pay'].initial = initial['pay']
+            self.fields['pay'] = forms.ChoiceField(label='属性', widget=forms.RadioSelect, choices=models.PAY_CHOICE, initial=0)
 
 
 

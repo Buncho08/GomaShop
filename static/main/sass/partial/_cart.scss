@@ -94,6 +94,35 @@
             background: none;
             width: 100%;
             height: 60px;
+            background-color:$main;
+            cursor: pointer;
+            border-radius: 10px;
+            color:$font;
+            font-size: 120%;
+            &:hover
+            {
+                transition: 0.2s ease-in-out;
+                background-color: rgb(241, 151, 166);
+                color: white;
+            }
+        }
+    }
+
+    .return
+    {
+        padding:1rem;
+        width: 100%;
+        a
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // text-align: center;
+            transition: 0.2s ease-in-out;
+            border: none;
+            background: none;
+            width: 100%;
+            height: 60px;
             background-color:$button;
             cursor: pointer;
             border-radius: 10px;
@@ -102,8 +131,8 @@
             &:hover
             {
                 transition: 0.2s ease-in-out;
-                background-color: $main;
-                color: white;
+                background-color:rgb(190, 248, 202);
+                color: rgb(18, 6, 6);
             }
         }
     }

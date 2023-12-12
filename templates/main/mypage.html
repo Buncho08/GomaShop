@@ -12,24 +12,76 @@
 <body>
     {% include 'main/component/banner.html' %}
     <div id="root">
-        <main id="account-register">
-            <h1>
-                マイページ
-            </h1>
-            <p>
-                <img src="{{ MEDIA_URL }}{{ user.icon }}" alt="">
-            </p>
-            <p>
-                {{ user.username }}
-            </p>
+        <main id="mypage">
+            <div class="mypage-title">
+                <h1>
+                    マイページ
+                </h1>
+            </div>
+            <!-- mypage-title -->
+            <div class="grid">
+                <div class="left">
+                    <div class="user-area">
+                        <div class="user-icon">
+                            <img src="{{ MEDIA_URL }}{{ user.icon }}" alt="{{ user.username }}">
+                        </div>
+                        <!-- user-icon -->
+                        <div class="user-data">
+                            <h2>
+                                {{ user.username }}
+                            </h2>
+                            <p>
+                                <a href="{% url 'main:edituser' %}">
+                                    会員情報の変更
+                                </a>
+                            </p>
+                            <p>
+                                <a href="{% url 'main:orderhistory' %}">
+                                    注文履歴
+                                </a>
+                            </p>
+                        </div>
+                        <!-- user-data -->
+                    </div>
+                    <!-- user-area -->
+                </div>
+                <!-- left -->
+                <div class="right">
+                    <div class="point">
+                        <div class="mypage-title">
+                            保有ポイント
+                        </div>
+                        <div class="point-box">
+                            <div class="circle">
 
-            <p>
-                <a href="{% url 'main:orderhistory' %}">
-                    注文履歴
-                </a>
-            </p>
+                            </div>
+                            <div class="circle">
+                                
+                            </div>
+                            <div class="circle">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recommend">
+                        <div class="mypage-title">
+                            <h2>あなたへのおすすめ</h2>
+                        </div>
+                        <!-- mypage-title -->
+                        <div class="recommend-box">
+                
+                        </div>
+                        <!-- recommend-box -->
+                    </div>
+                    <!-- recommend -->
+                </div>
+                <!-- right -->
+            </div>
+            <!-- grid -->
         </main>
+        <!-- my-page -->
     </div>
+    <!-- root -->
 </body>
 
 </html>

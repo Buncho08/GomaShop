@@ -81,7 +81,7 @@
                     </div>
                     <!-- data-item-group -->
                     {% endfor %}
-                    {% if datacount > 3%}
+                    {% if datacount > 3 %}
                     <nav>
                         <ul class="pagination">
                             <li class="is-btn not-allow">
@@ -146,6 +146,11 @@
                         <!-- data-price -->
                     </div>
                     <!-- data-price-group -->
+                    <div class="return">
+                        <a href="{% url 'main:item' %}">
+                            買い物にもどる
+                        </a>
+                    </div>
                     <div class="gotopage">
                         <a href="{% url 'main:orderCheck' %}">
                             決済手続きに進む

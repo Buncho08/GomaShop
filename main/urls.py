@@ -15,5 +15,6 @@ urlpatterns = [
     path('mypage', views.mypage, name='mypage'),
     path('orderhistory', views.OrderHistory.as_view(), name="orderhistory"),
     path('orderdetail/<pk>', views.OrderDetail.as_view(), name='orderdetail'),
-    path('edituser', views.EditUser.as_view(), name='edituser')
+    path('edituser', views.EditUser.as_view(), name='edituser'),
+    path('orderComplete', views.OrderComplete.as_view(), name='orderComplete'),
 ]

@@ -247,11 +247,9 @@ class OrderCheck(TemplateView):
                         'pref':user.pref,
                         'town':user.town,
                         'address':user.prefDetail,
-                        'pay':1
+                        'pay':1,
                     }
-                    order_detail = CartDetailTable.objects.filter(cart_id=order)
-                    self.params['order'] = order
-                    self.params['detail'] = order_detail
+                    self.params['user'] = user
                     form = OrderForm(initial_field)
                     self.params['form'] = form
                     return render(request, self.template_name, context=self.params)
@@ -264,52 +262,96 @@ class OrderCheck(TemplateView):
     
     def post(self, request):
         form = OrderForm(label_suffix="", data=request.POST)
+        PAY_CHOICE = [
+            (1, 'クレジットカード'),
+            (2, '代金引換'),
+            (3, '後払い決済'),
+            (4, '振込')
+        ]
+        POSTAGE_VALUE = {
+            '北海道':5000,
+            '沖縄県':5000,
+            '福岡県':3000,
+            '長野県':6000,
+            '熊本県':8000,
+            '愛知県':900,
+        }
         if form.is_valid():
+            # データの取得
+            order = CartTable.objects.get(user_id=request.user, ordered=False)
+            order_detail = CartDetailTable.objects.filter(cart_id=order)
+            # templateに渡す値
             self.params['st_title'] = ''
-            self.template_name
+            pay_select_value = PAY_CHOICE[form.cleaned_data.get('pay') - 1][1]
+            self.params['pay'] = pay_select_value
+            self.params['items'] = order_detail
+            self.params['total'] = order.get_total
+            if form.cleaned_data.get('pref') in POSTAGE_VALUE:
+                self.params['postage'] = POSTAGE_VALUE[form.cleaned_data.get('pref')]
+            else:
+                self.params['postage'] = 800
+            self.template_name = 'main/orderConfirm.html'
         else:
             self.params['st_title'] = 'エラー！！！'
         self.params['form'] = form
 
-        return render(request,self.template_name,context=self.params)
+        return render(request,self.template_name, context=self.params)
 
-class OrderConfirm:
-    
+import datetime as dt
+class OrderComplete(TemplateView):
+    POSTAGE_VALUE = {
+            '北海道':5000,
+            '沖縄県':5000,
+            '福岡県':3000,
+            '長野県':6000,
+            '熊本県':8000,
+            '愛知県':900,
+    }
+    template_name = 'main/orderComplete.html'
+    params = {
+    }
     def get(self):
         return redirect('index')
     
     def post(self, request):
-        form = request.session['order']
-        # カート
-        cart = CartTable.objects.get(username=request.user, ordered=False)
-        # カート詳細
-        cart_detail = CartDetailTable.objects.filter(cart_id=cart)
-        # = form.cleaned_data.get('choice')
-        order_data = form.save(commit=False)
-        today = timezone.now()
-        postage = 2000
-        total = cart.get_total
+        order = CartTable.objects.get(user_id=request.user, ordered=False)
+        order_detail = CartDetailTable.objects.filter(cart_id=order)
+        form = OrderForm(label_suffix="", data=request.POST)
+        if form.is_valid():
+            aft_5_days = dt.timedelta(days=5)
+            today = dt.date.today()
+            arrive = today + aft_5_days
+            if form.cleaned_data.get('pref') in self.POSTAGE_VALUE:
+                postage = self.POSTAGE_VALUE[form.cleaned_data.get('pref')]
+            else:
+                postage = 800
+            OrderTable.objects.create(
+                user_id=request.user, 
+                pref=form.cleaned_data.get('pref'),
+                post=form.cleaned_data.get('post'),
+                address=form.cleaned_data.get('address'),
+                postage=postage,
+                town=form.cleaned_data.get('town'),
+                to_firstname=form.cleaned_data.get('to_firstname'),
+                to_lastname=form.cleaned_data.get('to_lastname'),
+                arrive=arrive,
+                pay=form.cleaned_data.get('pay'),
+                total_pay=order.get_total()
+                )
+            
+            order_data = OrderTable.objects.filter(user_id=request.user).all().last()
+            for item in order_detail:
+                OrderDetailTable.objects.create(
+                    order_id=order_data,
+                    item_id=item.item_id,
+                    quantity=item.quantity
+                )
+            redirect_url = reverse('main:index')
+            self.params['redirect_url'] = redirect_url
+            order.ordered = True
+            order.save()
+        return render(request, self.template_name, context=self.params)
 
-        # 注文に登録
-        order_data.user_id = request.user
-        order_data.total_pay = total + postage
-        order_data.arrive = today
-        order_data.postage = postage
-        order_data.save()
-        order_data.order_id
-        # 注文詳細に登録
-        order = OrderTable.objects.get(user_id=request.user, order_id=order_data.order_id)
-
-        # カートにある詳細情報を注文詳細に転記する
-        for item in cart_detail:
-            item_id = ItemTable.objects.get(item_id=item.item_id.item_id)
-            OrderDetailTable.objects.create(order_id=order, item_id=item_id, quantity=item.quantity)
-        
-        # カートの注文確定フラグをTrueにする
-        cart.ordered = True
-        cart.save()
-
-        return ""
 def mypage(request):
 
     if request.user.id is None:
@@ -347,7 +389,6 @@ class OrderDetail(LoginRequiredMixin, TemplateView):
             self.params['data'] = OrderDetailTable.objects.filter(order_id=order).all()
         else:
             return redirect('main:order')
-        
         return render(request, self.template_name, self.params)
 
 class EditUser(LoginRequiredMixin, TemplateView):

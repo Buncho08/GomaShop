@@ -1,0 +1,64 @@
+#mypage
+{
+    overflow: hidden;
+    height: 100%;
+    padding: 1rem;
+    padding-top: 110px;
+    width: 70%;
+    margin: 0 auto;
+    .mypage-title
+    {
+        margin:1rem 0;
+    }
+    .grid
+    {
+        display: grid;
+        grid-template-columns: 0.3fr 1fr;
+        gap: 3rem;
+    }
+
+    .right
+    {
+        background-color: red;
+    }
+    .left
+    {
+        background-color: khaki;
+    }
+    .user-area
+    { 
+        width: 100%;
+        background-color: rebeccapurple;
+        .user-icon
+        {
+            background-color: magenta;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img
+            {
+                border-radius: 50%;
+                width: 80%;
+            }
+        }
+
+        .user-data
+        {
+            background-color: rgb(153, 75, 51);
+            display: grid;
+            grid-template-rows: 1fr 0.3fr 0.3fr;
+            align-items: center;
+            justify-content: center;
+            // margin:0 1rem;
+            h2
+            {
+                // background-color: darkblue;
+                display: flex;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                font-size: 180%;
+            }
+        }
+    }
+}
