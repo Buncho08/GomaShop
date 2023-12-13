@@ -10,6 +10,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 from PIL import Image
 import io
+
 def savePath(model, filename):
     ext = filename.split('.')[-1]
     new_name = model.username + "_icon"
@@ -85,7 +86,7 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
     # 誕生日
     birthday = models.DateField(verbose_name="誕生日", null=True, blank=True, default='1900-12-30')
     # アイコン
-    icon = models.ImageField(verbose_name="アイコン", default=f'main/icon/default_icon.png',upload_to=savePath, null=True, blank=True)
+    icon = models.ImageField(verbose_name="アイコン", default=f'main/icon/default_icon.png', upload_to=savePath, null=True, blank=True)
     # 登録日
     date_joined = models.DateField(verbose_name="登録日", auto_now_add=True)
     # 性別

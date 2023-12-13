@@ -352,22 +352,56 @@ class OrderComplete(TemplateView):
             order.save()
         return render(request, self.template_name, context=self.params)
 
-def mypage(request):
 
-    if request.user.id is None:
-        return redirect('main:login')
-    user = UserTable.objects.get(username=request.user)
-    form_class = EditUserForm(user)
-    point = ((request.user.points // 300 + 1) * 300) - request.user.points
-    item = ItemTable.objects.all()
+class MyPage(TemplateView):
+    template_name = 'main/mypage.html'
     params = {
-        'user':request.user,
-        'point' : point,
-        'item':item,
-        'form':form_class
     }
+    def get(self, request, *args, **kwargs):
+        self.params['error'] = False
+        if 'error' in request.GET:
+            self.params['error'] = True
 
-    return render(request, 'main/mypage.html', params)
+        if request.user.id is None:
+            return redirect('main:login')
+        user = UserTable.objects.get(username=request.user)
+        form_class = EditUserForm(user)
+        point = ((request.user.points // 300 + 1) * 300) - request.user.points
+        item = ItemTable.objects.all()
+
+        self.params['user'] = request.user
+        self.params['point'] = point
+        self.params['item'] = item
+        self.params['form'] = form_class
+
+        return render(request, self.template_name, self.params)
+    
+    def post(self, request, *args, **kwargs):
+        user = UserTable.objects.get(username=request.user)
+        form = EditUserForm(usermodel=user, instance=user, data=request.POST)
+        if form.is_valid():
+            if 'icon' in request.FILES:
+                footer = request.FILES['icon'].name.split('.')[-1]
+                print(footer)
+                if not footer.lower() in ['jpg', 'png', 'jpeg', 'gif']:
+                    redirect_url = reverse('main:mypage')
+                    url_param = urlencode({'error':1})
+                    url = f'{redirect_url}?{url_param}'
+
+                    return redirect(url)
+                user.icon = request.FILES['icon']
+            else:
+                user.icon = 'main/icon/default_icon.png'
+
+            form.save()
+            user.save()
+            user.iconResizer()
+            return redirect('main:mypage')
+        else:
+            self.params['form'] = form
+            return render(request, self.template_name, self.params)
+
+
 
 class OrderHistory(LoginRequiredMixin, TemplateView):
     template_name = 'main/orderhistory.html'
@@ -376,7 +410,7 @@ class OrderHistory(LoginRequiredMixin, TemplateView):
     }
     def get(self, request, *args, **kwargs):
         if OrderTable.objects.filter(user_id=request.user, ordered=False).exists():
-            self.params['data'] = OrderTable.objects.filter(user_id=request.user, ordered=False)
+            self.params['data'] = OrderTable.objects.prefetch_related('related_order').filter(user_id=request.user, ordered=False)
             self.params['status'] = 1
         else:
             self.params['status'] = 0
@@ -412,25 +446,21 @@ class EditUser(LoginRequiredMixin, TemplateView):
         user = UserTable.objects.get(username=request.user)
         form = EditUserForm(usermodel=user, instance=user, data=request.POST)
         if form.is_valid():
-            form.save()
             if 'icon' in request.FILES:
-                print(request.FILES['icon'])
+                footer = request.FILES['icon'].name.split('.')[-1]
+                print(footer)
+                if not footer.lower() in ['jpg', 'png', 'jpeg', 'gif']:
+                    redirect_url = reverse('main:mypage')
+                    url_param = urlencode({'error':1})
+                    url = f'{redirect_url}?{url_param}'
+
+                    return redirect(url)
                 user.icon = request.FILES['icon']
-            else:
-                user.icon = 'media/main/default_icon.png'
+
+            form.save()
             user.save()
             user.iconResizer()
             return redirect('main:mypage')
         else:
             self.params['form'] = form
             return render(request, self.template_name, self.params)
-        
-class EditIcon(LoginRequiredMixin, TemplateView):
-    def get(self, request):
-
-        return redirect('main:index')
-    
-    def post(self, request, *args, **kwargs):
-
-        return redirect('main:mypage')
-

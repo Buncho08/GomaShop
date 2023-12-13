@@ -1,0 +1,20 @@
+#orderhistory {
+    height: 100%;
+    padding: 1rem;
+    padding-top: 105px;
+    width: 70%;
+    margin: 0 auto;
+    @extend #orderCheck;
+
+    .order-title {
+        font-size: 120%;
+        font-weight: 600;
+    }
+
+    .order-block {
+        background-color: khaki;
+        .field {
+            background-color: rebeccapurple;
+        }
+    }
+}

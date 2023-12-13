@@ -12,50 +12,56 @@
 <body>
     {% include 'main/component/banner.html' %}
     <div id="root">
-        <main id="account-register">
+        <main id="orderhistory">
             {% if status %}
-                {% for item in data %}
-                    <table>
-                        <tr>
-                            <th>
+            {% for item in data %}
+            <div class="order-block">
+                <div class="order-title">
+                    注文番号 : {{ item.order_id}}
+                </div>
+                <div class="order-data">
+                    <div class="order-img">
+                    {% for img in item.related_order.all %}
+                    <img src="{{ MEDIA_URL }}{{ img.item_id.item_img }}" alt="">
+                    {% endfor %}
+                    </div>
+                    <div class="field">
+                        <div class="data">
+                            <div class="head">
                                 注文日
-                            </th>
-                            <td>
+                            </div>
+                            <div class="body">
                                 {{ item.create }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
+                            </div>
+                            <div class="head">
                                 合計金額
-                            </th>
-                            <td>
-                                {{ item.total_pay}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
+                            </div>
+                            <div class="body">
+                                {{ item.total_pay }}
+                            </div>
+                            <div class="head">
                                 到着予定日
-                            </th>
-                            <td>
+                            </div>
+                            <div class="body">
                                 {{ item.arrive }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                
-                            </th>
-                            <td>
+                            </div>
+                            <div class="head">
+                            </div>
+                            <div class="body">
                                 <a href="{% url 'main:orderdetail' item.order_id %}">
                                     詳細
                                 </a>
-                            </td>
-                        </tr>
-                    </table>
-                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- order-block -->
+            {% endfor %}
             {% else %}
-                <h1>
-                    注文履歴はありません
-                </h1>
+            <h1>
+                注文履歴はありません
+            </h1>
             {% endif %}
         </main>
     </div>

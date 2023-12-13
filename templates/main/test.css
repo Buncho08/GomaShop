@@ -1,0 +1,33 @@
+/* レイアウト用のスタイル */
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-column {
+    width: 48%; /* カラムの幅は適宜調整 */
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* 商品リストや注文サマリーのスタイル */
+.cart-items,
+.order-summary {
+    /* 必要なスタイルを適用 */
+}
+
+/* 合計金額やプロモーションコード入力欄、ボタンのスタイル */
+.total,
+.promo-code-input,
+.checkout-btn {
+    /* 必要なスタイルを適用 */
+}
+
+/* 注文サマリーや送料情報、支払い情報のスタイル */
+.summary-item {
+    /* 必要なスタイルを適用 */
+}
+
+/* 他の要素のスタイルも適宜追加してください */

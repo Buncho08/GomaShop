@@ -13,12 +13,11 @@
     {% include 'main/component/banner.html' %}
     <div id="root">
         <main id="mypage">
-            <!-- <div class="mypage-title">
-                <h1>
-                    マイページ
-                </h1>
-            </div>
-            mypage-title -->
+            {% if error %}
+            <h2 style="color: red;">
+                アイコンを更新できませんでした。
+            </h2>
+            {% endif %}
             <div class="grid">
                 <div class="left">
                     <div class="user-area">
@@ -108,11 +107,12 @@
         <!-- my-page -->
         <div class="edit-area is-hidden" id="edit-area">
             <div class="form-body is-front">
-                <form action="{% url 'main:editIcon' %}" method="post" id="prevent">
+                <form action="{% url 'main:mypage' %}" method="post" id="prevent" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for item in form %}
                         {% if item.name == 'icon' %}
                             <div class="form-field">
+                                {{ item.errors }}
                                 <input
                                 {% if item.name == 'birthday' %}
                                     type="date"
@@ -120,15 +120,10 @@
                                     type="{{ item.field.widget.input_type }}"
                                 {% endif %}
                                 class="input is-normal"
-                                {% if item.field.widget.input_type == 'text' %}
-                                    placeholder="{{ item.label }}"
-                                {% elif item.field.widget.input_type == 'email' %}
-                                    placeholder="xxx@ooo.□□□"
-                                {% endif %}
                                 {% if item.field.required %}
                                     required
                                 {% endif %}
-                                name="{{item.name}}"
+                                name="icon"
                                 id="{{item.id_for_label}}"
                                 {% if item.name == 'birthday' %}
                                 value="{{ item.field.initial|date:'Y-m-d' }}"
