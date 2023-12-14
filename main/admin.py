@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from .models import CartTable, CartDetailTable, ItemTable, OrderTable, OrderDetailTable
+import io
+from PIL import Image
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
@@ -45,7 +47,15 @@ class CartDetailAdmin(admin.ModelAdmin):
     list_display = ('detail_id', 'cart_id', 'item_id', 'quantity')
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('item_id', 'item_name', 'price', 'sale_flg')
+    list_display = ('item_id', 'item_name', 'price', 'item_img','sale_flg')
+    def save_model(self, request, obj, form, change):
+        img = Image.open(obj.item_img)
+        img_resize = img.resize((256, 256))
+        img.close()
+        bf = io.BytesIO()
+        img_resize.save(fp=bf, format=img.format)
+        obj.item_img.save(name=obj.item_img.path, content=bf)
+        super(ItemAdmin, self).save_model(request, obj, form, change)
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'user_id', 'total_pay', 'ordered')

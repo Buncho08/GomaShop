@@ -2,11 +2,11 @@
 {
     // background-color: rebeccapurple;
     position: relative;
-    overflow: hidden;
-    height: 100%;
+    height: auto;
     padding: 1rem;
     padding-top: 70px;
     width: 100%;
+    background-color: $sub-back;
     .order-block
     {
         width: 50%;
@@ -73,7 +73,7 @@
             }
             // data
 
-            form
+            #order_cash
             {
                 // background-color: rebeccapurple;
                 display: grid;

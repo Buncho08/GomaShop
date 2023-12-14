@@ -6,34 +6,53 @@
     width: 70%;
     margin: 0 auto;
 
-    .data-item-img
-    {
-        a
-        {
+    .data-order-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .backpage {
+            margin-left: 1rem;
+            align-self: center;
+            font-size: 110%;
+
+            a, i {
+                color: $link;
+                &:hover {
+                    i
+                    {
+                        color: $main;
+                    }
+                    color: $main;
+                }
+            }
+        }
+    }
+
+    .data-item-img {
+        a {
             position: relative;
             height: 100%;
             width: 100%;
-            &:hover
-            {
-                &::after
-                {
+
+            &:hover {
+                &::after {
                     background-color: rgba(255, 255, 255, 0.199);
                     position: absolute;
                     content: '';
                     width: 100%;
                     height: 100%;
-                    top:0;
-                    left:0;
+                    top: 0;
+                    left: 0;
                     transition: 0.5s ease-in-out;
                 }
             }
 
-            img
-            {
+            img {
                 border-radius: 10px;
             }
         }
     }
+
     // background-color: rebeccapurple;
     .data-order {
         display: block;
@@ -50,6 +69,7 @@
         a {
             transition: 0.2s ease-in-out;
             color: $font;
+
             &:hover {
                 transition: 0.2s ease-in-out;
                 color: $link;
@@ -57,34 +77,28 @@
         }
     }
 
-    .data-item-link
-    {
-        a
-        {
-            &:hover
-            {
+    .data-item-link {
+        a {
+            &:hover {
                 transition: 0.2s ease-in-out;
-                color:$main;
+                color: $main;
             }
         }
     }
 
-    .is-total:last-child
-    {
-        &::after
-        {
+    .is-total:last-child {
+        &::after {
             font-size: 70%;
             content: '(税込)';
         }
     }
-    
-    .gotopage
-    {
+
+    .gotopage {
         padding: 0 1rem;
         width: 100%;
+
         // background-color: rebeccapurple;
-        a
-        {
+        a {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -94,13 +108,13 @@
             background: none;
             width: 100%;
             height: 60px;
-            background-color:$main;
+            background-color: $main;
             cursor: pointer;
             border-radius: 10px;
-            color:$font;
+            color: $font;
             font-size: 120%;
-            &:hover
-            {
+
+            &:hover {
                 transition: 0.2s ease-in-out;
                 background-color: rgb(241, 151, 166);
                 color: white;
@@ -108,12 +122,11 @@
         }
     }
 
-    .return
-    {
-        padding:1rem;
+    .return {
+        padding: 1rem;
         width: 100%;
-        a
-        {
+
+        a {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -123,15 +136,15 @@
             background: none;
             width: 100%;
             height: 60px;
-            background-color:$button;
+            background-color: $button;
             cursor: pointer;
             border-radius: 10px;
-            color:$font;
+            color: $font;
             font-size: 120%;
-            &:hover
-            {
+
+            &:hover {
                 transition: 0.2s ease-in-out;
-                background-color:rgb(190, 248, 202);
+                background-color: rgb(190, 248, 202);
                 color: rgb(18, 6, 6);
             }
         }

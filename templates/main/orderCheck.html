@@ -14,62 +14,9 @@
     {% include 'main/component/banner.html' %}
     <div id="root" style="background-color: rgb(255, 242, 242);">
         <main id="orderCheck">
-            <!-- is-hidden 編集ボタンを押さないと表示されない-->
-            <div class="order-block is-front is-hidden">
-                <div class="field">
-                    <div class="title">
-                        お届け先の編集
-                    </div>
-                    <div class="data">
-                        <div class="form-body">
-                            <form action="{% url 'main:orderCheck' %}" method="post" name="order_form" id="order_form">
-                                {% csrf_token %}
-                                {% for item in form %}
-                                {% if item.name == 'pay' %}
-                                    <div class="is-hidden">
-                                        {% for i in item %}
-                                        {{ i.tag }}
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                <div class="form-field">
-                                    <div class="form-text">
-                                        <div class="form-label">
-                                            <label for="{{ item.id_for_label }}">
-                                                {{ item.label }}
-                                            </label>
-                                        </div>
-                                        <!-- form-label -->
-                                        {% if item.field.errors %}
-                                        <div class="form-label-ano">
-                                            {{ item.errors }}
-                                        </div>
-                                        {% endif %}
-                                        <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
-                                            {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
-                                            placeholder="{{ item.label }}" value="{{ item.initial }}">
-                                    </div>
-                                    <!-- form-text-group -->
-                                </div>
-                                {% endif %}
-                                <!-- form-field -->
-                                {% endfor %}
-                                <div class="form-submit">
-                                    <div id="close">
-                                        とじる
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- form-body -->
-                    </div>
-                </div>
-            </div>
-            <!-- 編集ボタン押さないと表示されないエリア終了 -->
-            <!-- order-block is-front -->
             <div id="progress">
                 <ul class="bar">
-                    <li  class="now">
+                    <li class="now">
                         <div class="process">
                             お届け先
                         </div>
@@ -106,6 +53,60 @@
                     });
                 </script>
             </div>
+            {% if user.pref %}
+            <!-- is-hidden 編集ボタンを押さないと表示されない-->
+            <div class="order-block is-front is-hidden">
+                <div class="field">
+                    <div class="title">
+                        お届け先の編集
+                    </div>
+                    <div class="data">
+                        <div class="form-body">
+                            <form action="{% url 'main:orderCheck' %}" method="post" name="order_form" id="order_form">
+                                {% csrf_token %}
+                                {% for item in form %}
+                                {% if item.name == 'pay' %}
+                                <div class="is-hidden">
+                                    {% for i in item %}
+                                    {{ i.tag }}
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div class="form-field">
+                                    <div class="form-text">
+                                        <div class="form-label">
+                                            <label for="{{ item.id_for_label }}">
+                                                {{ item.label }}
+                                            </label>
+                                        </div>
+                                        <!-- form-label -->
+                                        {% if item.field.errors %}
+                                        <div class="form-label-ano">
+                                            {{ item.errors }}
+                                        </div>
+                                        {% endif %}
+                                        <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
+                                            {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
+                                            placeholder="{{ item.label }}" value="{{ item.initial }}">
+                                    </div>
+                                    <!-- form-text-group -->
+                                </div>
+                                {% endif %}
+                                <!-- form-field -->
+                                {% endfor %}
+                                <div class="form-submit">
+                                    <div id="close">
+                                        とじる
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- form-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- 編集ボタン押さないと表示されないエリア終了 -->
+            <!-- order-block is-front -->
             <div class="order-block">
                 <div class="title">
                     お届け先
@@ -139,7 +140,55 @@
                 </div>
             </div>
             <!-- order-block -->
-
+            {% else %}
+            <!-- is-hidden 編集ボタンを押さないと表示されない-->
+            <div class="order-block">
+                <div class="field">
+                    <div class="title">
+                        お届け先の編集
+                    </div>
+                    <div class="data">
+                        <div class="form-body">
+                            <form action="{% url 'main:orderCheck' %}" method="post" name="order_form" id="order_form">
+                                {% csrf_token %}
+                                {% for item in form %}
+                                {% if item.name == 'pay' %}
+                                <div class="is-hidden">
+                                    {% for i in item %}
+                                    {{ i.tag }}
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div class="form-field">
+                                    <div class="form-text">
+                                        <div class="form-label">
+                                            <label for="{{ item.id_for_label }}">
+                                                {{ item.label }}
+                                            </label>
+                                        </div>
+                                        <!-- form-label -->
+                                        {% if item.field.errors %}
+                                        <div class="form-label-ano">
+                                            {{ item.errors }}
+                                        </div>
+                                        {% endif %}
+                                        <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
+                                            {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
+                                            placeholder="{{ item.label }}" value="{{ item.initial }}">
+                                    </div>
+                                    <!-- form-text-group -->
+                                </div>
+                                {% endif %}
+                                <!-- form-field -->
+                                {% endfor %}
+                            </form>
+                        </div>
+                        <!-- form-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- order-block -->
+            {% endif %}
             <div class="order-block">
                 <div class="title">
                     お支払方法を選ぶ
@@ -199,8 +248,8 @@
         let radio = document.order_cash.cash;
         let cashValueButton = document.order_form.pay;
         cashValueButton[0].checked = true;
-        function setCashValue(selectNum)
-        {
+
+        function setCashValue(selectNum) {
             cashValueButton[selectNum - 1].checked = true;
             // alert(cashValueButton[selectNum - 1].checked);
         };

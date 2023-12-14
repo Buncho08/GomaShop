@@ -53,6 +53,12 @@
                                         {{ item.label }}
                                     </label>
                                 </div>
+                                <div class="form-label">
+                                    {{ item.errors }}
+                                </div>
+                                <div class="form-label">
+
+                                </div>
                                 <input {% if item.name == 'birthday' %} type="date" {% else %}
                                     type="{{ item.field.widget.input_type }}" {% endif %} class="input is-normal"
                                     {% if item.field.widget.input_type == 'text' %} placeholder="{{ item.label }}"

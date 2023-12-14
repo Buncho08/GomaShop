@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ st_title }} -ChirpCakes-</title>
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5688669be.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -33,6 +34,12 @@
                     </div>
                 </div>
                 <!-- data-order -->
+                <div class="backpage">
+                    <a href="{% url 'main:item' %}">
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                        買い物へ戻る
+                    </a>
+                </div>
             </div>
             <!--  data-order-group -->
             <!-- data-title -->
@@ -146,11 +153,6 @@
                         <!-- data-price -->
                     </div>
                     <!-- data-price-group -->
-                    <div class="return">
-                        <a href="{% url 'main:item' %}">
-                            買い物にもどる
-                        </a>
-                    </div>
                     <div class="gotopage">
                         <a href="{% url 'main:orderCheck' %}">
                             決済手続きに進む

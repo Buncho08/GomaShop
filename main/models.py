@@ -25,6 +25,10 @@ def savePath(model, filename):
 def saveItemPath(model, filename):
     ext = filename.split('.')[-1]
     new_name = model.item_name_eng + "_img"
+    path = f'.{settings.MEDIA_URL}main/item/{new_name}.{ext}'
+    print(path)
+    if os.path.exists(path):
+        os.remove(path)
     return f'main/item/{new_name}.{ext}'
 
 
@@ -181,7 +185,7 @@ class ItemTable(models.Model):
     slug = models.SlugField(null=True, blank=True, max_length=20, default=f'')
     def __str__(self):
         return f'商品ID:{self.item_id} | 商品名:{self.item_name} | 価格/個:{self.price} | 販売ステータス:{self.sale_flg}'
-    
+
 class CartDetailTable(models.Model):
     class Meta:
         verbose_name = _('カート詳細テーブル')

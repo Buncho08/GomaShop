@@ -44,7 +44,7 @@ class CreateUser(TemplateView):
             if 'icon' in request.FILES:
                 account.icon = request.FILES['icon']
             else:
-                account.icon = 'media/main/default_icon.png'
+                account.icon = 'main/icon/default_icon.png'
             account.save()
             userData = UserTable.objects.get(username=account.username)
             # 初回でカートを作る
@@ -109,6 +109,15 @@ class Login(TemplateView):
         else:
             self.params['status'] = 1
             return render(request, 'main/login.html', self.params)
+
+def Logout(request):
+    if request.user is None:
+        return redirect('main:index')
+    else:
+        user = request.user
+        logout(request)
+        return render(request, 'main/logout.html', {'user':user})
+    
 
 class ItemPage(TemplateView):
     template_name = 'main/itempage.html'
@@ -211,8 +220,8 @@ class ItemDelete(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         item_slug = self.kwargs['slug']
         item = ItemTable.objects.get(slug=item_slug)
-        if CartTable.objects.filter(username=request.user, ordered=False).exists():
-            order = CartTable.objects.get(username=request.user, ordered=False)
+        if CartTable.objects.filter(user_id=request.user, ordered=False).exists():
+            order = CartTable.objects.get(user_id=request.user, ordered=False)
             # 既に同じ商品がカートにあった場合
             if CartDetailTable.objects.filter(cart_id=order, item_id=item).exists():
                 detail = CartDetailTable.objects.get(cart_id=order, item_id=item).delete()
@@ -275,6 +284,7 @@ class OrderCheck(TemplateView):
             '長野県':6000,
             '熊本県':8000,
             '愛知県':900,
+            '大阪府':90000,
         }
         if form.is_valid():
             # データの取得
@@ -306,6 +316,7 @@ class OrderComplete(TemplateView):
             '長野県':6000,
             '熊本県':8000,
             '愛知県':900,
+            '大阪府':90000,
     }
     template_name = 'main/orderComplete.html'
     params = {
@@ -321,6 +332,7 @@ class OrderComplete(TemplateView):
             aft_5_days = dt.timedelta(days=5)
             today = dt.date.today()
             arrive = today + aft_5_days
+            print(form.cleaned_data.get('pref'))
             if form.cleaned_data.get('pref') in self.POSTAGE_VALUE:
                 postage = self.POSTAGE_VALUE[form.cleaned_data.get('pref')]
             else:
@@ -410,7 +422,8 @@ class OrderHistory(LoginRequiredMixin, TemplateView):
     }
     def get(self, request, *args, **kwargs):
         if OrderTable.objects.filter(user_id=request.user, ordered=False).exists():
-            self.params['data'] = OrderTable.objects.prefetch_related('related_order').filter(user_id=request.user, ordered=False)
+            order = OrderTable.objects.prefetch_related('related_order').filter(user_id=request.user, ordered=False)
+            self.params['data'] = order
             self.params['status'] = 1
         else:
             self.params['status'] = 0
@@ -456,7 +469,6 @@ class EditUser(LoginRequiredMixin, TemplateView):
 
                     return redirect(url)
                 user.icon = request.FILES['icon']
-
             form.save()
             user.save()
             user.iconResizer()

@@ -26,22 +26,19 @@
                     <img src="{% static 'main/image/Logo.svg' %}" alt="" width="12%" height="12%">
                     <img src="{% static 'main/image/ChirpCakes.svg' %}" alt="" width="12%" height="12%">
                 </div>
-                {% if status %}
-                <div class="cover">
-                    <div class="title">
-                        <h2>
-                            登録完了！
-                        </h2>
-                    </div>
-                </div>
-                <meta http-equiv="refresh" content="2; url={{ redirect_url }}">
-                {% else %}
-                <div>
-                    不正なリクエスト エラー
-                </div>
-                {% endif%}
+                <div class="line"></div>
+                <h2 class="title">
+                    ログアウトしました
+                </h2>
+                <p>
+                    {{ user.username }}さん、またね！
+                </p>
+
+                <meta http-equiv="refresh" content="2; url={% url 'main:index' %}">
+
             </div>
-        </main>
+    </div>
+    </main>
     </div>
 </body>
 
