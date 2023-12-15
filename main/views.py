@@ -242,6 +242,7 @@ class OrderCheck(TemplateView):
         'st_title':'注文確認',
     }
     def get(self, request):
+        self.params['error'] = 0
         self.params['st_title'] = '注文確認'
         if request.user.id is not None:
             self.params['st_title'] = ''
@@ -286,6 +287,7 @@ class OrderCheck(TemplateView):
             '愛知県':900,
             '大阪府':90000,
         }
+        self.params['error'] = 0
         if form.is_valid():
             # データの取得
             order = CartTable.objects.get(user_id=request.user, ordered=False)
@@ -301,9 +303,23 @@ class OrderCheck(TemplateView):
             else:
                 self.params['postage'] = 800
             self.template_name = 'main/orderConfirm.html'
+            self.params['form'] = form
         else:
             self.params['st_title'] = 'エラー！！！'
-        self.params['form'] = form
+            self.params['error'] = 1
+            user = UserTable.objects.get(username=request.user)
+            initial_field = {
+                'to_firstname':user.namae,
+                'to_lastname':user.myouji,
+                'post':user.post,
+                'pref':user.pref,
+                'town':user.town,
+                'address':user.prefDetail,
+                'pay':1,
+            }
+            self.params['user'] = user
+            form = OrderForm(initial_field)
+            self.params['form'] = form
 
         return render(request,self.template_name, context=self.params)
 
@@ -321,10 +337,10 @@ class OrderComplete(TemplateView):
     template_name = 'main/orderComplete.html'
     params = {
     }
-    def get(self):
-        return redirect('index')
+    def get(self, request, *args, **kwargs):
+        return redirect('main:index')
     
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         order = CartTable.objects.get(user_id=request.user, ordered=False)
         order_detail = CartDetailTable.objects.filter(cart_id=order)
         form = OrderForm(label_suffix="", data=request.POST)
@@ -362,6 +378,9 @@ class OrderComplete(TemplateView):
             self.params['redirect_url'] = redirect_url
             order.ordered = True
             order.save()
+        else:
+            self.template_name = 'main/orderConfirm.html'
+            self.params['form'] = form
         return render(request, self.template_name, context=self.params)
 
 

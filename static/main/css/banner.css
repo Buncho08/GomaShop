@@ -1,5 +1,9 @@
 @import url("./reset.css");
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Shippori+Mincho&family=Zen+Kaku+Gothic+New&display=swap");
+.errorlist li {
+  color: red;
+}
+
 * {
   font-family: "Luckiest Guy", cursive;
   font-family: "Outfit", sans-serif;

@@ -159,6 +159,7 @@
                     <form action="{% url 'main:orderComplete' %}" method="post">
                         {% for item in form %}
                         {{ item.as_hidden }}
+                        <!-- {{  item.errors}} -->
                         {% endfor %}
                         {% csrf_token %}
                         <input type="submit" value="内容の確認">
@@ -168,19 +169,6 @@
 
         </main>
     </div>
-    <script>
-        let button = document.getElementById('edit');
-        let front = document.querySelector('.is-front');
-        let closebtn = document.getElementById('close');
-        button.addEventListener('click', function () {
-            front.classList.remove('is-hidden');
-        })
-
-        closebtn.addEventListener('click', function () {
-            // alert('あああ');
-            front.classList.toggle('is-hidden');
-        })
-    </script>
 </body>
 
 </html>

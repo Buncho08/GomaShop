@@ -63,6 +63,11 @@
                     <div class="data">
                         <div class="form-body">
                             <form action="{% url 'main:orderCheck' %}" method="post" name="order_form" id="order_form">
+                                {% if error%}
+                                <p style="color: red;">
+                                    正しく入力してください。
+                                </p>
+                                {% endif %}
                                 {% csrf_token %}
                                 {% for item in form %}
                                 {% if item.name == 'pay' %}
@@ -80,7 +85,7 @@
                                             </label>
                                         </div>
                                         <!-- form-label -->
-                                        {% if item.field.errors %}
+                                        {% if item.errors %}
                                         <div class="form-label-ano">
                                             {{ item.errors }}
                                         </div>
@@ -143,11 +148,11 @@
             {% else %}
             <!-- is-hidden 編集ボタンを押さないと表示されない-->
             <div class="order-block">
+                <div class="title">
+                    お届け先の登録
+                </div>
                 <div class="field">
-                    <div class="title">
-                        お届け先の編集
-                    </div>
-                    <div class="data">
+                    <div class="data-form">
                         <div class="form-body">
                             <form action="{% url 'main:orderCheck' %}" method="post" name="order_form" id="order_form">
                                 {% csrf_token %}
@@ -167,7 +172,7 @@
                                             </label>
                                         </div>
                                         <!-- form-label -->
-                                        {% if item.field.errors %}
+                                        {% if item.errors %}
                                         <div class="form-label-ano">
                                             {{ item.errors }}
                                         </div>
@@ -247,20 +252,30 @@
         let closebtn = document.getElementById('close');
         let radio = document.order_cash.cash;
         let cashValueButton = document.order_form.pay;
+        {% autoescape off %}
+        let errors = Number({{ error }});
+        {% endautoescape %}
         cashValueButton[0].checked = true;
 
         function setCashValue(selectNum) {
             cashValueButton[selectNum - 1].checked = true;
-            // alert(cashValueButton[selectNum - 1].checked);
+            // alert(cashValueButton[selectNum - 1].value);
         };
         button.addEventListener('click', function () {
             front.classList.remove('is-hidden');
-        })
+        });
 
         closebtn.addEventListener('click', function () {
             // alert('あああ');
             front.classList.toggle('is-hidden');
-        })
+        });
+
+        window.addEventListener("load",(event)=>{
+            if(errors)
+            {
+                front.classList.remove('is-hidden');
+            }
+        });
     </script>
 </body>
 

@@ -63,9 +63,15 @@
             </div>
             {% endfor %}
             {% else %}
-            <h1>
+            <h1 class="no-order">
                 注文履歴はありません
             </h1>
+
+            <p class="no-order-p">
+                <a href="{% url 'main:mypage' %}">
+                    マイページへ戻る
+                </a>
+            </p>
             {% endif %}
         </main>
     </div>

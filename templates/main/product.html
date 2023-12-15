@@ -1,12 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ st_title }} -ChirpCakes-</title>
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5688669be.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <script>
         // フォームに値が残ってしまう対策
@@ -40,34 +43,78 @@
                     <div class="title">
                         <h2>
                             {{ item.item_name }}
-                        </h1>
+                            </h1>
                     </div>
                     <div class="price">
                         {{ item.price }}
                     </div>
                     <div class="disc">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusamus libero odio molestiae maxime porro cum quos accusantium error dignissimos animi reiciendis possimus, magnam molestias ab? Ut earum asperiores excepturi.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusamus libero odio
+                        molestiae maxime porro cum quos accusantium error dignissimos animi reiciendis possimus, magnam
+                        molestias ab? Ut earum asperiores excepturi.
                         <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusamus libero odio molestiae maxime porro cum quos accusantium error dignissimos animi reiciendis possimus, magnam molestias ab? Ut earum asperiores excepturi. -->
                     </div>
                     <div class="bottom">
                         <div class="space">
 
                         </div>
-                        <form action="{% url 'main:product' item.slug %}" method="post">
-                            {% csrf_token %}
-                            {% if form.errors %}
-                            {{ form.quantity.errors }}
-                            {% endif %}
-                            <label for="quantity">
-                                <input type="number" name="quantity" id="quantity" min="0" max="100" value="1" hidden>
-                            </label>
-                            <input type="hidden" name="item_id" value="{{ item.item_id }}" id="item_id">
-                            <input type="submit" value="カートに入れる">
-                        </form>
+                        <button id="onCart">
+                            カートに入れる
+                        </button>
+                    </div>
+                </div>
+                <div class="is-front is-hidden" id="is-front">
+                    <div class="field">
+                        <div class="form-body">
+                            <form action="{% url 'main:product' item.slug %}" method="post">
+                                <div class="form-field">
+                                    <div class="form-text">
+                                        {% csrf_token %}
+                                        {% if form.errors %}
+                                        {{ form.quantity.errors }}
+                                        {% endif %}
+                                        <div class="form-label">
+                                            <label for="quantity">
+                                                数量
+                                            </label>
+                                        </div>
+                                        <div class="order-count">
+                                            <div id="increase">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </div>
+                                            <input type="number" name="quantity" id="quantity" min="0" max="100" value="1">
+                                            <div id="decrease">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="item_id" value="{{ item.item_id }}" id="item_id">
+                                        <input type="submit" value="カートに入れる">
+                                    </div>
+                                </div>
+                            </form>
+                            <button id="cancel">
+                                キャンセル
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    <script>
+        let button = document.getElementById('onCart');
+        let orderArea = document.getElementById('is-front');
+        let cancel = document.getElementById('cancel');
+
+        button.addEventListener('click', function () {
+            orderArea.classList.remove('is-hidden');
+        });
+
+        cancel.addEventListener('click', function () {
+            orderArea.classList.toggle('is-hidden');
+        });
+    </script>
 </body>
-</html> 
+
+</html>

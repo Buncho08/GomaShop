@@ -1,18 +1,11 @@
 #product
 {
     overflow: hidden;
-    position: absolute;
-    height: auto;
-    width: auto;
+    position: relative;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    // background-color: aquamarine;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
     .prd-wrap
     {
         width: 60%;
@@ -96,6 +89,20 @@
                 // background-color: rebeccapurple;
                 display: flex;
                 justify-content: center;
+                button
+                {
+                    text-align: center;
+                    width: 100%;
+                    height: 60px;
+                    background-color:$button;
+                    cursor: pointer;
+                    border-radius: 10px;
+                    &:hover
+                    {
+                        background-color: $main;
+                        color: white;
+                    }
+                }
                 form
                 {
                     width: 100%;
@@ -117,5 +124,101 @@
                 }
             }
         }
+    }
+
+
+    .is-front
+    {
+        z-index: 10;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        top: 0;
+        left: 0;
+        right:0;
+        bottom: 0;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(95, 95, 95, 0.8);
+        .field
+        {
+            width: 450px;
+            height: 130px;
+            // background-color: rgb(255, 48, 48);
+            .form-body
+            {
+                padding: 0;
+                // background-color: red;
+                form
+                {
+                    display: grid;
+                    row-gap: 1.5rem;
+                    width: 100%;
+                    // background-color: rebeccapurple;
+                    .form-field
+                    {
+                        margin: 1rem 0;
+                        // background-color: lawngreen;
+                        .form-text
+                        {
+                            .form-label
+                            {
+                                margin: 0;
+                                // background-color: lawngreen;
+                            }
+                        }
+                    }
+                    
+                    input[type="submit"]
+                    {
+                        width:120px;
+                        height:40px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: rgb(246, 218, 222);
+                        margin:1rem auto 0 auto;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        border: none;
+                        &:hover
+                        {
+                            background-color: $main;
+                            color: white;
+                            // box-shadow:inset 0px 0px 10px rgb(255, 223, 228);
+                        }
+                    }
+
+                    .order-count
+                    {
+                        width: 1%;
+                        background-color: rebeccapurple;
+                        display: grid;
+                        grid-template-columns: 0.2fr 1fr 0.2fr;
+                    }
+                    #increase
+                    {
+                        background-color: red;
+                    }
+
+                    #decrease
+                    {
+                        background-color: red;
+                    }
+                }
+            }
+            // form
+        }
+        #cancel
+        {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .is-hidden
+    {
+        display: none;
     }
 }

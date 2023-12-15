@@ -14,6 +14,14 @@ $link:rgb(0, 190, 190);;
 $font-eng:'Outfit', sans-serif;
 $font-jp:'Zen Kaku Gothic New', sans-serif;
 
+.errorlist
+{
+    li
+    {
+        color: red;
+    }
+}
+
 * {
     font-family: 'Luckiest Guy', cursive;
     font-family: 'Outfit', sans-serif;

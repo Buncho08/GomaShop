@@ -5,6 +5,24 @@
     width: 50%;
     margin: 0 auto;
     @extend #orderCheck;
+    background-color: $back;
+    .no-order
+    {
+        margin-top: 100px;
+    }
+
+    .no-order-p
+    {
+        margin-top: 1rem;
+        font-size: 110%;
+        a
+        {
+            &:hover
+            {
+                color: $main;
+            }
+        }
+    }
     .order-title {
         font-size: 170%;
         font-weight: 600;
