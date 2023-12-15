@@ -235,7 +235,7 @@ class OrderTable(models.Model):
         total = 0
         for item in self.related_order.all():
             total += item.get_total_price()
-        return total
+        return int(total)
     
     def __str__(self):
         return f'注文ID:{self.order_id} | ユーザーID:{self.user_id}'

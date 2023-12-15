@@ -79,10 +79,11 @@
                                             </label>
                                         </div>
                                         <div class="order-count">
+                                            <input type="number" name="quantity" id="quantity" min="0" max="100"
+                                                value="1">
                                             <div id="increase">
                                                 <i class="fa-solid fa-plus"></i>
                                             </div>
-                                            <input type="number" name="quantity" id="quantity" min="0" max="100" value="1">
                                             <div id="decrease">
                                                 <i class="fa-solid fa-minus"></i>
                                             </div>
@@ -106,6 +107,9 @@
         let button = document.getElementById('onCart');
         let orderArea = document.getElementById('is-front');
         let cancel = document.getElementById('cancel');
+        let increase = document.getElementById('increase');
+        let decrease = document.getElementById('decrease');
+        let amount = document.getElementById('quantity');
 
         button.addEventListener('click', function () {
             orderArea.classList.remove('is-hidden');
@@ -114,6 +118,17 @@
         cancel.addEventListener('click', function () {
             orderArea.classList.toggle('is-hidden');
         });
+
+        increase.addEventListener('click', function(){
+            amount.value = Number(amount.value) + 1;
+        });
+
+        decrease.addEventListener('click', function(){
+            if(Number(amount.value) > 1)
+            {
+                amount.value = Number(amount.value) - 1;
+            }
+        })
     </script>
 </body>
 

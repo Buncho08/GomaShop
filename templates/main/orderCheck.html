@@ -63,7 +63,7 @@
                     <div class="data">
                         <div class="form-body">
                             <form action="{% url 'main:orderCheck' %}" method="post" name="order_form" id="order_form">
-                                {% if error%}
+                                {% if error %}
                                 <p style="color: red;">
                                     正しく入力してください。
                                 </p>
@@ -90,7 +90,7 @@
                                             {{ item.errors }}
                                         </div>
                                         {% endif %}
-                                        <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
+                                        <input type="text" name="{{ item.name }}"
                                             {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
                                             placeholder="{{ item.label }}" value="{{ item.initial }}">
                                     </div>
@@ -177,9 +177,9 @@
                                             {{ item.errors }}
                                         </div>
                                         {% endif %}
-                                        <input type="{{ item.field.widget.input_type }}" name="{{ item.name }}"
+                                        <input type="text" name="{{ item.name }}"
                                             {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
-                                            placeholder="{{ item.label }}" value="{{ item.initial }}">
+                                            placeholder="{{ item.label }}">
                                     </div>
                                     <!-- form-text-group -->
                                 </div>
@@ -247,20 +247,12 @@
     </div>
     <script>
         // let autoComplement = new postcodejp.address.AutoComplementService('i7QvflXhuUzUcbDm2p4dpl1iarssGa8T3ABcT5e');
+        {% autoescape off %}
+        // きもい
+        {% if user.post %}
         let button = document.getElementById('edit');
         let front = document.querySelector('.is-front');
         let closebtn = document.getElementById('close');
-        let radio = document.order_cash.cash;
-        let cashValueButton = document.order_form.pay;
-        {% autoescape off %}
-        let errors = Number({{ error }});
-        {% endautoescape %}
-        cashValueButton[0].checked = true;
-
-        function setCashValue(selectNum) {
-            cashValueButton[selectNum - 1].checked = true;
-            // alert(cashValueButton[selectNum - 1].value);
-        };
         button.addEventListener('click', function () {
             front.classList.remove('is-hidden');
         });
@@ -270,12 +262,49 @@
             front.classList.toggle('is-hidden');
         });
 
-        window.addEventListener("load",(event)=>{
+        {% endif %}
+        let radio = document.order_cash.cash;
+        let cashValueButton = document.order_form.pay;
+        let errors = Number({{ error }});
+        {% endautoescape %}
+        cashValueButton[0].checked = true;
+
+        function setCashValue(selectNum) {
+            cashValueButton[selectNum - 1].checked = true;
+            // alert(cashValueButton[selectNum - 1].value);
+        };
+
+
+        window.addEventListener("load", (event)=>{
             if(errors)
             {
                 front.classList.remove('is-hidden');
             }
         });
+
+        // 郵便番号用
+        let post = document.getElementById('id_post');
+        let befVal = ''
+        post.addEventListener('input', function(e){
+            if((!!Number(e.target.value[e.target.value.length - 1]) || e.target.value[e.target.value.length - 1] == '0') && e.target.value.length <= 8)
+            {
+                if(e.target.value.length == 3 && befVal[e.target.value.length] != '-')
+                {
+                    e.target.value += '-';
+                }
+                if(e.target.value.length == 4 && e.target.value.indexOf('-') == -1)
+                {
+                    let temp_1 = e.target.value[e.target.value.length - 1];
+                    e.target.value = e.target.value.slice(0, e.target.value.length - 1) + '-' + temp_1;
+                }
+            }
+            else
+            {
+                e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+            }
+            befVal = e.target.value;
+        });
+
     </script>
 </body>
 

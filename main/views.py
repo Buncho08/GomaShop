@@ -211,6 +211,18 @@ class Order(TemplateView):
             return render(request, self.template_name, context=self.params)
         else:
             return redirect('main:login')
+        
+    def post(self, request):
+        amount = request.POST.getlist('quantity')
+        order = CartTable.objects.get(user_id=request.user, ordered=False)
+        detail = CartDetailTable.objects.filter(cart_id=order).all()
+        j = 0
+        for i in detail:
+            i.quantity = amount[j]
+            i.save()
+            j += 1
+        
+        return redirect('main:orderCheck')
 
 
 
@@ -292,6 +304,9 @@ class OrderCheck(TemplateView):
             # データの取得
             order = CartTable.objects.get(user_id=request.user, ordered=False)
             order_detail = CartDetailTable.objects.filter(cart_id=order)
+            total = order.get_total()
+            point = total // 100
+            self.params['get_point'] = point
             # templateに渡す値
             self.params['st_title'] = ''
             pay_select_value = PAY_CHOICE[form.cleaned_data.get('pay') - 1][1]
@@ -308,17 +323,18 @@ class OrderCheck(TemplateView):
             self.params['st_title'] = 'エラー！！！'
             self.params['error'] = 1
             user = UserTable.objects.get(username=request.user)
-            initial_field = {
-                'to_firstname':user.namae,
-                'to_lastname':user.myouji,
-                'post':user.post,
-                'pref':user.pref,
-                'town':user.town,
-                'address':user.prefDetail,
-                'pay':1,
-            }
-            self.params['user'] = user
-            form = OrderForm(initial_field)
+            if user.pref:
+                initial_field = {
+                    'to_firstname':user.namae,
+                    'to_lastname':user.myouji,
+                    'post':user.post,
+                    'pref':user.pref,
+                    'town':user.town,
+                    'address':user.prefDetail,
+                    'pay':1,
+                }
+                self.params['user'] = user
+                form = OrderForm(initial_field)
             self.params['form'] = form
 
         return render(request,self.template_name, context=self.params)
@@ -384,6 +400,7 @@ class OrderComplete(TemplateView):
         return render(request, self.template_name, context=self.params)
 
 
+import random
 class MyPage(TemplateView):
     template_name = 'main/mypage.html'
     params = {
@@ -399,10 +416,14 @@ class MyPage(TemplateView):
         form_class = EditUserForm(user)
         point = ((request.user.points // 300 + 1) * 300) - request.user.points
         item = ItemTable.objects.all()
-
+        item_list = []
+        random_list = [i for i in range(0, len(item))]
+        for i in range(3):
+            num = random_list.pop(random.randint(0, len(random_list) - 1))
+            item_list.append(item[num])
         self.params['user'] = request.user
         self.params['point'] = point
-        self.params['item'] = item
+        self.params['item'] = item_list
         self.params['form'] = form_class
 
         return render(request, self.template_name, self.params)

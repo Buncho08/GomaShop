@@ -50,37 +50,40 @@
                         </div>
                     </div>
                     <!-- data-title  -->
-                    {% for item in data %}
-                    <div class="data-item-group">
-                        <div class="data-item-img">
-                            <a href="{% url 'main:product' item.item_id.slug %}">
-                                <img src="{{ MEDIA_URL }}{{ item.item_id.item_img }}" alt="" height="120px"
-                                    width="120px">
-                            </a>
+                    <div class="item-group">
+                        {% for item in data %}
+                        <div class="data-item-group">
+                            <div class="data-item-img">
+                                <a href="{% url 'main:product' item.item_id.slug %}">
+                                    <img src="{{ MEDIA_URL }}{{ item.item_id.item_img }}" alt="" height="120px"
+                                        width="120px">
+                                </a>
+                            </div>
+                            <!-- data-item-img -->
+                            <div class="data-item-detail">
+                                <div class="data-item-name">
+                                    <a
+                                        href="{% url 'main:product' item.item_id.slug %}">{{ item.item_id.item_name }}</a>
+                                </div>
+                                <!-- data-item-name -->
+                                <div class="data-item-quantity">
+                                    {{ item.quantity }}
+                                </div>
+                                <div class="data-item-option">
+                                    {% if item.option %}
+                                    {% endif %}
+                                </div>
+                                <!-- data-item-quantity -->
+                                <div class="data-item-price">
+                                    {{ item.get_total_price }}
+                                </div>
+                                <!-- data-item-price -->
+                            </div>
+                            <!-- data-item-detail -->
                         </div>
-                        <!-- data-item-img -->
-                        <div class="data-item-detail">
-                            <div class="data-item-name">
-                                <a href="{% url 'main:product' item.item_id.slug %}">{{ item.item_id.item_name }}</a>
-                            </div>
-                            <!-- data-item-name -->
-                            <div class="data-item-quantity">
-                                {{ item.quantity }}
-                            </div>
-                            <div class="data-item-option">
-                                {% if item.option %}
-                                {% endif %}
-                            </div>
-                            <!-- data-item-quantity -->
-                            <div class="data-item-price">
-                                {{ item.get_total_price }}
-                            </div>
-                            <!-- data-item-price -->
-                        </div>
-                        <!-- data-item-detail -->
+                        <!-- data-item-group -->
+                        {% endfor %}
                     </div>
-                    <!-- data-item-group -->
-                    {% endfor %}
                     {% if datacount > 3 %}
                     <nav>
                         <ul class="pagination">

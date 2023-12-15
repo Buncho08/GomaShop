@@ -76,6 +76,26 @@
             </div>
         </main>
     </div>
+    <script>
+        // 郵便番号用
+        let post = document.getElementById('id_post');
+        let befVal = ''
+        post.addEventListener('input', function (e) {
+            if ((!!Number(e.target.value[e.target.value.length - 1]) || e.target.value[e.target.value.length -
+                    1] == '0') && e.target.value.length <= 8) {
+                if (e.target.value.length == 3 && befVal[e.target.value.length] != '-') {
+                    e.target.value += '-';
+                }
+                if (e.target.value.length == 4 && e.target.value.indexOf('-') == -1) {
+                    let temp_1 = e.target.value[e.target.value.length - 1];
+                    e.target.value = e.target.value.slice(0, e.target.value.length - 1) + '-' + temp_1;
+                }
+            } else {
+                e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+            }
+            befVal = e.target.value;
+        });
+    </script>
 </body>
 
 </html>
