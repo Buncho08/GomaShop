@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ st_title }} -ChirpCakes-</title>
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5688669be.js" crossorigin="anonymous"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+</head>
+<body>
+    {% include 'main/component/banner.html' %}
+    <div id="root">
+        <main id="items">
+            <div class="title">
+                <h2>
+                    Products
+                </h2>
+            </div>
+            <div class="sub-disc">
+                <p>
+                    思わずくちばしをつまみたくなるような、
+                        <br>
+                    そんなスイーツをご用意しております。
+                </p>
+            </div>
+            <div class="grid-auto">
+                {% for i in item %}
+                <div class="card">
+                    <div class="card-item">
+                        <div class="card-main">
+                            <div class="card-contents">
+                                <img src="{{ MEDIA_URL }}{{ i.item_img }}" alt="{{ i.item_name }}">
+                                <a href="{% url 'main:product' i.slug %}" class="card-img-cover"></a>
+                                <div class="card-text"></div>
+                            </div>
+                        </div>
+                        <div class="card-sub">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    <a href="{% url 'main:product' i.slug %}" class="card-title-link">
+                                        {{ i.item_name }}
+                                    </a>
+                                </div>
+                                <div class="card-header-price">
+                                    {{ i.price }}
+                                </div>
+                                <div class="card-link">
+                                    <a href="{% url 'main:product' i.slug %}" class="card-link-button">
+                                        <p class="card-link-text">
+                                            VIEW MORE
+                                            <i class="fa-solid fa-angles-right icon"></i>
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+<!-- 
+            <div class="grid-auto">
+                {% for i in item %}
+                <div class="grid-item">
+                    <div class="grid-card">
+                        <div class="grid-card-item">
+                            <a href="{% url 'main:product' i.slug %}">
+                                <img src="{{ MEDIA_URL }}{{ i.item_img }}" alt="{{ i.item_name }}">
+                            </a>
+                        </div>
+                        <div class="grid-card-item">
+                            <h2>
+                                {{ i.item_name }}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div> -->
+        </main>
+    </div>
+</body>
+</html> 

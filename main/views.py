@@ -196,6 +196,9 @@ class Order(TemplateView):
         if request.user.id is not None:
             if CartTable.objects.filter(user_id=request.user, ordered=False).exists():
                 order = CartTable.objects.get(user_id=request.user, ordered=False)
+                total = order.get_total()
+                point = total // 100
+                self.params['get_point'] = point
                 if CartDetailTable.objects.filter(cart_id=order).all().exists():
                     detail = CartDetailTable.objects.filter(cart_id=order).all()
                     self.params['data'] = detail
@@ -207,7 +210,6 @@ class Order(TemplateView):
                     self.params['status'] = 0
             else:
                 self.params['status'] = 0
-
             return render(request, self.template_name, context=self.params)
         else:
             return redirect('main:login')
@@ -216,6 +218,9 @@ class Order(TemplateView):
         amount = request.POST.getlist('quantity')
         order = CartTable.objects.get(user_id=request.user, ordered=False)
         detail = CartDetailTable.objects.filter(cart_id=order).all()
+        total = order.get_total()
+        point = total // 100
+        self.params['get_point'] = point
         j = 0
         for i in detail:
             i.quantity = amount[j]
@@ -392,6 +397,11 @@ class OrderComplete(TemplateView):
                 )
             redirect_url = reverse('main:index')
             self.params['redirect_url'] = redirect_url
+            user = UserTable.objects.get(username=request.user)
+            total = order.get_total()
+            point = total // 100
+            user.points = user.points + point
+            user.save()
             order.ordered = True
             order.save()
         else:
@@ -480,6 +490,9 @@ class OrderDetail(LoginRequiredMixin, TemplateView):
         if OrderTable.objects.filter(order_id=order_id).exists():
             order = OrderTable.objects.get(order_id=order_id)
             self.params['data'] = OrderDetailTable.objects.filter(order_id=order).all()
+            total = order.get_total()
+            point = total // 100
+            self.params['get_point'] = point
         else:
             return redirect('main:order')
         return render(request, self.template_name, self.params)
