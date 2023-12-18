@@ -25,9 +25,11 @@
     <div id="root">
         <main id="account-registor">
             <div class="user-area">
-                <div class="logo-area flex">
-                    <img src="{% static 'main/image/Logo.svg' %}" alt="" width="12%" height="12%">
-                    <img src="{% static 'main/image/ChirpCakes.svg' %}" alt="" width="12%" height="12%">
+                <div class="logo-area">
+                    <a href="{% url 'main:index' %}" class="flex">
+                        <img src="{% static 'main/image/Logo.svg' %}" alt="" width="12%" height="12%">
+                        <img src="{% static 'main/image/ChirpCakes.svg' %}" alt="" width="12%" height="12%">
+                    </a>
                 </div>
                 <h2 class="title">
                     アカウント登録

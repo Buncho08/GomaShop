@@ -118,7 +118,6 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     # ユーザーマネージャー
     objects = MyUserManager()
-    # emailで識別します
     USERNAME_FIELD = 'username'
     EMAIL_FIELD = 'email'
     # ユーザー作成時のフィールド
@@ -131,7 +130,7 @@ class UserTable(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-    
+
     def get_full_name(self):
         full_name = '%s %s' % (self.myouji, self.namae)
         return full_name.strip()

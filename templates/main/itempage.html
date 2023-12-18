@@ -1,6 +1,8 @@
 {% load static %}
+{% load math_tags %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +12,12 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
 </head>
+
 <body>
     {% include 'main/component/banner.html' %}
     <div id="root">
         <main id="items">
+            <!-- <h1 id="counter">0</h1> -->
             <div class="title">
                 <h2>
                     Products
@@ -22,66 +26,152 @@
             <div class="sub-disc">
                 <p>
                     思わずくちばしをつまみたくなるような、
-                        <br>
+                    <br>
                     そんなスイーツをご用意しております。
                 </p>
             </div>
-            <div class="grid-auto">
-                {% for i in item %}
-                <div class="card">
-                    <div class="card-item">
-                        <div class="card-main">
-                            <div class="card-contents">
-                                <img src="{{ MEDIA_URL }}{{ i.item_img }}" alt="{{ i.item_name }}">
-                                <a href="{% url 'main:product' i.slug %}" class="card-img-cover"></a>
-                                <div class="card-text"></div>
-                            </div>
-                        </div>
-                        <div class="card-sub">
-                            <div class="card-header">
-                                <div class="card-header-title">
-                                    <a href="{% url 'main:product' i.slug %}" class="card-title-link">
-                                        {{ i.item_name }}
-                                    </a>
-                                </div>
-                                <div class="card-header-price">
-                                    {{ i.price }}
-                                </div>
-                                <div class="card-link">
-                                    <a href="{% url 'main:product' i.slug %}" class="card-link-button">
-                                        <p class="card-link-text">
-                                            VIEW MORE
-                                            <i class="fa-solid fa-angles-right icon"></i>
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="item-view">
+                <div class="button-area">
+                    <div id="slide-left">
+                        <i class="fa-solid fa-angle-left"></i>
                     </div>
+                </div>
+                <!-- slide-left -->
+                <div class="slider">
+                    <div class="center" id="center">
+                        {% for i in item %}
+                        {% if forloop.counter0|remainder:3 == 0%}
+                        <div class="slide-child">
+                            <div class="child-item">
+                                {% endif %}
+                                <div class="card">
+                                    <div class="card-item">
+                                        <div class="card-main">
+                                            <div class="card-contents">
+                                                <img src="{{ MEDIA_URL }}{{ i.item_img }}" alt="{{ i.item_name }}">
+                                                <a href="{% url 'main:product' i.slug %}" class="card-img-cover"></a>
+                                                <div class="card-text"></div>
+                                            </div>
+                                        </div>
+                                        <div class="card-sub">
+                                            <div class="card-header">
+                                                <div class="card-header-title">
+                                                    <a href="{% url 'main:product' i.slug %}" class="card-title-link">
+                                                        {{ i.item_name }}
+                                                    </a>
+                                                </div>
+                                                <div class="card-header-price">
+                                                    {{ i.price }}
+                                                </div>
+                                                <div class="card-link">
+                                                    <a href="{% url 'main:product' i.slug %}" class="card-link-button">
+                                                        <p class="card-link-text">
+                                                            VIEW MORE
+                                                            <i class="fa-solid fa-angles-right icon"></i>
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- card -->
+                                {% if forloop.counter|remainder:3 == 0%}
+                            </div>
+                            <!-- child-item -->
+                        </div>
+                        <!-- slide-child -->
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <!-- child-item -->
+                </div>
+                <!-- slider -->
+                <div class="button-area">
+                    <div id="slide-right">
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </div>
+                </div>
+                <!-- slide-right -->
+            </div>
+            <!-- item-view -->
+            <div class="item-counter">
+                {% for i in itemCount %}
+                <div class="page" id="page{{ i }}">
                 </div>
                 {% endfor %}
             </div>
-
-<!-- 
-            <div class="grid-auto">
-                {% for i in item %}
-                <div class="grid-item">
-                    <div class="grid-card">
-                        <div class="grid-card-item">
-                            <a href="{% url 'main:product' i.slug %}">
-                                <img src="{{ MEDIA_URL }}{{ i.item_img }}" alt="{{ i.item_name }}">
-                            </a>
-                        </div>
-                        <div class="grid-card-item">
-                            <h2>
-                                {{ i.item_name }}
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div> -->
         </main>
     </div>
+    <!-- root -->
+
+    <script>
+        let slideItem = document.getElementById('center');
+        let slideChild = document.getElementsByClassName('slide-child');
+        let position = -1940;
+        let pageCounter = 1;
+        let page = document.getElementsByClassName('page');
+        let rightButton = document.getElementById('slide-right');
+        let leftButton = document.getElementById('slide-left');
+        let count = document.getElementById('counter');
+        slideItem.style.transition = "0.5s ease-in-out";
+
+        let tmp = slideChild.item(slideChild.length - 1).cloneNode(true);
+        slideItem.insertBefore(tmp, slideItem.firstChild);
+        tmp = slideChild.item(slideChild.length - 2).cloneNode(true);
+        slideItem.insertBefore(tmp, slideItem.firstChild);
+
+        tmp = slideChild.item(2).cloneNode(true);
+        slideItem.appendChild(tmp, slideItem);
+
+        tmp = slideChild.item(3).cloneNode(true);
+        slideItem.appendChild(tmp, slideItem);
+
+        slideItem.style.transform = `translate(${position}px, 0)`;
+        count.textContent = pageCounter;
+        rightButton.addEventListener('click', function () 
+        {
+            slideItem.style.transition = "1s ease-in-out";
+            if (pageCounter >= page.length) {
+                pageCounter -= 1;
+                position = position + 970;
+                slideItem.style.transform = `translate(${position}px, 0)`;
+            } else {
+                // alert(page.length);
+                pageCounter = 2;
+                position = position + 970;
+                slideItem.style.transform = `translate(${position}px, 0)`;
+                let next = setTimeout(function () {
+                    position = -2910;
+                    slideItem.style.transition = "none";
+                    slideItem.style.transform = `translate(${position}px, 0)`;
+                }, 1000);
+            }
+
+            count.textContent = pageCounter;
+        });
+
+        leftButton.addEventListener('click', function () {
+            slideItem.style.transition = "1s ease-in-out";
+            if (pageCounter < page.length) {
+                pageCounter += 1;
+                position = position - 970;
+                slideItem.style.transform = `translate(${position}px, 0)`;
+            } else {
+                pageCounter = 1;
+                position = position - 970;
+                slideItem.style.transform = `translate(${position}px, 0)`;
+                let next = setTimeout(function () {
+                    position = -1940;
+                    slideItem.style.transition = "none";
+                    slideItem.style.transform = `translate(${position}px, 0)`;
+                }, 1000);
+            }
+
+            count.textContent = pageCounter;
+        });
+    </script>
 </body>
-</html> 
+
+</html>

@@ -57,16 +57,29 @@
                                     {{ item.errors }}
                                 </div>
                                 <div class="form-label">
-
+                                {% if item.name == 'post' %}
+                                <div class="is-hidden" id="post_error" style="color: red;">
+                                    存在しない郵便番号です。
+                                </div>
+                                {% endif %}
                                 </div>
                                 <input {% if item.name == 'birthday' %} type="date" {% else %}
                                     type="{{ item.field.widget.input_type }}" {% endif %} class="input is-normal"
-                                    {% if item.field.widget.input_type == 'text' %} placeholder="{{ item.label }}"
-                                    {% elif item.field.widget.input_type == 'email' %} placeholder="xxx@ooo.□□□"
-                                    {% endif %} {% if item.field.required %} required {% endif %} name="{{item.name}}"
-                                    id="{{item.id_for_label}}" {% if item.name == 'birthday' %}
-                                    value="{{ item.field.initial|date:'Y-m-d' }}" {% else %}
-                                    value="{{ item.field.initial }}" {% endif %}>
+                                    {% if item.name == 'email' %} 
+                                    placeholder="xxx@ooo.□□□"
+                                    {% elif item.name == 'post' %}
+                                    placeholder = "399-0021"
+                                    {% else %}
+                                    placeholder="{{ item.label }}"
+                                    {% endif %} 
+                                    {% if item.field.required %} required {% endif %} name="{{item.name}}"
+                                    id="{{item.id_for_label}}" 
+                                    {% if item.name == 'birthday' %}
+                                    value="{{ item.field.initial|date:'Y-m-d' }}" 
+                                    {% elif item.field.initial %}
+                                    value="{{ item.field.initial }}" 
+                                    {% else %}
+                                    {% endif %}>
                             </div>
                         </div>
                         {% endif %}
@@ -94,6 +107,33 @@
                 e.target.value = e.target.value.slice(0, e.target.value.length - 1);
             }
             befVal = e.target.value;
+        });
+
+        
+        post.addEventListener('change', function(e) {
+        postcode = e.target.value.slice(0, 3) + e.target.value.slice(4, e.target.value.length);
+        if (postcode.length !== 7) return;
+        
+        const url = `https://postcode.teraren.com/postcodes/${postcode}.json`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(json => {
+            document.getElementById('id_pref').value = json.prefecture;
+            document.getElementById('id_town').value = json.city;
+            document.getElementById('id_prefDetail').value = json.suburb;
+            if(!post_error.classList.contains('is-hidden'))
+            {
+                post_error.classList.toggle('is-hidden');
+            }
+            })
+            .catch(error => {
+            console.error(error);
+            post_error.classList.remove('is-hidden');
+            ['id_pref', 'id_town', 'id_prefDetail'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            });
         });
     </script>
 </body>

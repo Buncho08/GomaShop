@@ -190,9 +190,10 @@ body {
 
 .card {
   border-radius: 30px;
-  width: 100%;
+  width: 270px;
   height: auto;
   box-shadow: 8px 8px 10px rgb(220, 208, 208);
+  background-color: aqua;
 }
 
 .card-item {
@@ -634,6 +635,7 @@ body {
 }
 
 .grid-auto {
+  width: 100%;
   -moz-column-gap: 2rem;
        column-gap: 2rem;
   margin: 0 auto;
@@ -1160,18 +1162,94 @@ nav {
 }
 
 #items {
-  overflow: hidden;
   height: 100%;
   padding: 1rem;
   padding-top: 90px;
-  width: 60%;
+  width: 1100px;
   margin: 0 auto;
+}
+#items .item-counter {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#items .item-counter .page {
+  width: 20px;
+  height: 20px;
+  background-color: rgb(234, 213, 213);
+  border-radius: 50%;
+  margin: 0 0.3rem;
 }
 #items .sub-disc {
   margin: 1rem 0;
 }
 #items .sub-disc p {
   text-align: left;
+}
+#items .item-view {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr 0.1fr;
+}
+#items .button-area {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#items #center {
+  transform: translate(0, 0);
+}
+#items #slide-right,
+#items #slide-left {
+  position: relative;
+  background-color: rgb(240, 227, 225);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+#items #slide-right i,
+#items #slide-left i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  font-size: 130%;
+}
+#items #slide-right:hover,
+#items #slide-left:hover {
+  background-color: #EF9A9A;
+}
+#items .slider {
+  overflow: hidden;
+  height: 440px;
+}
+#items .slider .center {
+  width: 900px;
+  height: 100%;
+  margin: auto;
+  white-space: nowrap;
+}
+#items .slider .center .slide-child {
+  display: inline-block;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  margin-right: 4rem;
+}
+#items .slider .center .slide-child .child-item {
+  width: 100%;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  place-items: center;
 }
 
 #product {

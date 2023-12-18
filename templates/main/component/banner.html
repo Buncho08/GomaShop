@@ -38,7 +38,7 @@
                     <img src="../../static/main/image/cart.svg" alt="ShopCart" class="cart">
                 </a>
             </li>
-            {% if user %}
+            {% if request.user.id %}
             <li class="nav-link nav-icon">
                 <a href="{% url 'main:mypage' %}">
                     <img src="../../static/main/image/mypage.svg" alt="MyPage">

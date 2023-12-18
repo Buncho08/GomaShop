@@ -90,6 +90,11 @@
                                             {{ item.errors }}
                                         </div>
                                         {% endif %}
+                                        {% if item.name == 'post' %}
+                                        <div class="is-hidden" id="post-error" style="color: red;">
+                                            存在しない郵便番号です。
+                                        </div>
+                                        {% endif %}
                                         <input type="text" name="{{ item.name }}"
                                             {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
                                             placeholder="{{ item.label }}" value="{{ item.initial }}">
@@ -118,7 +123,7 @@
                 </div>
 
                 <div class="field">
-                    <a href="#" id="edit">
+                    <a id="edit">
                         <i class="fa-solid fa-pen"></i>
                     </a>
                     <div class="data">
@@ -179,7 +184,14 @@
                                         {% endif %}
                                         <input type="text" name="{{ item.name }}"
                                             {% if item.field.required %}required{% endif %} id="{{ item.id_for_label }}"
-                                            placeholder="{{ item.label }}">
+                                            {% if item.name == 'email' %} 
+                                            placeholder="xxx@ooo.□□□"
+                                            {% elif item.name == 'post' %}
+                                            placeholder="399-0021"
+                                            {% else%}
+                                            placeholder="{{ item.label }}"
+                                            {% endif %}
+                                            >
                                     </div>
                                     <!-- form-text-group -->
                                 </div>
@@ -247,7 +259,7 @@
     </div>
     <script>
         // let autoComplement = new postcodejp.address.AutoComplementService('i7QvflXhuUzUcbDm2p4dpl1iarssGa8T3ABcT5e');
-        {% autoescape off %}
+        {% autoescape off %};
         // きもい
         {% if user.post %}
         let button = document.getElementById('edit');
@@ -285,6 +297,7 @@
         // 郵便番号用
         let post = document.getElementById('id_post');
         let befVal = ''
+        let post_error = document.getElementById('post-error');
         post.addEventListener('input', function(e){
             if((!!Number(e.target.value[e.target.value.length - 1]) || e.target.value[e.target.value.length - 1] == '0') && e.target.value.length <= 8)
             {
@@ -305,6 +318,32 @@
             befVal = e.target.value;
         });
 
+
+        post.addEventListener('change', function(e) {
+        postcode = e.target.value.slice(0, 3) + e.target.value.slice(4, e.target.value.length);
+        if (postcode.length !== 7) return;
+        
+        const url = `https://postcode.teraren.com/postcodes/${postcode}.json`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(json => {
+            document.getElementById('id_pref').value = json.prefecture;
+            document.getElementById('id_town').value = json.city;
+            document.getElementById('id_address').value = json.suburb;
+            if(!post_error.classList.contains('is-hidden'))
+            {
+                post_error.classList.toggle('is-hidden');
+            }
+            })
+            .catch(error => {
+            console.error(error);
+            post_error.classList.remove('is-hidden');
+            ['id_pref', 'id_town', 'id_address'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            });
+        });
     </script>
 </body>
 

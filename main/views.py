@@ -125,7 +125,8 @@ class ItemPage(TemplateView):
     params = {
         'title':'ChirpCakes',
         'item':item,
-        'st_title':'商品'
+        'st_title':'商品',
+        'itemCount':[i for i in range(item.count() // 3)]
     }
     def get(self, request):
         return render(request, self.template_name, context=self.params)
