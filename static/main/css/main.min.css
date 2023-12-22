@@ -1181,6 +1181,10 @@ nav {
   background-color: rgb(234, 213, 213);
   border-radius: 50%;
   margin: 0 0.3rem;
+  cursor: pointer;
+}
+#items .item-counter .active {
+  background-color: #EF9A9A;
 }
 #items .sub-disc {
   margin: 1rem 0;
@@ -2163,9 +2167,10 @@ nav {
   height: auto;
   padding: 1rem;
   padding-top: 80px;
-  width: 50%;
+  width: 40%;
   margin: 0 auto;
   background-color: rgb(255, 255, 255);
+  position: relative;
 }
 #orderhistory .no-order {
   margin-top: 100px;
@@ -2176,6 +2181,75 @@ nav {
 }
 #orderhistory .no-order-p a:hover {
   color: #EF9A9A;
+}
+#orderhistory .filter-menu {
+  z-index: 10;
+  top: 150px;
+  right: 20px;
+  position: absolute;
+  background-color: white;
+  border: 0.2px solid black;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  align-items: center;
+  border-radius: 10px;
+}
+#orderhistory .filter-menu a {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  color: #9f9598;
+  font-size: 120%;
+}
+#orderhistory .filter-menu a i {
+  color: #9f9598;
+}
+#orderhistory .filter-menu a:hover {
+  color: rgb(0, 190, 190);
+}
+#orderhistory .filter-menu a:hover i {
+  color: rgb(0, 190, 190);
+}
+#orderhistory .is-hidden {
+  display: none;
+}
+#orderhistory .order-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #9f9598;
+}
+#orderhistory .order-header .order-filter {
+  display: grid;
+  justify-content: flex-end;
+  align-items: center;
+}
+#orderhistory .order-header .order-filter .filter-btn {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 10px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 3px #9f9598 double;
+}
+#orderhistory .order-header .order-filter .filter-btn::after {
+  content: "";
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 10px;
+}
+#orderhistory .order-header .order-filter .filter-btn i {
+  font-size: 200%;
+  color: rgb(73, 50, 48);
 }
 #orderhistory .order-title {
   font-size: 170%;

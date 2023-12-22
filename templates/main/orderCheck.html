@@ -91,6 +91,9 @@
                                         </div>
                                         {% endif %}
                                         {% if item.name == 'post' %}
+                                        <div class="form-label-ano">
+                                            ハイフン抜きで入力してください
+                                        </div>
                                         <div class="is-hidden" id="post-error" style="color: red;">
                                             存在しない郵便番号です。
                                         </div>
@@ -180,6 +183,14 @@
                                         {% if item.errors %}
                                         <div class="form-label-ano">
                                             {{ item.errors }}
+                                        </div>
+                                        {% endif %}
+                                        {% if item.name == 'post' %}
+                                        <div class="form-label-ano">
+                                            ハイフン抜きで入力してください
+                                        </div>
+                                        <div class="is-hidden" id="post-error" style="color: red;">
+                                            存在しない郵便番号です。
                                         </div>
                                         {% endif %}
                                         <input type="text" name="{{ item.name }}"

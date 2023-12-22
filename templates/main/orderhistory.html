@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ st_title }} -ChirpCakes-</title>
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5688669be.js" crossorigin="anonymous"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 </head>
 
 <body>
@@ -14,8 +16,29 @@
     <div id="root">
         <main id="orderhistory">
             {% if status %}
-            <div class="order-title">
-                注文履歴
+            <div class="order-header">
+                <div class="order-title">
+                    注文履歴
+                </div>
+                <div class="order-filter">
+                    <div class="filter-btn" id="filter">
+                        <i class="fa-solid fa-sort"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="is-hidden filter-menu" id="menu">
+                <p>
+                    <a href="{% url 'main:orderhistory' %}?filter=1">
+                        <i class="fa-solid fa-arrow-up-1-9"></i>
+                        昇順
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url 'main:orderhistory' %}?filter=2">
+                        <i class="fa-solid fa-arrow-down-9-1"></i>
+                        降順
+                    </a>
+                </p>
             </div>
             {% for item in data %}
             <div class="order-block">
@@ -87,6 +110,33 @@
                 }
             }
         });
+
+        let btn = document.getElementById('filter');
+        let menu = document.getElementById('menu');
+
+        // btn.addEventListener('click', function(){
+        //     menu.classList.remove('is-hidden');
+        // }, false)
+
+        document.addEventListener('click', function(e){
+            if(e.target.closest('.filter-btn')) {
+                if(!menu.classList.contains('is-hidden'))
+                {
+                    menu.classList.toggle('is-hidden');
+                }
+                else
+                {
+                    menu.classList.remove('is-hidden');
+                }
+            }
+            else if(e.target.closest('.filter-menu') === null)
+            {
+                if(!menu.classList.contains('is-hidden'))
+                {
+                    menu.classList.toggle('is-hidden');
+                }
+            }
+        })
     </script>
 </body>
 

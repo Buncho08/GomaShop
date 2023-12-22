@@ -399,9 +399,14 @@ class OrderComplete(TemplateView):
             redirect_url = reverse('main:index')
             self.params['redirect_url'] = redirect_url
             user = UserTable.objects.get(username=request.user)
+            
             total = order.get_total()
             point = total // 100
             user.points = user.points + point
+            if user.post is None:
+                user.pref=form.cleaned_data.get('pref'),
+                user.post=form.cleaned_data.get('post'),
+                user.address=form.cleaned_data.get('address'),
             user.save()
             order.ordered = True
             order.save()
@@ -474,7 +479,15 @@ class OrderHistory(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         if OrderTable.objects.filter(user_id=request.user, ordered=False).exists():
             order = OrderTable.objects.prefetch_related('related_order').filter(user_id=request.user, ordered=False)
-            self.params['data'] = order
+            if 'filter' in request.GET:
+                if request.GET['filter'] == '1':
+                    self.params['data'] = order.order_by('total_pay')
+                elif request.GET['filter'] == '2':
+                    self.params['data'] = order.order_by('-total_pay')
+                else:
+                    self.params['data'] = order
+            else:
+                self.params['data'] = order
             self.params['status'] = 1
         else:
             self.params['status'] = 0

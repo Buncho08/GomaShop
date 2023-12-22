@@ -123,9 +123,6 @@
                                     type="{{ item.field.widget.input_type }}"
                                 {% endif %}
                                 class="input is-normal"
-                                {% if item.field.required %}
-                                    required
-                                {% endif %}
                                 name="icon"
                                 id="{{item.id_for_label}}"
                                 {% if item.name == 'birthday' %}
@@ -148,9 +145,6 @@
                                     placeholder="{{ item.label }}"
                                 {% elif item.field.widget.input_type == 'email' %}
                                     placeholder="xxx@ooo.□□□"
-                                {% endif %}
-                                {% if item.field.required %}
-                                    required
                                 {% endif %}
                                 name="{{item.name}}"
                                 id="{{item.id_for_label}}"
@@ -201,7 +195,7 @@
         });
 
         editButton.addEventListener('click', function(e){
-            e.preventDefault();
+            // e.preventDefault();
             editArea.classList.remove('is-hidden');
         });
 

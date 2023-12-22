@@ -112,9 +112,18 @@
         let position = -1940;
         let pageCounter = 1;
         let page = document.getElementsByClassName('page');
+        let pageObj = document.querySelectorAll('.page');
         let rightButton = document.getElementById('slide-right');
         let leftButton = document.getElementById('slide-left');
         let count = document.getElementById('counter');
+        let pagePos = {};
+        let cal = -1940;
+        for(i=0;i<page.length;i++)
+        {
+            pagePos[i] = cal;
+            cal += -970;
+        }
+        pageObj[0].classList.toggle('active');
         slideItem.style.transition = "0.5s ease-in-out";
 
         let tmp = slideChild.item(slideChild.length - 1).cloneNode(true);
@@ -129,7 +138,6 @@
         slideItem.appendChild(tmp, slideItem);
 
         slideItem.style.transform = `translate(${position}px, 0)`;
-        count.textContent = pageCounter;
         rightButton.addEventListener('click', function () 
         {
             slideItem.style.transition = "1s ease-in-out";
@@ -148,8 +156,10 @@
                     slideItem.style.transform = `translate(${position}px, 0)`;
                 }, 1000);
             }
-
-            count.textContent = pageCounter;
+            pageObj.forEach(function(cl){
+                    cl.classList.remove('active');
+                });
+            pageObj[pageCounter - 1].classList.toggle('active');
         });
 
         leftButton.addEventListener('click', function () {
@@ -168,9 +178,23 @@
                     slideItem.style.transform = `translate(${position}px, 0)`;
                 }, 1000);
             }
-
-            count.textContent = pageCounter;
+            pageObj.forEach(function(cl){
+                    cl.classList.remove('active');
+                });
+            pageObj[pageCounter - 1].classList.toggle('active');
         });
+
+        
+        pageObj.forEach(function(page){
+            page.addEventListener('click', function(){
+                pageObj.forEach(function(cl){
+                    cl.classList.remove('active');
+                });
+                page.classList.toggle('active');
+                slideItem.style.transition = "1s ease-in-out";
+                slideItem.style.transform = `translate(${pagePos[[].slice.call(pageObj).indexOf(page)]}px, 0)`;
+            })
+        })
     </script>
 </body>
 

@@ -2,10 +2,11 @@
     height: auto;
     padding: 1rem;
     padding-top: 80px;
-    width: 50%;
+    width: 40%;
     margin: 0 auto;
     @extend #orderCheck;
     background-color: $back;
+    position: relative;
     .no-order
     {
         margin-top: 100px;
@@ -20,6 +21,89 @@
             &:hover
             {
                 color: $main;
+            }
+        }
+    }
+
+    .filter-menu
+    {
+        z-index: 10;
+        top: 150px;
+        right: 20px;
+        position: absolute;
+        background-color: white;
+        border: 0.2px solid black;
+        width: 120px;
+        height: 120px;
+        display: grid;
+        align-items: center;
+        border-radius: 10px;
+        a
+        {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            color: $annotation;
+            i
+            {
+                color: $annotation;
+            }
+            font-size: 120%;
+            &:hover
+            {
+                color: $link;
+                i
+                {
+                    color: $link;
+                }
+            }
+        }
+    }
+
+    .is-hidden
+    {
+        display: none;
+    }
+
+    .order-header
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 1px solid $annotation;
+        .order-filter
+        {
+            display: grid;
+            justify-content: flex-end;
+            align-items: center;
+            .filter-btn
+            {
+                width: 50px;
+                height: 50px;
+                background-color: white;
+                border-radius: 10px;
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                border: 3px $annotation double;
+                &::after
+                {
+                    content: '';
+                    width: 90%;
+                    height: 90%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    border-radius: 10px;
+                }
+                i
+                {
+                    font-size: 200%;
+                    color: rgb(73, 50, 48);
+                }
             }
         }
     }

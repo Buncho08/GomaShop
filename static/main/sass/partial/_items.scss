@@ -20,6 +20,12 @@
             background-color: rgb(234, 213, 213);
             border-radius: 50%;
             margin: 0 0.3rem;
+            cursor: pointer;
+        }
+
+        .active
+        {
+            background-color: $main;
         }
     }
 
